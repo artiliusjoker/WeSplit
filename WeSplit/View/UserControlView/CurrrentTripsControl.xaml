@@ -1,0 +1,135 @@
+﻿<UserControl x:Class="WeSplit.View.UserControlView.CurrrentTripControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:local="clr-namespace:WeSplit.View.UserControlView"
+             mc:Ignorable="d" 
+             Background="White"
+             d:DesignHeight="450"
+             d:DesignWidth="1010">
+
+    <Grid   Margin="16"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="5*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <ListView
+            x:Name="tripListView"
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            ItemsSource="{Binding ToShowItems}"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseLeftButtonUp">
+                    <i:InvokeCommandAction Command="{Binding SelectedCommand}" CommandParameter="{Binding ElementName=tripListView, Path=SelectedItem}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <md:Card
+                        Width="250"
+                        Height="320"
+                        Padding="10"
+                        md:ShadowAssist.ShadowDepth="Depth1"
+                        Background="White"
+                        Foreground="#000051"
+                        UniformCornerRadius="10">
+                        <Grid VerticalAlignment="Stretch">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="160" />
+                                <RowDefinition Height="1.2*" />
+                                <RowDefinition Height="0.9*" />
+                                <RowDefinition Height="0.9*" />
+                            </Grid.RowDefinitions>
+
+                            <Border
+                                Grid.Row="0"
+                                BorderThickness="0"
+                                CornerRadius="10">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="{Binding THUMNAILIMAGE}" Stretch="UniformToFill" />
+                                </Border.Background>
+                            </Border>
+                            <TextBlock
+                                Grid.Row="1"
+                                Margin="0,10,0,0"
+                                Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                Text="{Binding TITTLE}"
+                                TextWrapping="Wrap" />
+                            <TextBlock
+                                Grid.Row="2"
+                                Margin="0,10,0,0"
+                                Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                Text="{Binding DESCRIPTION}"
+                                TextWrapping="Wrap" />
+                            <Grid Grid.Row="3" Background="#F1F4F4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel
+                                    Grid.Column="0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+                                    <StackPanel Orientation="Horizontal">
+                                        <md:PackIcon Kind="ChevronRight" />
+                                        <TextBlock Text="{Binding TOGODATE, StringFormat=dd-MM-yyyy}" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <md:PackIcon Kind="ChevronLeft" />
+                                        <TextBlock Text="{Binding RETURNDATE, StringFormat=dd-MM-yyyy}" />
+                                    </StackPanel>
+                                </StackPanel>
+                                <Border
+                                    Grid.Column="1"
+                                    Width="60"
+                                    Height="25"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="{DynamicResource PrimaryHueMidBrush}"
+                                    BorderThickness="0"
+                                    CornerRadius="12">
+                                    <TextBlock
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                                        Text="Details" />
+                                </Border>
+                            </Grid>
+                        </Grid>
+                    </md:Card>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button
+            Grid.Column="0"
+            HorizontalAlignment="Center"
+            Command="{Binding PreviousCommand}"
+            Content="{md:PackIcon Kind=ArrowLeftBoldCircleOutline,
+                                  Size=40}"
+            Style="{StaticResource MaterialDesignIconButton}"
+            ToolTip="Previous" />
+        <Button
+            Grid.Column="2"
+            HorizontalAlignment="Center"
+            Command="{Binding NextCommand}"
+            Content="{md:PackIcon Kind=ArrowRightBoldCircleOutline,
+                                  Size=40}"
+            Style="{StaticResource MaterialDesignIconButton}"
+            ToolTip="Next" />
+    </Grid>
+</UserControl>
