@@ -289,11 +289,16 @@ SET IDENTITY_INSERT [dbo].[MEMBER] OFF
 GO
 
 SET IDENTITY_INSERT [dbo].[TRIP] ON 
-INSERT [dbo].[TRIP] ([TRIP_ID], [TITTLE], [DESCRIPTION], [THUMNAIL],  [TOTALCOSTS], [TOGODATE], [RETURNDATE], [ISDONE]) VALUES (1, N'Chuyến đi châu Âu đầu tiên', N'Chuyến đi đầu tiên với những người bạn yêu dấu', N'Assets/1/1.jpg', 2150000, CAST(N'2018-10-10T00:00:00.000' AS DateTime), CAST(N'2018-10-15T00:00:00.000' AS DateTime), 1)
-INSERT [dbo].[TRIP] ([TRIP_ID], [TITTLE], [DESCRIPTION], [THUMNAIL],  [TOTALCOSTS], [TOGODATE], [RETURNDATE], [ISDONE]) VALUES (2, N'Dạo chơi Sài Gòn', N'chuyến đi đầu tiên vòng quanh Tp.HCM', N'Assets/2/2.jpg', 2400000, CAST(N'2019-09-11T00:00:00.000' AS DateTime), CAST(N'2019-09-15T00:00:00.000' AS DateTime), 1)
-INSERT [dbo].[TRIP] ([TRIP_ID], [TITTLE], [DESCRIPTION], [THUMNAIL],  [TOTALCOSTS], [TOGODATE], [RETURNDATE], [ISDONE]) VALUES (3, N'Phượt miền Trung', N'Thăm cố đô Huế, tắm biển Đà Nẵng,...', N'Assets/3/3.jpg', 1850000, CAST(N'2021-11-11T00:00:00.000' AS DateTime), CAST(N'2021-11-15T00:00:00.000' AS DateTime), 0)
-INSERT [dbo].[TRIP] ([TRIP_ID], [TITTLE], [DESCRIPTION], [THUMNAIL],  [TOTALCOSTS], [TOGODATE], [RETURNDATE], [ISDONE]) VALUES (4, N'Chuyến đi các nước Đông Nam Á', N'Lào Campuchia Thái Lan Myanmar', N'Assets/4/4.jpg', 1900000, CAST(N'2020-09-10T00:00:00.000' AS DateTime), CAST(N'2020-09-25T00:00:00.000' AS DateTime), 1)
-INSERT [dbo].[TRIP] ([TRIP_ID], [TITTLE], [DESCRIPTION], [THUMNAIL],  [TOTALCOSTS], [TOGODATE], [RETURNDATE], [ISDONE]) VALUES (5, N'Dạo một vòng miền Bắc', N'Đi nghỉ dưỡng trốn cái nóng ở miền Nam', N'Assets/5/5.jpg', 1450000, CAST(N'2018-08-10T00:00:00.000' AS DateTime), CAST(N'2018-08-15T00:00:00.000' AS DateTime), 1)
+INSERT [dbo].[TRIP] ([TRIP_ID], [TITTLE], [DESCRIPTION], [THUMNAIL],  [TOTALCOSTS], [TOGODATE], [RETURNDATE], [ISDONE]) 
+VALUES (1, N'Chuyến đi châu Âu đầu tiên', N'Chuyến đi đầu tiên với những người bạn yêu dấu', N'Assets\trips\1\1.jpg', 2150000, CAST(N'2018-10-10T00:00:00.000' AS DateTime), CAST(N'2018-10-15T00:00:00.000' AS DateTime), 1)
+INSERT [dbo].[TRIP] ([TRIP_ID], [TITTLE], [DESCRIPTION], [THUMNAIL],  [TOTALCOSTS], [TOGODATE], [RETURNDATE], [ISDONE]) 
+VALUES (2, N'Dạo chơi Sài Gòn', N'chuyến đi đầu tiên vòng quanh Tp.HCM', N'Assets\trips\2\1.jpg', 2400000, CAST(N'2019-09-11T00:00:00.000' AS DateTime), CAST(N'2019-09-15T00:00:00.000' AS DateTime), 1)
+INSERT [dbo].[TRIP] ([TRIP_ID], [TITTLE], [DESCRIPTION], [THUMNAIL],  [TOTALCOSTS], [TOGODATE], [RETURNDATE], [ISDONE]) 
+VALUES (3, N'Phượt miền Trung', N'Thăm cố đô Huế, tắm biển Đà Nẵng,...', N'Assets\trips\3\1.jpg', 1850000, CAST(N'2021-11-11T00:00:00.000' AS DateTime), CAST(N'2021-11-15T00:00:00.000' AS DateTime), 0)
+INSERT [dbo].[TRIP] ([TRIP_ID], [TITTLE], [DESCRIPTION], [THUMNAIL],  [TOTALCOSTS], [TOGODATE], [RETURNDATE], [ISDONE]) 
+VALUES (4, N'Chuyến đi các nước Đông Nam Á', N'Lào Campuchia Thái Lan Myanmar', N'Assets\trips\4\1.jpg', 1900000, CAST(N'2020-09-10T00:00:00.000' AS DateTime), CAST(N'2020-09-25T00:00:00.000' AS DateTime), 1)
+INSERT [dbo].[TRIP] ([TRIP_ID], [TITTLE], [DESCRIPTION], [THUMNAIL],  [TOTALCOSTS], [TOGODATE], [RETURNDATE], [ISDONE]) 
+VALUES (5, N'Dạo một vòng miền Bắc', N'Đi nghỉ dưỡng trốn cái nóng ở miền Nam', N'Assets\trips\5\1.jpg', 1450000, CAST(N'2018-08-10T00:00:00.000' AS DateTime), CAST(N'2018-08-15T00:00:00.000' AS DateTime), 1)
 SET IDENTITY_INSERT [dbo].[TRIP] OFF
 GO
 
