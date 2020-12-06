@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using WeSplit.ViewModel;
+
 namespace WeSplit
 {
     /// <summary>
@@ -23,6 +25,11 @@ namespace WeSplit
         public MainWindow()
         {
             InitializeComponent();
+
+            GridMain.Children.Clear();
+            UserControl userControl;
+            userControl = new View.UserControlView.CurrrentTripControl();
+            GridMain.Children.Add(userControl);
         }
 
         private void ButtonOpenMenu_Click(object sender, RoutedEventArgs e)
