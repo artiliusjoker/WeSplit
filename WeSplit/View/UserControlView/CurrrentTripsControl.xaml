@@ -25,7 +25,7 @@
             Grid.Column="1"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            ItemsSource="{Binding Trips}"
+            ItemsSource="{Binding BindingItems}"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
             ScrollViewer.VerticalScrollBarVisibility="Hidden">
             <i:Interaction.Triggers>
@@ -86,7 +86,7 @@
         <Button
             Grid.Column="0"
             HorizontalAlignment="Center"
-            Command="{Binding PreviousCommand}"
+            Command="{Binding PreviousPageCommand}"
             Content="{md:PackIcon Kind=ArrowLeftBoldCircleOutline,
                                   Size=40}"
             Style="{StaticResource MaterialDesignIconButton}"
@@ -94,7 +94,7 @@
         <Button
             Grid.Column="2"
             HorizontalAlignment="Center"
-            Command="{Binding NextCommand}"
+            Command="{Binding NextPageCommand}"
             Content="{md:PackIcon Kind=ArrowRightBoldCircleOutline,
                                   Size=40}"
             Style="{StaticResource MaterialDesignIconButton}"
