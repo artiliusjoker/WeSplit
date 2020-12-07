@@ -8,7 +8,8 @@
         mc:Ignorable="d" Height="768" Width="1080" Foreground="White" 
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" 
         WindowStyle="None"
-        DataContext="{StaticResource MainVM}"
+        xmlns:view="clr-namespace:WeSplit.View.UserControlView"
+        xmlns:viewModel="clr-namespace:WeSplit.ViewModel"
         Name="ThisWindow">
 
     <Window.Resources>
@@ -24,8 +25,11 @@
                 <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="70"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
+        <DataTemplate x:Name="ListCurrentTrips" DataType="{x:Type viewModel:CurrentTripsViewModel }">
+            <view:CurrrentTripControl/>
+        </DataTemplate>
     </Window.Resources>
-    
+
     <Window.Triggers>
         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonOpenMenu">
             <BeginStoryboard Storyboard="{StaticResource OpenMenu}"/>
@@ -34,11 +38,16 @@
             <BeginStoryboard Storyboard="{StaticResource CloseMenu}"/>
         </EventTrigger>
     </Window.Triggers>
-    
+
+    <Window.DataContext>
+        <viewModel:MainViewModel/>
+    </Window.DataContext>
+
     <Grid Background="#FFDEDEDE">
-        <Grid x:Name="GridMain" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="700" Width="1010">
-        
-        </Grid>
+        <!--BINDING CURRENT VIEW-->
+        <ContentControl HorizontalAlignment="Right"
+                        Content="{Binding CurrentView}" 
+                        Height="718" Width="1010"/>
         <Grid Height="60" VerticalAlignment="Top" Background="#FF5C99D6">
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="1" ShadowDepth="1" Color="#FFACACAC"/>

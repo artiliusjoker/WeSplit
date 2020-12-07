@@ -22,8 +22,7 @@ namespace WeSplit.View.UserControlView
     {
         public CurrrentTripControl()
         {
-            InitializeComponent();
-            DataContext = new WeSplit.ViewModel.MainViewModel();
+            InitializeComponent();         
         }
     }
 }

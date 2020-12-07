@@ -8,25 +8,31 @@ namespace WeSplit.ViewModel
 {
     public class MainViewModel : BaseViewModel
     {
-        public ICommand CloseAppCommand { get; set; }
-
-        // danh sach danh muc
-        private List<Trip> _trips = null;
-        public List<Trip> Trips
+        private CurrentTripsViewModel currentTripsVM = new CurrentTripsViewModel();
+        private CurrentTripsViewModel CurrentTripsVM
         {
             get
             {
-                if (_trips == null)
-                {
-                    _trips = TripService.GetOngoingTrips();
-                }
-                return _trips;
+                return currentTripsVM;
             }
-            set { OnPropertyChanged(ref _trips, value); }
+            set { OnPropertyChanged(ref currentTripsVM, value, null); }
         }
 
+        private object _currentView;
+        public object CurrentView
+        {
+            get { return _currentView; }
+            set
+            {
+                OnPropertyChanged(ref _currentView, value);
+            }
+        }
+
+        public ICommand CloseAppCommand { get; set; }
+      
         public MainViewModel()
-        {          
+        {
+            CurrentView = CurrentTripsVM;
             CloseAppCommand = new RelayCommand<Window>((p) => { return true; }, (p) => 
             {
                 if (p != null)
