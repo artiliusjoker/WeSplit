@@ -11,6 +11,7 @@ namespace WeSplit.ViewModel
 {
     class CurrentTripsViewModel : BaseViewModel
     {
+
         private ObservableCollection<Trip> bindingItems;
         public ObservableCollection<Trip> BindingItems
         {
@@ -84,6 +85,12 @@ namespace WeSplit.ViewModel
                 }
             });
 
+            SelectTripCommand = new RelayCommand<object>((selectedTrip) => { return selectedTrip != null; }, (selectedTrip) =>
+            {
+                View.DetailTripWindow childWindow = new View.DetailTripWindow(selectedTrip as Trip);
+                childWindow.ShowDialog();
+            });
+
             Trips = TripService.GetOngoingTrips();
 
             int count = this._trips.Count();
@@ -98,6 +105,13 @@ namespace WeSplit.ViewModel
             };
             this.CurrentIndex = 0;
         }
+        #endregion
+
+        #region ViewTripDetails
+
+        public ICommand SelectTripCommand { get; set; }
+
+
         #endregion
     }
 }

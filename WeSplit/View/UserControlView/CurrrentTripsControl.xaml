@@ -30,7 +30,7 @@
             ScrollViewer.VerticalScrollBarVisibility="Hidden">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseLeftButtonUp">
-                    <i:InvokeCommandAction Command="{Binding SelectedCommand}" CommandParameter="{Binding ElementName=tripListView, Path=SelectedItem}" />
+                    <i:InvokeCommandAction Command="{Binding SelectTripCommand}" CommandParameter="{Binding ElementName=tripListView, Path=SelectedItem}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
             <ListView.ItemsPanel>
@@ -60,7 +60,6 @@
                                 CornerRadius="10">
                                 <Border.Background>
                                     <ImageBrush ImageSource="{Binding ThumnailPath}" Stretch="UniformToFill" />
-                                
                                 </Border.Background>
                             </Border>
                             <TextBlock
