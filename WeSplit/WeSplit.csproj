@@ -85,6 +85,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Helpers\Pagination.cs" />
+    <Compile Include="Helpers\VisualTreeViewHelper.cs" />
     <Compile Include="Models\BusinessModel.cs" />
     <Compile Include="Models\COST.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
@@ -136,8 +137,14 @@
     <Compile Include="ViewModel\DetailTripViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\SplashViewModel.cs" />
+    <Compile Include="View\DetailTripWindow.xaml.cs">
+      <DependentUpon>DetailTripWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UserControlView\CurrrentTripsControl.xaml.cs">
       <DependentUpon>CurrrentTripsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControlView\DetailTrip.xaml.cs">
+      <DependentUpon>DetailTrip.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -159,9 +166,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\DetailTripWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\UserControlView\CurrrentTripsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
+    <Page Include="View\UserControlView\DetailTrip.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
