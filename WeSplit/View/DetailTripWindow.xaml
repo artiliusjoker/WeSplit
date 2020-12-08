@@ -1,17 +1,17 @@
-﻿<UserControl x:Class="WeSplit.View.UserControlView.DetailTrip"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:WeSplit.View.UserControlView"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-             mc:Ignorable="d"
-             Loaded="UserControl_Loaded"
-             d:DesignHeight="600" d:DesignWidth="1000">
-
-    <UserControl.Resources>
-       
+﻿<Window x:Class="WeSplit.View.DetailTripWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WeSplit.View"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns:viewModel="clr-namespace:WeSplit.ViewModel"
+        mc:Ignorable="d"
+        Title="Detail" Height="600" Width="1080"
+        Loaded="UserControl_Loaded">
+    
+    <Window.Resources>
         <Storyboard x:Key="CarouselStoryboard">
             <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" Duration="0:0:0.4">
                 <DoubleAnimation.EasingFunction>
@@ -148,8 +148,8 @@
             <Setter Property="FontWeight" Value="Medium" />
             <Setter Property="Foreground" Value="#000" />
         </Style>
-    </UserControl.Resources>
-    
+    </Window.Resources>
+ 
     <Grid Background="#F9F9FF">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.7*" />
@@ -178,7 +178,8 @@
                         Margin="12,0,0,0"
                         Content="Địa điểm"
                         FontSize="16"
-                        FontWeight="DemiBold" />
+                        FontWeight="DemiBold"
+                        HorizontalAlignment="Center"/>
                     <ListView
                         Name="Place"
                         Grid.Row="1"
@@ -239,11 +240,12 @@
                 <DockPanel LastChildFill="True">
                     <Label
                         Margin="16,0,0,0"
-                        Content="Biểu đồ"
+                        Content="Biểu đồ thành viên"
                         DockPanel.Dock="Top"
                         FontSize="16"
                         FontWeight="DemiBold"
-                        Foreground="#000" />
+                        Foreground="#000" 
+                        HorizontalAlignment="Center"/>
                     <lvc:PieChart
                         Foreground="#000"
                         LegendLocation="Bottom"
@@ -495,4 +497,4 @@
         </ScrollViewer>
     </Grid>
 
-</UserControl>
+</Window>

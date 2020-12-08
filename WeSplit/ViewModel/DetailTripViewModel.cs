@@ -8,5 +8,9 @@ namespace WeSplit.ViewModel
 {
     class DetailTripViewModel
     {
+        public DetailTripViewModel(Models.Trip trip)
+        {
+
+        }
     }
 }
