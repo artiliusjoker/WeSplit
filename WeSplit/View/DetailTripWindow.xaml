@@ -242,7 +242,7 @@
                 <DockPanel LastChildFill="True">
                     <Label
                         Margin="16,0,0,0"
-                        Content="Biểu đồ thành viên"
+                        Content="Biểu đồ chi phí"
                         DockPanel.Dock="Top"
                         FontSize="16"
                         FontWeight="DemiBold"
@@ -364,7 +364,10 @@
                             Text="{Binding ImageCount}"
                             Visibility="Collapsed" />
                     </DockPanel>
-                    <DataGrid
+                    <Expander HorizontalAlignment="Stretch" 
+                              Padding="0, 0, 10, 10"
+                              Header="Thành viên">
+                        <DataGrid
                         x:Name="MemberDataGrid"
                         Grid.Column="0"
                         Margin="0,20"
@@ -381,57 +384,108 @@
                         ScrollViewer.VerticalScrollBarVisibility="Disabled"
                         SelectionMode="Extended"
                         SelectionUnit="Cell">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn
+                            <DataGrid.Columns>
+                                <DataGridTextColumn
                                 Width="*"
                                 Binding="{Binding MemberID}"
                                 Header="ID"
                                 IsReadOnly="True">
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style>
-                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
-                                        <Setter Property="TextBlock.TextAlignment" Value="Left" />
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
-                            </DataGridTextColumn>
-                            <DataGridTextColumn
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                            <Setter Property="TextBlock.TextAlignment" Value="Left" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn
                                 Width="*"
                                 Binding="{Binding Name}"
                                 Header="Họ và Tên"
                                 IsReadOnly="True">
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style>
-                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
-                                        <Setter Property="TextBlock.TextAlignment" Value="Left" />
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
-                            </DataGridTextColumn>
-                            <DataGridTextColumn
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                            <Setter Property="TextBlock.TextAlignment" Value="Left" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn
                                 Width="*"
                                 Binding="{Binding PhoneNumber}"
                                 Header="Số điện thoại"
                                 IsReadOnly="True">
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style>
-                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
-                                        <Setter Property="TextBlock.TextAlignment" Value="Left" />
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
-                            </DataGridTextColumn>
-                            <DataGridTextColumn
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                            <Setter Property="TextBlock.TextAlignment" Value="Left" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn
                                 Width="*"
                                 Binding="{Binding AmountPaid}"
                                 Header="Số tiền đã trả"
                                 IsReadOnly="True">
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style>
-                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
-                                        <Setter Property="TextBlock.TextAlignment" Value="Left" />
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
-                            </DataGridTextColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                            <Setter Property="TextBlock.TextAlignment" Value="Left" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Expander>
+                    
+                    <Expander HorizontalAlignment="Stretch" 
+                              Padding="0, 0, 10, 10"
+                              Header="Chi phí">
+                        <DataGrid
+                            x:Name="TripCosts"
+                            Grid.Column="0"
+                            Margin="0,20"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Top"
+                            HorizontalContentAlignment="Center"
+                            AutoGenerateColumns="False"
+                            BorderBrush="#252D36"
+                            BorderThickness="0.5"
+                            CanUserAddRows="False"
+                            ItemsSource="{Binding TripCosts}"
+                            PreviewMouseWheel="MemberDataGrid_PreviewMouseWheel"
+                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                            ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                            SelectionMode="Extended"
+                            SelectionUnit="Cell">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn
+                                    Width="*"
+                                    Binding="{Binding Name}"
+                                    Header="Loại thu chi"
+                                    IsReadOnly="True">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                            <Setter Property="TextBlock.TextAlignment" Value="Left" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn
+                                    Width="*"
+                                    Binding="{Binding Amount}"
+                                    Header="Số tiền"
+                                    IsReadOnly="True">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                            <Setter Property="TextBlock.TextAlignment" Value="Left" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Expander>
+                    
                     <StackPanel Margin="0,20">
                         <TextBlock
                             Margin="12,0,0,0"

@@ -97,6 +97,19 @@ namespace WeSplit.Models
 
     public class TripCost : ViewModel.BaseViewModel
     {
+        public int ID { get; set; }
+        public int Trip_ID { get; set; }
+
+        public string Name { get; set; }
+
+        public double Amount { get; set; }
+
+        public TripCost(TRIP_COSTS costs)
+        {
+            this.ID = costs.COST_ID;
+            this.Trip_ID = costs.TRIP_ID;
+            this.Amount = (double)costs.AMOUNT;
+        }
 
     }
     public class TripMember : ViewModel.BaseViewModel

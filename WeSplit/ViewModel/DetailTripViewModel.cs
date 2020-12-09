@@ -1,10 +1,7 @@
-﻿using System;
+﻿using LiveCharts;
+using LiveCharts.Wpf;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using WeSplit.Models;
 
@@ -17,18 +14,27 @@ namespace WeSplit.ViewModel
 
         public int MemberCount { get; set; } = 0;
 
+        public double TotalExpenses { get; set; } = 0;
+
+        public double AmountSplit { get; set; } = 0;
+
         public Trip CurrentTrip { get; set; }
 
         public List<TripImages> ImageCarousel { get; set; }
+
+        public List<TripCost> TripCosts { get; set; }
 
         public BindingList<Location> Locations { get; set; }
 
         public BindingList<Member> Members{ get; set; }
 
+        public SeriesCollection ChartData { get; set; }
+
         public DetailTripViewModel(Models.Trip trip)
         {
 
         }
+
         public DetailTripViewModel(int tripID)
         {
             CurrentTrip = DataAccess.GetTripByID(tripID);
@@ -42,7 +48,29 @@ namespace WeSplit.ViewModel
 
             // Thành viên của chuyến đi
             Members = DataAccess.GetTripMembers(tripID);
-            MemberCount = Members.Count;          
+            MemberCount = Members.Count;
+            
+            // Chi phí của chuyến đi
+            TripCosts = DataAccess.GetTripCosts(tripID);
+            // Create Pie chart
+            ChartData = new SeriesCollection();
+            // populate expenses in piechart
+            foreach (TripCost element in TripCosts)
+            {
+                TotalExpenses += element.Amount;
+
+                ChartValues<double> cost = new ChartValues<double>();
+                if (element.Amount > 0)
+                {
+                    cost.Add(System.Convert.ToDouble(element.Amount));
+                    PieSeries series = new PieSeries
+                    {
+                        Values = cost,
+                        Title = element.Name
+                    };
+                    ChartData.Add(series);
+                }
+            }
         }
     }
 }

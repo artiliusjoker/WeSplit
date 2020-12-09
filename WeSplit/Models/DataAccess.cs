@@ -50,5 +50,18 @@ namespace WeSplit.Models
                 }));
             return new BindingList<Member>(list);
         }
+        public static List<TripCost> GetTripCosts(int tripID)
+        {
+            List<TripCost> list = new List<TripCost>(DatabaseEntity.Entity.DB.TRIP_COSTS.ToList()
+                .Where(x => x.TRIP_ID == tripID)
+                .Select(x => {
+                    TripCost costs = new TripCost(x)
+                    {
+                        Name = x.COST.NAME
+                    };
+                    return costs;
+                }));
+            return list;
+        }
     }
 }
