@@ -149,6 +149,7 @@
             <Setter Property="Foreground" Value="#000" />
         </Style>
         <Converter:ImageConverter x:Key="ImagePathConverter"/>
+        <Converter:CurrencyConverter x:Key="CurrencyConverter"/>
     </Window.Resources>
  
     <Grid Background="#F9F9FF">
@@ -423,7 +424,7 @@
                                 </DataGridTextColumn>
                                 <DataGridTextColumn
                                 Width="*"
-                                Binding="{Binding AmountPaid}"
+                                Binding="{Binding AmountPaid, Converter={StaticResource CurrencyConverter}}"
                                 Header="Số tiền đã trả"
                                 IsReadOnly="True">
                                     <DataGridTextColumn.ElementStyle>
@@ -472,7 +473,7 @@
                                 </DataGridTextColumn>
                                 <DataGridTextColumn
                                     Width="*"
-                                    Binding="{Binding Amount}"
+                                    Binding="{Binding Amount, Converter={StaticResource CurrencyConverter}}"
                                     Header="Số tiền"
                                     IsReadOnly="True">
                                     <DataGridTextColumn.ElementStyle>
@@ -499,11 +500,11 @@
                         </StackPanel>
                         <StackPanel Margin="12,8,0,0" Orientation="Horizontal">
                             <TextBlock Style="{StaticResource StyleForText}" Text="Tổng thu chi: " />
-                            <TextBlock Style="{StaticResource StyleForText}" Text="{Binding TotalRevenue}" />
+                            <TextBlock Style="{StaticResource StyleForText}" Text="{Binding TotalExpenses, Converter={StaticResource CurrencyConverter}}" />
                         </StackPanel>
                         <StackPanel Margin="12,8,0,0" Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource StyleForText}" Text="Số tiền 1 thành viên phải trả: " />
-                            <TextBlock Style="{StaticResource StyleForText}" Text="{Binding TotalRevenueOfMember}" />
+                            <TextBlock Style="{StaticResource StyleForText}" Text="Số tiền mỗi thành viên phải trả: " />
+                            <TextBlock Style="{StaticResource StyleForText}" Text="{Binding AmountSplit, Converter={StaticResource CurrencyConverter}}" />
                         </StackPanel>
                         <DataGrid
                             x:Name="MoneyrDataGrid"
@@ -525,7 +526,7 @@
                             <DataGrid.Columns>
                                 <DataGridTextColumn
                                     Width="*"
-                                    Binding="{Binding MemberName}"
+                                    Binding="{Binding Name}"
                                     Header="Tên thành viên"
                                     IsReadOnly="True">
                                     <DataGridTextColumn.ElementStyle>
@@ -537,7 +538,7 @@
                                 </DataGridTextColumn>
                                 <DataGridTextColumn
                                     Width="*"
-                                    Binding="{Binding Cost}"
+                                    Binding="{Binding AmountPaid, Converter={StaticResource CurrencyConverter}}"
                                     Header="Số tiền phải trả"
                                     IsReadOnly="True">
                                     <DataGridTextColumn.ElementStyle>

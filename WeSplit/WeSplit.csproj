@@ -84,6 +84,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Helpers\Converter\CurrencyConverter.cs" />
     <Compile Include="Helpers\Converter\ImageConverter.cs" />
     <Compile Include="Helpers\Pagination.cs" />
     <Compile Include="Helpers\VisualTreeViewHelper.cs" />

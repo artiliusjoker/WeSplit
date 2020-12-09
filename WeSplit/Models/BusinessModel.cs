@@ -92,6 +92,14 @@ namespace WeSplit.Models
             this.PhoneNumber = member.PHONENUMBER;
             this.Avatar = member.AVATAR;
         }
+        public Member(Member member)
+        {
+            this.MemberID = member.MemberID;
+            this.Name = member.Name;
+            this.PhoneNumber = member.PhoneNumber;
+            this.Avatar = member.Avatar;
+            this.AmountPaid = member.AmountPaid;
+        }
 
     }
 

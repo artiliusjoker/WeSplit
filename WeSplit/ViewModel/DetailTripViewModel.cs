@@ -24,6 +24,8 @@ namespace WeSplit.ViewModel
 
         public List<TripCost> TripCosts { get; set; }
 
+        public List<Member> MoneySplit { get; set; }
+
         public BindingList<Location> Locations { get; set; }
 
         public BindingList<Member> Members{ get; set; }
@@ -51,10 +53,10 @@ namespace WeSplit.ViewModel
             MemberCount = Members.Count;
             
             // Chi phí của chuyến đi
-            TripCosts = DataAccess.GetTripCosts(tripID);
-            // Create Pie chart
+            TripCosts = DataAccess.GetTripCosts(tripID);         
+            // Tạo biểu đồ bánh
             ChartData = new SeriesCollection();
-            // populate expenses in piechart
+            // Đưa dữ liệu vào biểu đồ bánh
             foreach (TripCost element in TripCosts)
             {
                 TotalExpenses += element.Amount;
@@ -71,6 +73,16 @@ namespace WeSplit.ViewModel
                     ChartData.Add(series);
                 }
             }
+            AmountSplit = 1.0 * TotalExpenses / MemberCount;
+            MoneySplit = new List<Member>();
+            foreach(Member member in Members)
+            {
+                Member newElement = new Member(member)
+                {
+                    AmountPaid = AmountSplit - member.AmountPaid
+                };
+                MoneySplit.Add(newElement);
+            }    
         }
     }
 }
