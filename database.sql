@@ -400,31 +400,36 @@ INSERT [dbo].[TRIP_MEMBERS] ([TRIP_ID], [MEMBER_ID], [AMOUNT_PAID]) VALUES (7, 1
 SET IDENTITY_INSERT [dbo].[TRIP_MEMBERS] OFF
 GO
 
-INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (1, N'Assets/1/list/1.jpg')
-INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (1, N'Assets/1/list/2.jpg')
-INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (1, N'Assets/1/list/3.jpg')
-INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (1, N'Assets/1/list/4.jpg')
-INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (2, N'Assets/2/list/1.jpg')
-INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (2, N'Assets/2/list/2.jpg')
-INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (2, N'Assets/2/list/3.jpg')
-INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (2, N'Assets/2/list/4.jpg')
-INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (3, N'Assets/3/list/1.jpg')
-INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (3, N'Assets/3/list/2.jpg')
-INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (3, N'Assets/3/list/3.jpg')
-INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (4, N'Assets/4/list/1.jpg')
-INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (4, N'Assets/4/list/2.jpg')
-INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (4, N'Assets/4/list/3.jpg')
-INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (5, N'Assets/5/list/1.jpg')
-INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (5, N'Assets/5/list/2.jpg')
-INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (5, N'Assets/5/list/3.jpg')
-INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (5, N'Assets/5/list/4.jpg')
-INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (6, N'Assets/6/list/1.jpg')
-INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (6, N'Assets/6/list/2.jpg')
-INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (6, N'Assets/6/list/3.jpg')
-INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (7, N'Assets/7/list/1.jpg')
-INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (7, N'Assets/7/list/2.jpg')
-INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (7, N'Assets/7/list/3.jpg')
-INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (7, N'Assets/7/list/4.jpg')
+INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (1, N'Assets\trips\1\list\1.jpg')
+INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (1, N'Assets\trips\1\list\2.jpg')
+INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (1, N'Assets\trips\1\list\3.jpg')
+INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (1, N'Assets\trips\1\list\4.jpg')
 
+INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (2, N'Assets\trips\2\list\1.jpg')
+INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (2, N'Assets\trips\2\list\2.jpg')
+INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (2, N'Assets\trips\2\list\3.jpg')
+INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (2, N'Assets\trips\2\list\4.jpg')
+
+INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (3, N'Assets\trips\3\list\1.jpg')
+INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (3, N'Assets\trips\3\list\2.jpg')
+INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (3, N'Assets\trips\3\list\3.jpg')
+
+INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (4, N'Assets\trips\4\list\1.jpg')
+INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (4, N'Assets\trips\4\list\2.jpg')
+INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (4, N'Assets\trips\4\list\3.jpg')
+
+INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (5, N'Assets\trips\5\list\1.jpg')
+INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (5, N'Assets\trips\5\list\2.jpg')
+INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (5, N'Assets\trips\5\list\3.jpg')
+INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (5, N'Assets\trips\5\list\4.jpg')
+
+INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (6, N'Assets\trips\6\list\1.jpg')
+INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (6, N'Assets\trips\6\list\2.jpg')
+INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (6, N'Assets\trips\6\list\3.jpg')
+
+INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (7, N'Assets\trips\7\list\1.jpg')
+INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (7, N'Assets\trips\7\list\2.jpg')
+INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (7, N'Assets\trips\7\list\3.jpg')
+INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (7, N'Assets\trips\7\list\4.jpg')
 
 select * from TRIP_IMAGES
