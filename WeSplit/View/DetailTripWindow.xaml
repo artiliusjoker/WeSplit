@@ -241,14 +241,24 @@
                 Background="#fff"
                 UniformCornerRadius="6">
                 <DockPanel LastChildFill="True">
-                    <Label
+                    <DockPanel DockPanel.Dock="Top">
+                        <ToggleButton
+                            DockPanel.Dock="Right"
+                            Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                            ToolTip="MaterialDesignSwitchToggleButton"
+                            Command="{Binding ToggleCommand}"
+                            CommandParameter="{Binding ElementName=PieChartTitle}"
+                            IsChecked="True"/>
+                        <Label
+                        Name="PieChartTitle"
                         Margin="16,0,0,0"
                         Content="Biểu đồ chi phí"
-                        DockPanel.Dock="Top"
+                        DockPanel.Dock="Left"
                         FontSize="16"
                         FontWeight="DemiBold"
                         Foreground="#000" 
-                        HorizontalAlignment="Center"/>
+                        HorizontalAlignment="Left"/>
+                    </DockPanel>
                     <lvc:PieChart
                         Foreground="#000"
                         LegendLocation="Bottom"
