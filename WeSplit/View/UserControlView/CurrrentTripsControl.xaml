@@ -9,7 +9,8 @@
              mc:Ignorable="d" 
              Background="White"
              d:DesignHeight="600"
-             d:DesignWidth="1010">
+             d:DesignWidth="1010"
+             Name="ThisUC">
 
     <Grid   Margin="16"
             HorizontalAlignment="Stretch"
@@ -98,7 +99,9 @@
                                     <Button
                                         Margin="10, 10, 0, 0"
                                         Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                                        ToolTip="Xem chi tiết">
+                                        ToolTip="Xem chi tiết"
+                                        Command="{Binding Path=DataContext.OpenDetailWindowCommand, ElementName=ThisUC}"
+                                        CommandParameter="{Binding}">
                                         <md:PackIcon
                                             Kind="BookOpenOutline"
                                             Height="24"
