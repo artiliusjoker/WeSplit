@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WeSplit.View"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-        xmlns:viewModel="clr-namespace:WeSplit.ViewModel"
+        xmlns:Converter="clr-namespace:WeSplit.Helpers.Converter"
         mc:Ignorable="d"
         Title="Detail" Height="600" Width="1080"
         Loaded="UserControl_Loaded">
@@ -148,6 +148,7 @@
             <Setter Property="FontWeight" Value="Medium" />
             <Setter Property="Foreground" Value="#000" />
         </Style>
+        <Converter:ImageConverter x:Key="ImagePathConverter"/>
     </Window.Resources>
  
     <Grid Background="#F9F9FF">
@@ -181,10 +182,11 @@
                         FontWeight="DemiBold"
                         HorizontalAlignment="Center"/>
                     <ListView
-                        Name="Place"
+                        Name="Locations"
                         Grid.Row="1"
                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                        ScrollViewer.VerticalScrollBarVisibility="Visible">
+                        ScrollViewer.VerticalScrollBarVisibility="Visible"
+                        ItemsSource="{Binding Locations}">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel Margin="16,0" />
@@ -213,13 +215,13 @@
                                         <TextBlock
                                             Grid.Column="0"
                                             FontSize="16"
-                                            Text="{Binding Number, StringFormat={}{0}.}" />
+                                            Text="{Binding ID, StringFormat={}{0}.}" />
 
                                         <TextBlock
                                             Grid.Column="2"
                                             Margin="8,0,0,0"
                                             FontSize="16"
-                                            Text="{Binding LocationName}"
+                                            Text="{Binding Name}"
                                             TextWrapping="Wrap" />
                                     </Grid>
                                 </StackPanel>
@@ -267,30 +269,31 @@
                 <StackPanel Margin="30,0">
                     <StackPanel>
                         <TextBlock
+                            HorizontalAlignment="Center"
                             Margin="0,12,0,0"
-                            HorizontalAlignment="Left"
                             FontSize="24"
                             FontWeight="DemiBold"
                             Foreground="#000"
-                            Text="{Binding Path=HistoryTrip.TripName}"
+                            Text="{Binding Path=CurrentTrip.Title}"
                             TextWrapping="Wrap" />
                         <TextBlock
                             Margin="0,12,0,0"
-                            HorizontalAlignment="Left"
-                            FontSize="24"
-                            FontWeight="DemiBold"
-                            Foreground="#000"
-                            Text="{Binding Description}"
+                            HorizontalAlignment="Center"
+                            FontWeight="Light"
+                            Foreground="#8e9294"
+                            Text="{Binding Path=CurrentTrip.Description}"
                             TextWrapping="Wrap" />
-                        <StackPanel Margin="4,12,0,12" Orientation="Horizontal">
+                        <StackPanel Margin="4,12,0,12" 
+                                    Orientation="Horizontal"
+                                    HorizontalAlignment="Center">
                             <TextBlock Foreground="#000" Text="Ngày Bắt Đầu: " />
-                            <TextBlock Foreground="#000" Text="{Binding Path=HistoryTrip.StartDate}" />
+                            <TextBlock Foreground="#000" Text="{Binding Path=CurrentTrip.StartDate, StringFormat=dd-MM-yyyy}" />
                             <Border
                                 Margin="20,0"
                                 BorderBrush="#FF787878"
                                 BorderThickness="0,0,0.5,0" />
                             <TextBlock Foreground="#000" Text="Ngày Kết Thúc: " />
-                            <TextBlock Foreground="#000" Text="{Binding Path=HistoryTrip.EndDate}" />
+                            <TextBlock Foreground="#000" Text="{Binding Path=CurrentTrip.EndDate, StringFormat=dd-MM-yyyy}" />
                         </StackPanel>
                     </StackPanel>
                     <DockPanel
@@ -309,6 +312,7 @@
                         </Button>
                         <ListView
                             Name="ImageCarousel"
+                            ItemsSource="{Binding ImageCarousel}"
                             Width="550"
                             BorderThickness="0"
                             PreviewMouseWheel="ScrollViewer_PreviewMouseWheel"
@@ -336,7 +340,7 @@
                                         BorderThickness="0.5">
                                         <Border.Background>
                                             <ImageBrush
-                                                ImageSource="{Binding Image}"
+                                                ImageSource="{Binding ImagePath, Converter={StaticResource ImagePathConverter}}"
                                                 RenderOptions.BitmapScalingMode="HighQuality"
                                                 Stretch="Fill" />
                                         </Border.Background>
@@ -357,7 +361,7 @@
                         <TextBlock
                             x:Name="CarouselCount"
                             DockPanel.Dock="Bottom"
-                            Text="{Binding CarouselItemCount}"
+                            Text="{Binding ImageCount}"
                             Visibility="Collapsed" />
                     </DockPanel>
                     <DataGrid
@@ -371,7 +375,7 @@
                         BorderBrush="#252D36"
                         BorderThickness="0.5"
                         CanUserAddRows="False"
-                        ItemsSource="{Binding MemberData}"
+                        ItemsSource="{Binding Members}"
                         PreviewMouseWheel="MemberDataGrid_PreviewMouseWheel"
                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                         ScrollViewer.VerticalScrollBarVisibility="Disabled"
@@ -380,7 +384,7 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn
                                 Width="*"
-                                Binding="{Binding MemberName}"
+                                Binding="{Binding Name}"
                                 Header="Tên thành viên"
                                 IsReadOnly="True">
                                 <DataGridTextColumn.ElementStyle>
@@ -392,7 +396,7 @@
                             </DataGridTextColumn>
                             <DataGridTextColumn
                                 Width="*"
-                                Binding="{Binding Telephone}"
+                                Binding="{Binding PhoneNumber}"
                                 Header="Số điện thoại"
                                 IsReadOnly="True">
                                 <DataGridTextColumn.ElementStyle>
@@ -404,7 +408,7 @@
                             </DataGridTextColumn>
                             <DataGridTextColumn
                                 Width="*"
-                                Binding="{Binding ExpensesName}"
+                                Binding="{Binding MemberID}"
                                 Header="Khoản chi"
                                 IsReadOnly="True">
                                 <DataGridTextColumn.ElementStyle>
@@ -416,7 +420,7 @@
                             </DataGridTextColumn>
                             <DataGridTextColumn
                                 Width="*"
-                                Binding="{Binding Cost}"
+                                Binding="{Binding AmountPaid}"
                                 Header="Số tiền"
                                 IsReadOnly="True">
                                 <DataGridTextColumn.ElementStyle>

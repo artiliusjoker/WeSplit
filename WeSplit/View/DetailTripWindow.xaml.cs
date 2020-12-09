@@ -17,6 +17,11 @@ namespace WeSplit.View
             InitializeComponent();
             DataContext = new ViewModel.DetailTripViewModel(selectedTrip);
         }
+        public DetailTripWindow(int tripID)
+        {
+            InitializeComponent();
+            DataContext = new ViewModel.DetailTripViewModel(tripID);
+        }
 
         public int CarouselItemCount { get; set; } = 0;
         private int _currentElement = 0;

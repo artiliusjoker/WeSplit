@@ -17,6 +17,7 @@ namespace WeSplit.Models
 
         public Trip(TRIP trip)
         {
+            ID = trip.TRIP_ID;
             Description = trip.DESCRIPTION;
             Title = trip.TITTLE;
             string folder = AppDomain.CurrentDomain.BaseDirectory;
@@ -57,4 +58,63 @@ namespace WeSplit.Models
         }
 
     }
+
+    public class Location : ViewModel.BaseViewModel
+    {
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string Address { get; set; }
+        public string Description { get; set; }
+
+        public Location(LOCATION location)
+        {
+            this.ID = location.LOCATION_ID;
+            this.Name = location.NAME;
+            this.Address = location.ADDRESS;
+            this.Description = location.DESCRIPTION;
+        }
+
+    }
+
+    public class Member : ViewModel.BaseViewModel
+    {
+        public int MemberID { get; set; }
+        public string Name { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Avatar { get; set; }
+
+        public double AmountPaid { get; set; }
+
+        public Member(MEMBER member)
+        {
+            this.MemberID = member.MEMBER_ID;
+            this.Name = member.NAME;
+            this.PhoneNumber = member.PHONENUMBER;
+            this.Avatar = member.AVATAR;
+        }
+
+    }
+
+    public class TripCost : ViewModel.BaseViewModel
+    {
+
+    }
+    public class TripMember : ViewModel.BaseViewModel
+    {
+
+    }
+    public class TripLocation : ViewModel.BaseViewModel
+    {
+
+    }
+    public class TripImages : ViewModel.BaseViewModel
+    {
+        public string ImagePath { get; set; }
+
+        public TripImages(string imgPath)
+        {
+            this.ImagePath = imgPath;
+        }
+    }
+
 }

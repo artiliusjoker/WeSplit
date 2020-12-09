@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using WeSplit.Models;
 
@@ -85,9 +82,10 @@ namespace WeSplit.ViewModel
                 }
             });
 
-            SelectTripCommand = new RelayCommand<object>((selectedTrip) => { return selectedTrip != null; }, (selectedTrip) =>
-            {
-                View.DetailTripWindow childWindow = new View.DetailTripWindow(selectedTrip as Trip);
+            SelectTripCommand = new RelayCommand<object>((selectedItem) => { return selectedItem != null; }, (selectedItem) =>
+            {            
+                Trip tripSelected = (Trip)selectedItem;
+                View.DetailTripWindow childWindow = new View.DetailTripWindow(tripSelected.ID);
                 childWindow.ShowDialog();
             });
 
