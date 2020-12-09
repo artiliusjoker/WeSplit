@@ -384,8 +384,20 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn
                                 Width="*"
+                                Binding="{Binding MemberID}"
+                                Header="ID"
+                                IsReadOnly="True">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                        <Setter Property="TextBlock.TextAlignment" Value="Left" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn
+                                Width="*"
                                 Binding="{Binding Name}"
-                                Header="Tên thành viên"
+                                Header="Họ và Tên"
                                 IsReadOnly="True">
                                 <DataGridTextColumn.ElementStyle>
                                     <Style>
@@ -408,20 +420,8 @@
                             </DataGridTextColumn>
                             <DataGridTextColumn
                                 Width="*"
-                                Binding="{Binding MemberID}"
-                                Header="Khoản chi"
-                                IsReadOnly="True">
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style>
-                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
-                                        <Setter Property="TextBlock.TextAlignment" Value="Left" />
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
-                            </DataGridTextColumn>
-                            <DataGridTextColumn
-                                Width="*"
                                 Binding="{Binding AmountPaid}"
-                                Header="Số tiền"
+                                Header="Số tiền đã trả"
                                 IsReadOnly="True">
                                 <DataGridTextColumn.ElementStyle>
                                     <Style>
@@ -484,7 +484,7 @@
                                 <DataGridTextColumn
                                     Width="*"
                                     Binding="{Binding Cost}"
-                                    Header="Số tiền"
+                                    Header="Số tiền phải trả"
                                     IsReadOnly="True">
                                     <DataGridTextColumn.ElementStyle>
                                         <Style>
