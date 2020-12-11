@@ -63,18 +63,11 @@ namespace WeSplit.ViewModel
         }
 
         public ICommand NextPageCommand { get; set; }
+
         public ICommand PreviousPageCommand { get; set; }
 
-        public ICommand OpenDetailWindowCommand { get; set; }
-
         public CurrentTripsViewModel()
-        {
-            OpenDetailWindowCommand = new RelayCommand<object>((selectedItem) => { return selectedItem != null; }, (selectedItem) =>
-            {
-                Trip tripSelected = (Trip)selectedItem;
-                View.DetailTripWindow childWindow = new View.DetailTripWindow(tripSelected.ID);
-                childWindow.ShowDialog();
-            });
+        {          
             NextPageCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 if (this.CurrentIndex < this.paging.TotalPages - 1)
