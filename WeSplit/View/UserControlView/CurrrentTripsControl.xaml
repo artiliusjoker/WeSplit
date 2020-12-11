@@ -38,7 +38,9 @@
                 HorizontalAlignment="Left"
                 Margin="0,10,10,0"
                 Background="White"
-                ToolTip="MaterialDesignFloatingActionMiniLightButton">
+                Command="{Binding SearchCommand}"
+                CommandParameter="{Binding ElementName=SearchBox, Path=Text}"
+                ToolTip="Tìm chuyến đi">
                 <md:PackIcon
                     Kind="Magnify"
                     Height="24"
@@ -51,14 +53,14 @@
                 x:Name="SearchBox"
                 Height="40"
                 Margin="20,10,10,0"
-                VerticalContentAlignment="Bottom"
+                VerticalContentAlignment="Top"
                 md:HintAssist.Background="#F5F4F2"
                 md:HintAssist.Foreground="#000"
                 md:HintAssist.Hint="Search"
                 md:TextFieldAssist.TextFieldCornerRadius="16"
                 md:TextFieldAssist.UnderlineBrush="#000"
                 Background="#F5F4F2"
-                FontSize="14"
+                FontSize="16"
                 Foreground="#000"
                 Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" />
 

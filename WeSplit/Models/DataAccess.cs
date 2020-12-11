@@ -3,37 +3,47 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Linq;
+using WeSplit.Utils;
 
 namespace WeSplit.Models
 {
     class DataAccess
-    {
+    {       
         public static List<Trip> SearchTrips(Helpers.SearchInfo info)
         {
-            List<Trip> result = new List<Trip>();
-            List<Trip> queryResults = new List<Trip>();
+            List<Trip> result = new List<Trip>();         
+            if(!info.MemberSearchChecked)
+            {
+                if (info.TripFinishedSearchChecked)
+                {
+                    result.AddRange(GetFinishedTrips());
+                }
 
-            if (info.TripFinishedSearchChecked)
-            {
-                queryResults = new List<Trip>(DatabaseEntity.Entity.DB.TRIPs.ToList()
-                .Where(x => x.ISDONE == true)
-                .Select(x => new Trip(x)));
+                if (info.TripOngoingSearchChecked)
+                {
+                    result.AddRange(GetOngoingTrips());
+                }
+                if (info.Keyword == "")
+                {
+                    return result;
+                }
+                result = new List<Trip>(result.Where(trip =>
+                {
+                    string tripName = StringHelper.ConvertToNoSpaceAndUnsigned(trip.Title);
+                    string keyword = StringHelper.ConvertToNoSpaceAndUnsigned(info.Keyword);
+                    return tripName.Contains(keyword);
+                }));
+                return result;
             }
-            result.AddRange(queryResults);
-            if (info.TripOngoingSearchChecked)
-            {
-                queryResults = new List<Trip>(DatabaseEntity.Entity.DB.TRIPs.ToList()
-                .Where(x => x.ISDONE == false)
-                .Select(x => new Trip(x)));
-            }
-            result.AddRange(queryResults);
-            if (info.MemberSearchChecked)
-            {
-
-            }    
             return result;
         }
-
+        public static List<Trip> GetFinishedTrips()
+        {
+            List<Trip> list = new List<Trip>(DatabaseEntity.Entity.DB.TRIPs.ToList()
+                .Where(x => x.ISDONE == false)
+                .Select(x => new Trip(x)));
+            return list;
+        }
         public static List<Trip> GetOngoingTrips()
         {
             List<Trip> list = new List<Trip>(DatabaseEntity.Entity.DB.TRIPs.ToList()

@@ -62,7 +62,10 @@ namespace WeSplit.ViewModel
 
             SearchCommand = new RelayCommand<object>((x) => { return x != null; }, (x) =>
             {
-               
+                Search.Keyword = (string)x;
+                Trips = DataAccess.SearchTrips(Search);
+                bindingItems = new ObservableCollection<Trip>(Trips.ToList());
+                CalculatePagingInfo();
             });
 
             Trips = TripService.GetOngoingTrips();

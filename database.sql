@@ -442,3 +442,7 @@ INNER JOIN
     (SELECT dbo.TRIP_MEMBERS.TRIP_ID, dbo.MEMBER.NAME FROM dbo.MEMBER inner join dbo.TRIP_MEMBERS on dbo.TRIP_MEMBERS.MEMBER_ID = dbo.MEMBER.MEMBER_ID) t2
 ON (t1.TRIP_ID = t2.TRIP_ID)
 where t2.NAME like '%' + 'Lê Pele' + '%' AND t1.ISDONE = 1;
+
+SELECT t1.*
+FROM dbo.TRIP t1
+where dbo.RemoveAllSpaces(dbo.fuConvertToUnsign2(t1.TITTLE)) like N'%' + dbo.RemoveAllSpaces(dbo.fuConvertToUnsign2('chuyen d')) + '%';
