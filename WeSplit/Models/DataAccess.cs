@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using WeSplit.Utils;
 
@@ -35,7 +36,32 @@ namespace WeSplit.Models
                 }));
                 return result;
             }
+            if (info.MemberSearchChecked)
+            {
+                result = GetTripsBasedOnMemberName(info);
+            }
             return result;
+        }
+        public static List<Trip> GetTripsBasedOnMemberName(Helpers.SearchInfo searchInfo)
+        {
+            List<Trip> list = new List<Trip>();
+            var query = from trip in DatabaseEntity.Entity.DB.TRIPs
+                        join tripMember in DatabaseEntity.Entity.DB.TRIP_MEMBERS on trip.TRIP_ID equals tripMember.TRIP_ID
+                        select new { trip, tripMember.MEMBER };
+            foreach(var row in query)
+            {
+                if(searchInfo.Keyword != null)
+                {
+                    string memberName = StringHelper.ConvertToNoSpaceAndUnsigned(row.MEMBER.NAME);
+                    string keyword = StringHelper.ConvertToNoSpaceAndUnsigned(searchInfo.Keyword);
+                    if (memberName.Contains(keyword))
+                    {
+                        Trip trip = new Trip(row.trip);
+                        list.Add(trip);
+                    }
+                }    
+            }    
+            return list;
         }
         public static List<Trip> GetFinishedTrips()
         {
