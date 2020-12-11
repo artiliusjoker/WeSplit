@@ -6,7 +6,10 @@ USE WESPLIT
 go
 
 -- Create function for searching, count amount of money ------------------------------------------------------------------------------------------
-
+DROP FUNCTION dbo.fuConvertToUnsign2
+go
+DROP FUNCTION dbo.RemoveAllSpaces
+go
 CREATE FUNCTION RemoveAllSpaces
 (
        @InputStr varchar(8000)
@@ -432,4 +435,10 @@ INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (7, N'Assets\trips\7
 INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (7, N'Assets\trips\7\list\3.jpg')
 INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (7, N'Assets\trips\7\list\4.jpg')
 
-select * from TRIP_IMAGES
+SELECT t1.*
+FROM 
+    dbo.TRIP t1
+INNER JOIN
+    (SELECT dbo.TRIP_MEMBERS.TRIP_ID, dbo.MEMBER.NAME FROM dbo.MEMBER inner join dbo.TRIP_MEMBERS on dbo.TRIP_MEMBERS.MEMBER_ID = dbo.MEMBER.MEMBER_ID) t2
+ON (t1.TRIP_ID = t2.TRIP_ID)
+where t2.NAME like '%' + 'Lê Pele' + '%' AND t1.ISDONE = 1;

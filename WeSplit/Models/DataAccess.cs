@@ -8,6 +8,32 @@ namespace WeSplit.Models
 {
     class DataAccess
     {
+        public static List<Trip> SearchTrips(Helpers.SearchInfo info)
+        {
+            List<Trip> result = new List<Trip>();
+            List<Trip> queryResults = new List<Trip>();
+
+            if (info.TripFinishedSearchChecked)
+            {
+                queryResults = new List<Trip>(DatabaseEntity.Entity.DB.TRIPs.ToList()
+                .Where(x => x.ISDONE == true)
+                .Select(x => new Trip(x)));
+            }
+            result.AddRange(queryResults);
+            if (info.TripOngoingSearchChecked)
+            {
+                queryResults = new List<Trip>(DatabaseEntity.Entity.DB.TRIPs.ToList()
+                .Where(x => x.ISDONE == false)
+                .Select(x => new Trip(x)));
+            }
+            result.AddRange(queryResults);
+            if (info.MemberSearchChecked)
+            {
+
+            }    
+            return result;
+        }
+
         public static List<Trip> GetOngoingTrips()
         {
             List<Trip> list = new List<Trip>(DatabaseEntity.Entity.DB.TRIPs.ToList()

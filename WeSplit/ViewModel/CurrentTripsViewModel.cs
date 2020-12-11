@@ -36,6 +36,41 @@ namespace WeSplit.ViewModel
             set { OnPropertyChanged(ref _trips, value); }
         }
 
+        public CurrentTripsViewModel()
+        {
+            NextPageCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                if (this.CurrentIndex < this.paging.TotalPages - 1)
+                {
+                    this.CurrentIndex += 1;
+                }
+            });
+            PreviousPageCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                if (this.CurrentIndex > 0)
+                {
+                    this.CurrentIndex -= 1;
+                }
+            });
+
+            SelectTripCommand = new RelayCommand<object>((selectedItem) => { return selectedItem != null; }, (selectedItem) =>
+            {
+                Trip tripSelected = (Trip)selectedItem;
+                View.DetailTripWindow childWindow = new View.DetailTripWindow(tripSelected.ID);
+                childWindow.ShowDialog();
+            });
+
+            SearchCommand = new RelayCommand<object>((x) => { return x != null; }, (x) =>
+            {
+               
+            });
+
+            Trips = TripService.GetOngoingTrips();
+
+            CalculatePagingInfo();
+            Search = new Helpers.SearchInfo();
+        }
+
         #region Pagination
 
         private int currentIndex;
@@ -66,32 +101,8 @@ namespace WeSplit.ViewModel
 
         public ICommand PreviousPageCommand { get; set; }
 
-        public CurrentTripsViewModel()
-        {          
-            NextPageCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
-            {
-                if (this.CurrentIndex < this.paging.TotalPages - 1)
-                {
-                    this.CurrentIndex += 1;
-                }
-            });
-            PreviousPageCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
-            {
-                if (this.CurrentIndex > 0)
-                {
-                    this.CurrentIndex -= 1;
-                }
-            });
-
-            SelectTripCommand = new RelayCommand<object>((selectedItem) => { return selectedItem != null; }, (selectedItem) =>
-            {            
-                Trip tripSelected = (Trip)selectedItem;
-                View.DetailTripWindow childWindow = new View.DetailTripWindow(tripSelected.ID);
-                childWindow.ShowDialog();
-            });
-
-            Trips = TripService.GetOngoingTrips();
-
+        void CalculatePagingInfo()
+        {
             int count = this._trips.Count();
             int rowsPerPage = this.paging.RowsPerPage;
 
@@ -104,12 +115,20 @@ namespace WeSplit.ViewModel
             };
             this.CurrentIndex = 0;
         }
+
+        
         #endregion
 
         #region ViewTripDetails
 
         public ICommand SelectTripCommand { get; set; }
 
+        #endregion
+
+        #region Searching
+
+        public ICommand SearchCommand { get; set; }
+        public Helpers.SearchInfo Search { get; set; } 
 
         #endregion
     }

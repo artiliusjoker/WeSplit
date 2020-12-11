@@ -83,16 +83,19 @@
             <StackPanel Grid.Row="1" Grid.Column="2" Margin="0,10,10,0"
                         Orientation="Vertical">
                 <CheckBox
+                    IsChecked="{Binding Path=Search.TripFinishedSearchChecked}"
                 HorizontalAlignment="Left"
                 Style="{StaticResource MaterialDesignCheckBox}">
                     Chuyến đã đi
                 </CheckBox>
                 <CheckBox
+                    IsChecked="{Binding Path=Search.TripOngoingSearchChecked}"
                 HorizontalAlignment="Left"
                 Style="{StaticResource MaterialDesignCheckBox}">
                     Chuyến đang đi
                 </CheckBox>
                 <CheckBox
+                    IsChecked="{Binding Path=Search.MemberSearchChecked}"
                 HorizontalAlignment="Left"
                 Style="{StaticResource MaterialDesignCheckBox}">
                     Thành viên tham gia
