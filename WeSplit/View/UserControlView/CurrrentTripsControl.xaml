@@ -60,7 +60,7 @@
                 md:TextFieldAssist.TextFieldCornerRadius="16"
                 md:TextFieldAssist.UnderlineBrush="#000"
                 Background="#F5F4F2"
-                FontSize="16"
+                FontSize="12"
                 Foreground="#000"
                 Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" />
 
@@ -123,11 +123,7 @@
             ItemsSource="{Binding BindingItems}"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
             ScrollViewer.VerticalScrollBarVisibility="Hidden">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseLeftButtonUp">
-                        <i:InvokeCommandAction Command="{Binding SelectTripCommand}" CommandParameter="{Binding ElementName=tripListView, Path=SelectedItem}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
+               
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel />
