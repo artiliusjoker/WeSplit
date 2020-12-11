@@ -43,12 +43,8 @@
         <viewModel:MainViewModel/>
     </Window.DataContext>
 
-    <Grid Background="#FFDEDEDE">
-        <!--BINDING CURRENT VIEW-->
-        <ContentControl HorizontalAlignment="Right"
-                        Content="{Binding CurrentView}" 
-                        Height="718" Width="1010"/>
-        <Grid Height="60" VerticalAlignment="Top" Background="#FF5C99D6">
+    <DockPanel LastChildFill="True">
+        <Grid Height="40" DockPanel.Dock="Top" Background="#FF5C99D6">
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="1" ShadowDepth="1" Color="#FFACACAC"/>
             </Grid.Effect>
@@ -67,7 +63,8 @@
             </StackPanel>
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22">We Split</TextBlock>
         </Grid>
-        <Grid x:Name="GridMenu" Width="70" HorizontalAlignment="Left" Background="#FF31577E">
+
+        <Grid x:Name="GridMenu" Width="70" DockPanel.Dock="Left" Background="#FF31577E">
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="2" ShadowDepth="1" Color="#FFAEAEAE"/>
             </Grid.Effect>
@@ -135,5 +132,9 @@
                 </ListView>
             </StackPanel>
         </Grid>
-    </Grid>
+
+        <ContentControl DockPanel.Dock="Bottom"
+                        Content="{Binding CurrentView}" 
+                        Height="728" Width="1010"/>
+    </DockPanel>
 </Window>

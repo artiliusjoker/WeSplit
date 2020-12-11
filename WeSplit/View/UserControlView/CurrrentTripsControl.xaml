@@ -8,20 +8,109 @@
              xmlns:local="clr-namespace:WeSplit.View.UserControlView"
              mc:Ignorable="d" 
              Background="White"
-             d:DesignHeight="600"
+             d:DesignHeight="728"
              d:DesignWidth="1010"
              Name="ThisUC">
 
-    <Grid   Margin="16"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-        <ListView
+        <Grid Grid.Row="0" Background="#FF31577E">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="7*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Button
+                Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                Grid.Column="1"
+                Grid.Row="1"
+                HorizontalAlignment="Left"
+                Margin="0,10,10,0"
+                Background="White"
+                ToolTip="MaterialDesignFloatingActionMiniLightButton">
+                <md:PackIcon
+                    Kind="Magnify"
+                    Height="24"
+                    Width="24" />
+             </Button>
+
+            <TextBox
+                Grid.Row="1"
+                Grid.Column="0"
+                x:Name="SearchBox"
+                Height="40"
+                Margin="20,10,10,0"
+                VerticalContentAlignment="Bottom"
+                md:HintAssist.Background="#F5F4F2"
+                md:HintAssist.Foreground="#000"
+                md:HintAssist.Hint="Search"
+                md:TextFieldAssist.TextFieldCornerRadius="16"
+                md:TextFieldAssist.UnderlineBrush="#000"
+                Background="#F5F4F2"
+                FontSize="14"
+                Foreground="#000"
+                Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" />
+
+            <md:Card
+            Grid.Row="2"
+            Grid.Column="0"
+            Panel.ZIndex="10"
+            Margin="20,10,10,0"
+            md:ShadowAssist.ShadowDepth="Depth2"
+            md:ShadowAssist.ShadowEdges="Bottom"
+            Background="Transparent"
+            UniformCornerRadius="16">
+                <TextBlock
+                Name="Quantity"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontWeight="Medium"
+                Foreground="#000"
+                Text="{Binding Info}"
+                TextAlignment="center" />
+            </md:Card>
+            <StackPanel Grid.Row="1" Grid.Column="2" Margin="0,10,10,0"
+                        Orientation="Vertical">
+                <CheckBox
+                HorizontalAlignment="Left"
+                Style="{StaticResource MaterialDesignCheckBox}">
+                    Chuyến đã đi
+                </CheckBox>
+                <CheckBox
+                HorizontalAlignment="Left"
+                Style="{StaticResource MaterialDesignCheckBox}">
+                    Chuyến đang đi
+                </CheckBox>
+                <CheckBox
+                HorizontalAlignment="Left"
+                Style="{StaticResource MaterialDesignCheckBox}">
+                    Thành viên tham gia
+                </CheckBox>
+            </StackPanel>
+        </Grid>
+                   
+        <Grid   Margin="16"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <ListView
             x:Name="tripListView"
             Grid.Column="1"
             HorizontalAlignment="Center"
@@ -29,50 +118,50 @@
             ItemsSource="{Binding BindingItems}"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
             ScrollViewer.VerticalScrollBarVisibility="Hidden">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseLeftButtonUp">
-                    <i:InvokeCommandAction Command="{Binding SelectTripCommand}" CommandParameter="{Binding ElementName=tripListView, Path=SelectedItem}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel />
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <md:Card
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonUp">
+                        <i:InvokeCommandAction Command="{Binding SelectTripCommand}" CommandParameter="{Binding ElementName=tripListView, Path=SelectedItem}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <md:Card
                         Width="400"
                         Height="300"
                         Padding="10"
                         md:ShadowAssist.ShadowDepth="Depth0"
                         Background="Transparent"
                         UniformCornerRadius="10">
-                        <Grid VerticalAlignment="Stretch">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-        
-                            <Border
+                            <Grid VerticalAlignment="Stretch">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+
+                                <Border
                                 Grid.Row="0"                            
                                 Height="200"
                                 BorderThickness="0"
                                 CornerRadius="10">
-                                <Border.Background>
-                                    <ImageBrush ImageSource="{Binding ThumnailPath}" Stretch="UniformToFill" />
-                                </Border.Background>
-                            </Border>
-                            <Grid Grid.Row="1">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="0.6*"/>
-                                    <ColumnDefinition Width="0.4*"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <TextBlock
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="{Binding ThumnailPath}" Stretch="UniformToFill" />
+                                    </Border.Background>
+                                </Border>
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.6*"/>
+                                        <ColumnDefinition Width="0.4*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock
                                     Grid.Row="0"
                                     Grid.Column="0"
                                     Margin="0,10,0,0"
@@ -81,50 +170,50 @@
                                     Text="{Binding Title}"
                                     TextWrapping="Wrap" 
                                     HorizontalAlignment="Center"/>
-                                <StackPanel Grid.Row="1"
+                                    <StackPanel Grid.Row="1"
                                             Grid.Column="0"
                                             Orientation="Horizontal"
                                             HorizontalAlignment="Center">
-                                    <TextBlock Foreground="#000" Text="Từ " />
-                                    <TextBlock Foreground="#000" Text="{Binding Path=StartDate, StringFormat=dd-MM-yyyy}" />
-                                    
-                                    <TextBlock Foreground="#000" Text=" Đến " />
-                                    <TextBlock Foreground="#000" Text="{Binding Path=EndDate, StringFormat=dd-MM-yyyy}" />
-                                </StackPanel>
-                                
-                                <StackPanel Grid.Column="1" Orientation="Horizontal"
+                                        <TextBlock Foreground="#000" Text="Từ " />
+                                        <TextBlock Foreground="#000" Text="{Binding Path=StartDate, StringFormat=dd-MM-yyyy}" />
+
+                                        <TextBlock Foreground="#000" Text=" Đến " />
+                                        <TextBlock Foreground="#000" Text="{Binding Path=EndDate, StringFormat=dd-MM-yyyy}" />
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal"
                                             Grid.Row="0"
                                             Grid.RowSpan="2"
                                             HorizontalAlignment="Center">
-                                    <Button
+                                        <Button
                                         Margin="10, 10, 0, 0"
                                         Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                                         ToolTip="Xem chi tiết"
-                                        Command="{Binding Path=DataContext.OpenDetailWindowCommand, ElementName=ThisUC}"
+                                        Command="{Binding Path=DataContext.SelectTripCommand, ElementName=ThisUC}"
                                         CommandParameter="{Binding}">
-                                        <md:PackIcon
+                                            <md:PackIcon
                                             Kind="BookOpenOutline"
                                             Height="24"
                                             Width="24" />
-                                    </Button>
-                                    <Button
+                                        </Button>
+                                        <Button
                                         Margin="10, 10, 0, 0"
                                         Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                                         ToolTip="Chỉnh sửa">
-                                        <md:PackIcon
+                                            <md:PackIcon
                                             Kind="Wrench"
                                             Height="24"
                                             Width="24" />
-                                    </Button>
-                                </StackPanel>
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
                             </Grid>
-                        </Grid>
-                    </md:Card>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        
-        <Button
+                        </md:Card>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Button
             Grid.Column="0"
             HorizontalAlignment="Center"
             Command="{Binding PreviousPageCommand}"
@@ -132,7 +221,7 @@
                                   Size=40}"
             Style="{StaticResource MaterialDesignIconButton}"
             ToolTip="Previous"/>
-        <Button
+            <Button
             Grid.Column="2"
             HorizontalAlignment="Center"
             Command="{Binding NextPageCommand}"
@@ -140,5 +229,7 @@
                                   Size=40}"
             Style="{StaticResource MaterialDesignIconButton}"
             ToolTip="Next" />
+        </Grid>
     </Grid>
+   
 </UserControl>
