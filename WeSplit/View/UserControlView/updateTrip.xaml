@@ -246,7 +246,7 @@
                     CornerRadius="10"
                     Height="300"
                     VerticalAlignment="Center" BorderBrush="#FF484848" Width="960" Canvas.Left="21" Canvas.Top="681">
-                        <ListView Name="listImagessss" Width="960" Canvas.Left="21" Canvas.Top="681" Height="300" ItemsSource="{Binding Images}" ScrollViewer.VerticalScrollBarVisibility ="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ListView Name="listImages" Width="960" Canvas.Left="21" Canvas.Top="681" Height="300" ItemsSource="{Binding TripImages}" ScrollViewer.VerticalScrollBarVisibility ="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                             <ListView.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <WrapPanel></WrapPanel>
@@ -257,7 +257,7 @@
                                     <StackPanel>
                                         <Border CornerRadius="10" Width="110" Height="110" BorderThickness="1">
                                             <Border.Background>
-                                                <ImageBrush ImageSource="{Binding}" RenderOptions.BitmapScalingMode="HighQuality" Stretch="UniformToFill"></ImageBrush>
+                                                <ImageBrush ImageSource="{Binding ImagePath, Converter={StaticResource ImagePathConverter}}" RenderOptions.BitmapScalingMode="HighQuality" Stretch="UniformToFill"></ImageBrush>
                                             </Border.Background>
                                         </Border>
                                         <Button x:Name="buttonDeleteImages" Height="25" Width="25" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF404040">

@@ -20,20 +20,20 @@ namespace WeSplit.ViewModel
             TripMembers = DataAccess.GetTripMembers(TripSelected.ID);
             // Tất cả thành viên trong nhóm
             AllMembers = new ObservableCollection<Member>(DataAccess.GetAllMembers());
+            // Tất cả hình ảnh của chuyến đi
+            TripImages = new ObservableCollection<TripImages>(DataAccess.GetTripImages(TripSelected.ID));
         }
 
         public Trip TripSelected { get; set; }
 
         public List<string> CostComboContent { get; private set; }
 
-        public ObservableCollection<TripCost> TripCosts
-        {
-            get;
-            set;         
-        }
+        public ObservableCollection<TripCost> TripCosts { get; set; }
 
         public BindingList<Member> TripMembers { get; set; }
 
         public ObservableCollection<Member> AllMembers { get; set; }
+
+        public ObservableCollection<TripImages> TripImages { get; set; }
     }
 }
