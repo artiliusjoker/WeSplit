@@ -3,853 +3,280 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"  
              xmlns:local="clr-namespace:WeSplit.View.UserControlView"
-             mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="1000">
+             mc:Ignorable="d"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             d:DesignHeight="728" d:DesignWidth="1010">
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="20" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="20" />
-        </Grid.ColumnDefinitions>
+    <materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect ExpandIn, Duration=0:0:0}">
+        <DockPanel Name="USUpdateTrips" LastChildFill="True">
+            <Grid DockPanel.Dock="Top">
+                <WrapPanel Name="Top" Height="60" HorizontalAlignment="Left">
+                    <Button
+                           Margin="10,0,5,0"
+                           HorizontalAlignment="Left"
+                           Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                           ToolTip="Chỉnh sửa">
+                        <materialDesign:PackIcon
+                           Kind="Wrench"
+                           Height="40"
+                           Width="40" />
+                    </Button>
+                    <Label Name="TopLabel" Content="Cập nhật chuyến đi" Height="60" FontSize="24" VerticalContentAlignment="Center" HorizontalAlignment="Left" Foreground="#FF484848"/>
+                </WrapPanel>
+                <WrapPanel HorizontalAlignment="Right">
+                    <Image Name="imgSave" Source="/assets/save.png" MouseUp="imgSave_MouseUp" Width="40" RenderOptions.BitmapScalingMode="HighQuality" Stretch="UniformToFill" Height="40" Margin="0 10 15 0"></Image>
+                    <Image Name="imgCancel" Source="/assets/cancel.png" MouseUp="imgCancel_MouseUp" Width="40" RenderOptions.BitmapScalingMode="HighQuality" Stretch="UniformToFill" Height="40" Margin="0 10 15 0"></Image>
+                </WrapPanel>
+            </Grid>
+            <ScrollViewer>
+                <Canvas Height="1080">
+                    <TextBox
+                        x:Name="tripName"
+                        FontSize="18"
+                        Width="380"
+                        BorderThickness="0"
+                        materialDesign:HintAssist.Hint="Trip Name"
+                        materialDesign:HintAssist.IsFloating="True"
+                        materialDesign:TextFieldAssist.HasClearButton="True"
+                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                        materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
+                        materialDesign:TextFieldAssist.TextFieldCornerRadius="4" Canvas.Left="21" Canvas.Top="21"/>
+                    <TextBox 
+                        x:Name="Introduce"
+                        FontSize="18"
+                        TextWrapping="Wrap"
+                        Width="380"
+                        BorderThickness="0"
+                        materialDesign:HintAssist.Hint="Introduce"
+                        materialDesign:HintAssist.IsFloating="True"
+                        materialDesign:TextFieldAssist.HasClearButton="True"
+                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                        materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
+                        materialDesign:TextFieldAssist.TextFieldCornerRadius="4" Canvas.Left="21" Canvas.Top="101" Height="150"/>
+                    <Border x:Name="Image"
+                    materialDesign:HintAssist.Hint="Image"
+                    materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                    BorderThickness="1"
+                    Height="274"
+                    CornerRadius="10"
+                    VerticalAlignment="Center" BorderBrush="#FF484848" Canvas.Left="21" Canvas.Top="285" Width="380">
+                        <Border.Background>
+                            <ImageBrush x:Name="imgTrip" ImageSource="{Binding Picture}" RenderOptions.BitmapScalingMode="HighQuality" Stretch="UniformToFill">
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="20"/>
-        </Grid.RowDefinitions>
+                            </ImageBrush>
+                        </Border.Background>
+                    </Border>
+                    <Border Canvas.Left="21" Canvas.Top="580" Width="380" Height="60" CornerRadius="10" BorderThickness="1" BorderBrush="#FF484848">
 
-        <Grid Grid.Row="1" Grid.Column="1">
-
-            <Border BorderBrush="#EBF4F6" BorderThickness="1">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="1*" />
-                        <RowDefinition Height="5*" />
-                    </Grid.RowDefinitions>
-
-
-                    <Grid Background="White" Grid.Row="0" >
-                        <DockPanel >
-                            <DockPanel.Background>
-                                <ImageBrush ImageSource="/assets/add_background.jpg" />
-                            </DockPanel.Background>
-                            <StackPanel HorizontalAlignment="Center"
-                                                VerticalAlignment="Center">
-                                <TextBlock Text="Chỉnh sửa"
-                                                   FontFamily="../Assets/Fonts/Roboto-Black.ttf #Roboto"
-                                                   FontSize="40"
-                                                   Foreground="#2C9AFF"/>
-                            </StackPanel>
-                        </DockPanel>
-                    </Grid>
-
-
-                    <Grid Background="#F0F3FA" Grid.Row="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="3*" />
-                            <ColumnDefinition Width="2*" />
-                        </Grid.ColumnDefinitions>
-
-                        <Grid Grid.Column="0" Margin="20, 20, 10, 20">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="3*" />
-                                <RowDefinition Height="2*" />
-                            </Grid.RowDefinitions>
-                            <Grid Background="White" 
-                                          Grid.Row="0" 
-                                          Margin="0, 0, 0, 5">
-                                <Grid Margin="10, 0, 10, 10">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="25" />
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <DockPanel Grid.Row="0" Margin="0, 0, 0, 0">
-                                        <TextBlock Text="Thông tin chung" 
-                                                           VerticalAlignment="Center"
-                                                           FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"/>
-                                    </DockPanel>
-                                    <Grid Grid.Row="1">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="3*" />
-                                            <ColumnDefinition Width="2" />
-                                            <ColumnDefinition Width="2*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Grid Grid.Column="0"
-                                                      Margin="10, 0, 10, 5">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="3*" />
-                                                <RowDefinition Height="2*" />
-                                            </Grid.RowDefinitions>
-                                            <StackPanel Grid.Row="0">
-                                                <Label Content="Tên chuyến"
-                                                               FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"/>
-                                                <TextBox Padding="10, 5, 10, 5"
-                                                                 FontFamily="../Assets/Fonts/Roboto.ttf #Roboto">
-                                                    <TextBox.Resources>
-                                                        <Style TargetType="{x:Type Border}">
-                                                            <Setter Property="CornerRadius" Value="5"/>
-                                                            <Setter Property="BorderBrush" Value="Transparent" />
-                                                        </Style>
-                                                    </TextBox.Resources>
-                                                </TextBox>
-                                                <DockPanel Margin="5, 12, 0, 0">
-                                                    <TextBlock Text="Loại chuyến"
-                                                                   FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"
-                                                                   />
-                                                    <StackPanel Orientation="Horizontal"
-                                                                        DockPanel.Dock="Right"
-                                                                        HorizontalAlignment="Right">
-
-                                                        <Button Width="20"
-                                                                        Height="20"
-                                                                        BorderThickness="0"
-                                                                        Margin="8, 0, 0, 0"
-                                                                        Style="{StaticResource vehicle_button}">
-                                                            <Button.Background>
-                                                                <ImageBrush ImageSource="../Assets/Images/pyramids.png" />
-                                                            </Button.Background>
-                                                            <Button.ToolTip>
-                                                                Du lịch
-                                                            </Button.ToolTip>
+                    </Border>
+                    <Button x:Name="ChooseImg" Click="ChooseImg_Click" Height="60" VerticalAlignment="Bottom" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="#FF2B2B2B" FontSize="14" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Center" Canvas.Left="21" Canvas.Top="580" Width="380">
+                        <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Image Source="/assets/add-thumbnail-picture.png" Width="50" Height="50" RenderOptions.BitmapScalingMode="HighQuality" Stretch="UniformToFill"></Image>
+                        </WrapPanel>
+                    </Button>
+                    <TextBox
+                        x:Name="Expenditures"
+                        FontSize="18"
+                        Text="{Binding SearchKeyword, UpdateSourceTrigger=PropertyChanged}"
+                        DockPanel.Dock="Top"
+                        Width="250"
+                        BorderThickness="0"
+                        materialDesign:HintAssist.Hint="Expenditures"
+                        materialDesign:HintAssist.IsFloating="True"
+                        materialDesign:TextFieldAssist.HasClearButton="True"
+                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                        materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
+                        materialDesign:TextFieldAssist.TextFieldCornerRadius="4" Canvas.Left="440" Canvas.Top="21"/>
+                    <TextBox 
+                        x:Name="Prices"
+                        FontSize="18"
+                        Text="{Binding SearchKeyword, UpdateSourceTrigger=PropertyChanged}"
+                        DockPanel.Dock="Top"
+                        Width="200"
+                        BorderThickness="0"
+                        TextChanged="Prices_TextChanged"
+                        materialDesign:HintAssist.Hint="Prices"
+                        materialDesign:HintAssist.IsFloating="True"
+                        materialDesign:TextFieldAssist.HasClearButton="True"
+                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                        materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
+                        materialDesign:TextFieldAssist.TextFieldCornerRadius="4" Canvas.Left="710" Canvas.Top="21" RenderTransformOrigin="0.029,0.592"/>
+                    <Button  Canvas.Left="930" Canvas.Top="21"
+                           Margin="10,0,5,0"
+                           HorizontalAlignment="Left"
+                           Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                           ToolTip="Chỉnh sửa">
+                        <materialDesign:PackIcon
+                           Kind="PlusThick"
+                           Height="40"
+                           Width="40" />
+                    </Button>
+                    <Border Canvas.Left="440" Canvas.Top="101" Width="540" Height="150" CornerRadius="10" BorderThickness="1" BorderBrush="#FF484848">
+                        <ItemsControl Name="listExpenditures" Canvas.Left="440" Canvas.Top="101" Width="540" Height="150" FontSize="18">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <ListView ItemsSource="{Binding Expenses}" ScrollViewer.VerticalScrollBarVisibility ="Hidden" Canvas.Left="440" Canvas.Top="101" Width="656" Height="150">
+                                            <ListView.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <StackPanel/>
+                                                </ItemsPanelTemplate>
+                                            </ListView.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <WrapPanel>
+                                                        <TextBlock Text="{Binding}" Width="580" Height="Auto" FontSize="18" TextAlignment="Justify" HorizontalAlignment="Left"/>
+                                                        <Button x:Name="buttonEditExpenses" Click="buttonEditExpenses_Click" Height="25" Width="25" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF404040" Margin="0 0 5 0">
+                                                            <materialDesign:PackIcon Kind="Pencil" Width="25" Height="25" Foreground="#FF1273EB" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                                         </Button>
-                                                        <Button Width="20"
-                                                                        Height="20"
-                                                                        BorderThickness="0"
-                                                                        Margin="8, 0, 0, 0"
-                                                                        Style="{StaticResource vehicle_button}">
-                                                            <Button.Background>
-                                                                <ImageBrush ImageSource="../Assets/Images/shovel.png" />
-                                                            </Button.Background>
-                                                            <Button.ToolTip>
-                                                                Làm việc
-                                                            </Button.ToolTip>
+                                                        <Button x:Name="buttonDeleteExpenses" Click="buttonDeleteExpenses_Click" Height="25" Width="25" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF404040">
+                                                            <materialDesign:PackIcon Kind="Delete" Width="25" Height="25" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Button>
+                                                    </WrapPanel>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ListView>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Border>
+                    <TextBox 
+                x:Name="memberName"
+                FontSize="18"
+                Text="{Binding SearchKeyword, UpdateSourceTrigger=PropertyChanged}"
+                Width="250"
+                BorderThickness="0"
+                materialDesign:HintAssist.Hint="Member Name"
+                materialDesign:HintAssist.IsFloating="True"
+                materialDesign:TextFieldAssist.HasClearButton="True"
+                materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
+                materialDesign:TextFieldAssist.TextFieldCornerRadius="4" Canvas.Left="440" Canvas.Top="285"/>
+                    <TextBox
+                x:Name="moneyPaid"
+                FontSize="18"
+                Text="{Binding SearchKeyword, UpdateSourceTrigger=PropertyChanged}"
+                Width="200"
+                TextChanged="moneyPaid_TextChanged"
+                BorderThickness="0"
+                materialDesign:HintAssist.Hint="Money Paid"
+                materialDesign:HintAssist.IsFloating="True"
+                materialDesign:TextFieldAssist.HasClearButton="True"
+                materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
+                materialDesign:TextFieldAssist.TextFieldCornerRadius="4" Canvas.Left="710" Canvas.Top="285"/>
+                    <Button  Canvas.Left="930" Canvas.Top="285"
+                          Margin="10,0,5,0"
+                          HorizontalAlignment="Left"
+                          Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                          ToolTip="Chỉnh sửa">
+                        <materialDesign:PackIcon
+                           Kind="PlusThick"
+                           Height="40"
+                           Width="40" />
+                    </Button>
+                    <Border Canvas.Left="440" Canvas.Top="365" Width="540" Height="275" CornerRadius="10" BorderThickness="1" BorderBrush="#FF484848">
+                        <ItemsControl Name="listMembers" Canvas.Left="440" Canvas.Top="365" Width="540" Height="275" FontSize="18">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <ListView ItemsSource="{Binding Members}" ScrollViewer.VerticalScrollBarVisibility ="Hidden" Canvas.Left="440" Canvas.Top="365" Width="656" Height="275">
+                                        <ListView.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel />
+                                            </ItemsPanelTemplate>
+                                        </ListView.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <WrapPanel>
+                                                    <TextBlock Text="{Binding}" Width="580" Height="Auto" FontSize="18" TextAlignment="Justify"/>
+                                                    <Button x:Name="buttonEditMembers" Click="buttonEditMembers_Click" Height="25" Width="25" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF404040" Margin="0 0 5 0">
+                                                        <materialDesign:PackIcon Kind="Pencil" Width="25" Height="25" Foreground="#FF1273EB" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Button>
+                                                    <Button x:Name="buttonDeleteMembers" Click="buttonDeleteMembers_Click" Height="25" Width="25" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF404040">
+                                                        <materialDesign:PackIcon Kind="Delete" Width="25" Height="25" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Button>
+                                                </WrapPanel>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ListView>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Border>
+                    <Border x:Name="Imgs"
+                    materialDesign:HintAssist.Hint=""
+                    materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                    BorderThickness="1"
+                    CornerRadius="10"
+                    Height="300"
+                    VerticalAlignment="Center" BorderBrush="#FF484848" Width="380" Canvas.Left="21" Canvas.Top="681">
+                        <ItemsControl Name="listImagessss" Width="380" Canvas.Left="21" Canvas.Top="681" Height="300" FontSize="18">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <ListView Name="Imagesss" Width="380" Canvas.Left="21" Canvas.Top="681" Height="300" ItemsSource="{Binding Images}" ScrollViewer.VerticalScrollBarVisibility ="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                            <ListView.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <WrapPanel></WrapPanel>
+                                                </ItemsPanelTemplate>
+                                            </ListView.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel>
+                                                        <Border CornerRadius="10" Width="109.9" Height="109.9" BorderThickness="1">
+                                                            <Border.Background>
+                                                                <ImageBrush ImageSource="{Binding}" RenderOptions.BitmapScalingMode="HighQuality" Stretch="UniformToFill"></ImageBrush>
+                                                            </Border.Background>
+                                                        </Border>
+                                                        <Button x:Name="buttonDeleteImages" Click="buttonDeleteImages_Click" Height="25" Width="25" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF404040">
+                                                            <materialDesign:PackIcon Kind="Delete" Width="25" Height="25" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                                         </Button>
                                                     </StackPanel>
-                                                </DockPanel>
-
-                                            </StackPanel>
-
-                                            <Grid Grid.Row="1">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="1*" />
-                                                    <ColumnDefinition Width="5" />
-                                                    <ColumnDefinition Width="1*" />
-                                                </Grid.ColumnDefinitions>
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="30" />
-                                                    <RowDefinition Height="25" />
-                                                </Grid.RowDefinitions>
-                                                <Label Content="Ngày đi"
-                                                               Grid.Row="0"
-                                                               FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"
-                                                               Grid.Column="0"/>
-                                                <DatePicker Grid.Row="1"
-                                                                    Name="StartDatePicker"
-                                                                    Grid.Column="0"
-                                                                    SelectedDateChanged="StartDatePicker_SelectedDateChanged">
-
-                                                </DatePicker>
-                                                <Label Content="Ngày về"
-                                                               FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"
-                                                               Grid.Row="0"
-                                                               Grid.Column="2"/>
-                                                <DatePicker Grid.Row="1"
-                                                                 Grid.Column="2">
-
-                                                </DatePicker>
-                                            </Grid>
-
-                                        </Grid>
-                                        <StackPanel Grid.Column="1" 
-                                                            Background="#b1b1b1"/>
-                                        <Grid Grid.Column="2"
-                                                      Margin="10, 3, 10, 0">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="20" />
-                                                <RowDefinition Height="30" />
-                                                <RowDefinition Height="*" />
-                                            </Grid.RowDefinitions>
-                                            <TextBlock Text="Lộ trình"
-                                                               FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"
-                                                               Grid.Row="0"/>
-                                            <StackPanel Orientation="Horizontal"
-                                                                Grid.Row="1"
-                                                                HorizontalAlignment="Center">
-                                                <Button Width="30"
-                                                                        Height="30"
-                                                                        BorderThickness="0"
-                                                                        Style="{StaticResource vehicle_button}">
-                                                    <Button.Background>
-                                                        <ImageBrush ImageSource="../Assets/Images/plane.png" />
-                                                    </Button.Background>
-                                                </Button>
-                                            </StackPanel>
-                                            <Border Grid.Row="2"
-                                                            Margin="0, 3, 0, 0"
-                                                            BorderThickness="1"
-                                                            BorderBrush="Gray"
-                                                            Padding="5, 3, 5, 0">
-                                                <WrapPanel>
-                                                    <Button Width="30"
-                                                                        Height="30"
-                                                                        BorderThickness="0"
-                                                                        Margin="3, 2, 3, 2"
-                                                                        Style="{StaticResource vehicle_button}">
-                                                        <Button.Background>
-                                                            <ImageBrush ImageSource="../Assets/Images/car.png" />
-                                                        </Button.Background>
-                                                        <Button.ToolTip>
-                                                            Ô tô
-                                                        </Button.ToolTip>
-                                                    </Button>
-                                                    <Button Width="30"
-                                                                        Height="30"
-                                                                        BorderThickness="0"
-                                                                        Margin="3, 2, 3, 2"
-                                                                        Style="{StaticResource vehicle_button}">
-                                                        <Button.Background>
-                                                            <ImageBrush ImageSource="../Assets/Images/motobike.png" />
-                                                        </Button.Background>
-                                                        <Button.ToolTip>
-                                                            Xe máy
-                                                        </Button.ToolTip>
-                                                    </Button>
-                                                    <Button Width="30"
-                                                                        Height="30"
-                                                                        BorderThickness="0"
-                                                                        Margin="3, 2, 3, 2"
-                                                                        Style="{StaticResource vehicle_button}">
-                                                        <Button.Background>
-                                                            <ImageBrush ImageSource="../Assets/Images/bike.png" />
-                                                        </Button.Background>
-                                                        <Button.ToolTip>
-                                                            Xe đạp
-                                                        </Button.ToolTip>
-                                                    </Button>
-                                                    <Button Width="30"
-                                                                        Height="30"
-                                                                        BorderThickness="0"
-                                                                        Margin="3, 2, 3, 2"
-                                                                        Style="{StaticResource vehicle_button}">
-                                                        <Button.Background>
-                                                            <ImageBrush ImageSource="../Assets/Images/plane.png" />
-                                                        </Button.Background>
-                                                        <Button.ToolTip>
-                                                            Máy bay
-                                                        </Button.ToolTip>
-                                                    </Button>
-                                                    <Button Width="30"
-                                                                        Height="30"
-                                                                        BorderThickness="0"
-                                                                        Margin="3, 2, 3, 2"
-                                                                        Style="{StaticResource vehicle_button}">
-                                                        <Button.Background>
-                                                            <ImageBrush ImageSource="../Assets/Images/coach.png" />
-                                                        </Button.Background>
-                                                        <Button.ToolTip>
-                                                            Xe khách
-                                                        </Button.ToolTip>
-                                                    </Button>
-                                                    <Button Width="30"
-                                                                        Height="30"
-                                                                        BorderThickness="0"
-                                                                        Margin="3, 2, 3, 2"
-                                                                        Style="{StaticResource vehicle_button}">
-                                                        <Button.Background>
-                                                            <ImageBrush ImageSource="../Assets/Images/foot.png" />
-                                                        </Button.Background>
-                                                        <Button.ToolTip>
-                                                            Đi bộ
-                                                        </Button.ToolTip>
-                                                    </Button>
-                                                    <Button Width="30"
-                                                                        Height="30"
-                                                                        BorderThickness="0"
-                                                                        Margin="3, 2, 3, 2"
-                                                                        Style="{StaticResource vehicle_button}">
-                                                        <Button.Background>
-                                                            <ImageBrush ImageSource="../Assets/Images/train.png" />
-                                                        </Button.Background>
-                                                        <Button.ToolTip>
-                                                            Tàu hỏa
-                                                        </Button.ToolTip>
-                                                    </Button>
-                                                    <Button Width="30"
-                                                                        Height="30"
-                                                                        BorderThickness="0"
-                                                                        Margin="3, 2, 3, 2"
-                                                                        Style="{StaticResource vehicle_button}">
-                                                        <Button.Background>
-                                                            <ImageBrush ImageSource="../Assets/Images/ship.png" />
-                                                        </Button.Background>
-                                                        <Button.ToolTip>
-                                                            Tàu thủy
-                                                        </Button.ToolTip>
-                                                    </Button>
-                                                    <Button Width="30"
-                                                                        Height="30"
-                                                                        BorderThickness="0"
-                                                                        Margin="3, 2, 3, 2"
-                                                                        Style="{StaticResource vehicle_button}">
-                                                        <Button.Background>
-                                                            <ImageBrush ImageSource="../Assets/Images/taxi.png" />
-                                                        </Button.Background>
-                                                        <Button.ToolTip>
-                                                            Taxi
-                                                        </Button.ToolTip>
-                                                    </Button>
-
-                                                </WrapPanel>
-                                            </Border>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                            <Grid Background="White" Grid.Row="1" Margin="0, 5, 0, 0">
-                                <Grid Margin="10, 0, 10, 10">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="25" />
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <DockPanel Grid.Row="0" Margin="0, 0, 0, 0">
-                                        <TextBlock Text="Danh sách chi phí" 
-                                                           VerticalAlignment="Center"
-                                                           FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"/>
-
-                                    </DockPanel>
-                                    <Grid Grid.Row="1">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="2*" />
-                                            <ColumnDefinition Width="2" />
-                                            <ColumnDefinition Width="3*" />
-                                        </Grid.ColumnDefinitions>
-                                        <StackPanel Grid.Column="1" 
-                                                            Background="#b1b1b1" />
-                                        <Grid Grid.Column="0" Margin="0, 0, 5, 0">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="25"/>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="28"/>
-                                            </Grid.RowDefinitions>
-                                            <StackPanel Grid.Row="0"
-                                                                Orientation="Horizontal"
-                                                                >
-                                                <Image Width="20" 
-                                                               Margin="0, 0, 5, 0"
-                                                               Source="../Assets/Images/suitcase.png"
-                                                               HorizontalAlignment="Left"/>
-                                                <TextBlock Text="Tạo mới"
-                                                                   FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"
-                                                                   VerticalAlignment="Center"/>
-                                            </StackPanel>
-                                            <StackPanel Grid.Row="1" >
-                                                <Grid Margin="0, 0, 0, 5"
-                                                              Height="18">
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="50" />
-                                                        <ColumnDefinition Width="*" />
-                                                    </Grid.ColumnDefinitions>
-                                                    <Label Content="Nội dung "
-                                                                   FontSize="10"
-                                                                   VerticalAlignment="Center"
-                                                                   Padding="0"
-                                                                   HorizontalAlignment="Left"
-                                                                   Grid.Column="0"/>
-                                                    <TextBox Grid.Column="1"
-                                                                     Padding="5, 2, 5, 2"
-                                                                     FontSize="10">
-                                                        <TextBox.Resources>
-                                                            <Style TargetType="{x:Type Border}">
-                                                                <Setter Property="CornerRadius" Value="5"/>
-                                                                <Setter Property="BorderBrush" Value="Transparent" />
-                                                            </Style>
-                                                        </TextBox.Resources>
-                                                    </TextBox>
-                                                </Grid>
-
-                                                <Grid Height="18">
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="50" />
-                                                        <ColumnDefinition Width="*" />
-                                                    </Grid.ColumnDefinitions>
-                                                    <Label Content="Chi phí "
-                                                                   FontSize="10"
-                                                                   Padding="0"
-                                                                   VerticalAlignment="Center"
-                                                                   Grid.Column="0"/>
-                                                    <TextBox Grid.Column="1"
-                                                                     Padding="5, 2, 5, 2">
-                                                        <TextBox.Resources>
-                                                            <Style TargetType="{x:Type Border}">
-                                                                <Setter Property="CornerRadius" Value="5"/>
-                                                                <Setter Property="BorderBrush" Value="Transparent" />
-                                                            </Style>
-                                                        </TextBox.Resources>
-                                                    </TextBox>
-                                                </Grid>
-                                            </StackPanel>
-                                            <StackPanel Grid.Row="2"
-                                                                Margin="0, 0, 0, 0"
-                                                                Orientation="Horizontal"
-                                                                HorizontalAlignment="Right"
-                                                                >
-                                                <Button Content="Hủy"
-                                                                FontSize="11"
-                                                                Margin="0, 0, 5, 0"
-                                                                VerticalAlignment="Center"
-                                                                BorderBrush="#b1b1b1"
-                                                                Background="Transparent"
-                                                                Padding="10, 3, 10, 3">
-                                                    <Button.Resources>
-                                                        <Style TargetType="{x:Type Border}">
-                                                            <Setter Property="CornerRadius" Value="4"/>
-                                                            <Setter Property="Cursor" Value="Hand"/>
-                                                        </Style>
-                                                    </Button.Resources>
-                                                </Button>
-                                                <Button Content="Thêm" 
-                                                                FontSize="11"
-                                                                Foreground="White"
-                                                                VerticalAlignment="Center"
-                                                                BorderBrush="Transparent"
-                                                                Padding="10, 3, 10, 3"
-                                                                Style="{StaticResource ExpenseButton}">
-                                                </Button>
-                                            </StackPanel>
-                                        </Grid>
-                                        <Grid Grid.Column="2" 
-                                                            Margin="10, 0, 10, 0">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="20" />
-                                                <RowDefinition Height="*" />
-                                            </Grid.RowDefinitions>
-                                            <Border Grid.Row="0"
-                                                            BorderBrush="Gray"
-                                                            BorderThickness="0, 1, 0, 1">
-                                                <DockPanel>
-                                                    <TextBlock Text="Họ tên"
-                                                                       DockPanel.Dock="Left"
-                                                                       Width="100"/>
-                                                    <TextBlock Text="Số tiền đóng"
-                                                                       Width="80"/>
-                                                    <TextBlock DockPanel.Dock="Right"
-                                                                       Text="Xoá"
-                                                                       HorizontalAlignment="Right"/>
-
-                                                </DockPanel>
-                                            </Border>
-                                            <ListView Grid.Row="1"
-                                                              Margin="0, 10, 0, 0">
-
-                                            </ListView>
-
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-
-                        <Grid Grid.Column="1" Margin="10, 20, 20, 20">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="2*" />
-                                <RowDefinition Height="3*" />
-                            </Grid.RowDefinitions>
-
-                            <Grid Background="White" Grid.Row="0" Margin="0, 0, 0, 5">
-                                <Grid Margin="10, 0, 10, 10">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="30" />
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-
-                                    <DockPanel Grid.Row="0" Margin="0, 0, 0, 0">
-                                        <TextBlock Text="Hình Ảnh" 
-                                                           VerticalAlignment="Center"
-                                                           FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"/>
-
-                                    </DockPanel>
-
-                                    <Grid Grid.Row="1">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="3*" />
-                                            <ColumnDefinition Width="2.3*" />
-                                        </Grid.ColumnDefinitions>
-
-                                        <Border Margin="20, 0, 20 ,0" 
-                                                        BorderThickness="1"
-                                                        Background="#F6F9FF">
-                                            <Border.BorderBrush>
-                                                <DrawingBrush Viewport="0,0,8,8" ViewportUnits="Absolute" TileMode="Tile">
-                                                    <DrawingBrush.Drawing>
-                                                        <DrawingGroup>
-                                                            <GeometryDrawing Brush="#2C9AFF">
-                                                                <GeometryDrawing.Geometry>
-                                                                    <GeometryGroup>
-                                                                        <RectangleGeometry Rect="0,0,50,50" />
-                                                                        <RectangleGeometry Rect="50,50,50,50" />
-                                                                    </GeometryGroup>
-                                                                </GeometryDrawing.Geometry>
-                                                            </GeometryDrawing>
-                                                        </DrawingGroup>
-                                                    </DrawingBrush.Drawing>
-                                                </DrawingBrush>
-                                            </Border.BorderBrush>
-
-                                            <DockPanel Margin="4">
-                                                <Image Source="../Assets/Images/bg_upload.png" />
-                                            </DockPanel>
-
-                                        </Border>
-
-                                        <StackPanel Grid.Column="1">
-                                            <StackPanel Orientation="Horizontal">
-                                                <Image Source="../Assets/Images/file.png"
-                                                               Width="20"
-                                                               Margin="0, 0, 5, 0"/>
-                                                <TextBlock Text="mac-dinh.png" 
-                                                                   VerticalAlignment="Bottom"
-                                                                   FontSize="10"/>
-                                            </StackPanel>
-                                            <StackPanel Margin="0, 20, 0, 0"
-                                                                Orientation="Horizontal">
-                                                <Button Content="Upload"
-                                                                Margin="0, 0, 5, 0"
-                                                                Foreground="White"
-                                                                Padding="8, 4, 8, 4"
-                                                                Style="{StaticResource UploadImage}"/>
-                                                <Button Content="Xóa ảnh"
-                                                                Foreground="White"
-                                                                Padding="8, 4, 8, 4"
-                                                                Style="{StaticResource RemoveImage}" />
-                                            </StackPanel>
-                                        </StackPanel>
-
-                                    </Grid>
-
-                                </Grid>
-
-                            </Grid>
-                            <Grid Background="White" Grid.Row="1" Margin="0, 5, 0, 0">
-                                <Grid Margin="10, 0, 10, 10">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="35" />
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <DockPanel Grid.Row="0" Margin="0, 0, 0, 0">
-                                        <TextBlock Text="Danh Sách Thành Viên" 
-                                                           VerticalAlignment="Center"
-                                                           FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"/>
-                                        <Button HorizontalAlignment="Right" 
-                                                        Width="25"
-                                                        Height="25"
-                                                        BorderThickness="0"
-                                                        Style="{StaticResource add_member_btn}">
-                                            <Button.Background>
-                                                <ImageBrush ImageSource="../Assets/Images/add-friend_blue.png" />
-                                            </Button.Background>
-                                        </Button>
-                                    </DockPanel>
-
-
-                                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Disabled" CanContentScroll="True">
-                                        <StackPanel Orientation="Vertical">
-                                            <Grid Margin="0, 0, 0, 8">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="50" />
-                                                    <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition Width="130" />
-                                                </Grid.ColumnDefinitions>
-
-                                                <Button Width="35"
-                                                                    Height="35"
-                                                                    BorderThickness="0"
-                                                                    Style="{StaticResource add_member_btn}">
-                                                    <Button.Background>
-                                                        <ImageBrush ImageSource="../Assets/Images/man.png" />
-                                                    </Button.Background>
-                                                </Button>
-                                                <StackPanel Grid.Column="1">
-                                                    <TextBlock  VerticalAlignment="Center" 
-                                                                            Text="Tên thành viên"/>
-                                                    <TextBlock Text="Thành viên"
-                                                                           Foreground="#b1b1b1"
-                                                                           FontSize="10"/>
-                                                </StackPanel>
-
-                                                <StackPanel Orientation="Horizontal"
-                                                                        Grid.Column="2"
-                                                                        HorizontalAlignment="Right">
-
-                                                    <Button Width="28"
-                                                                        Height="28"
-                                                                        BorderThickness="0"
-                                                                        Margin="0, 0, 0, 0"
-                                                                        Style="{StaticResource vehicle_button}">
-                                                        <Button.Background>
-                                                            <ImageBrush ImageSource="../Assets/Images/monney.png" />
-                                                        </Button.Background>
-                                                        <Button.ToolTip>
-                                                            190k
-                                                        </Button.ToolTip>
-                                                    </Button>
-
-                                                    <Button Width="28"
-                                                                        Height="28"
-                                                                        BorderThickness="0"
-                                                                    Margin="5, 0, 0, 0"
-                                                                        Style="{StaticResource vehicle_button}">
-                                                        <Button.Background>
-                                                            <ImageBrush ImageSource="../Assets/Images/telephone.png" />
-                                                        </Button.Background>
-                                                        <Button.ToolTip>
-                                                            01626507146
-                                                        </Button.ToolTip>
-                                                    </Button>
-                                                    <Button Width="28"
-                                                                    Margin="5, 0, 0, 0"
-                                                                        Height="28"
-                                                                        BorderThickness="0"
-                                                                        Style="{StaticResource vehicle_button}">
-                                                        <Button.Background>
-                                                            <ImageBrush ImageSource="../Assets/Images/paint-roller.png" />
-                                                        </Button.Background>
-                                                        <Button.ToolTip>
-                                                            Sửa thông tin
-                                                        </Button.ToolTip>
-                                                    </Button>
-                                                    <Button Width="28"
-                                                                    Margin="5, 0, 0, 0"
-                                                                        Height="28"
-                                                                        BorderThickness="0"
-                                                                        Style="{StaticResource vehicle_button}">
-                                                        <Button.Background>
-                                                            <ImageBrush ImageSource="../Assets/Images/remove.png" />
-                                                        </Button.Background>
-                                                        <Button.ToolTip>
-                                                            Xóa thành viên
-                                                        </Button.ToolTip>
-                                                    </Button>
-                                                </StackPanel>
-                                            </Grid>
-
-                                            <Grid Margin="0, 0, 0, 8">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="50" />
-                                                    <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition Width="80" />
-                                                </Grid.ColumnDefinitions>
-
-                                                <Button Width="35"
-                                                                    Height="35"
-                                                                    BorderThickness="0"
-                                                                    Style="{StaticResource add_member_btn}">
-                                                    <Button.Background>
-                                                        <ImageBrush ImageSource="../Assets/Images/man.png" />
-                                                    </Button.Background>
-                                                </Button>
-                                                <StackPanel Grid.Column="1">
-                                                    <TextBlock  VerticalAlignment="Center" 
-                                                                            Text="Tên thành viên"/>
-                                                    <TextBlock Text="Thành viên"
-                                                                           Foreground="#b1b1b1"
-                                                                           FontSize="10"/>
-                                                </StackPanel>
-
-                                                <StackPanel Orientation="Horizontal"
-                                                                        Grid.Column="2"
-                                                                        HorizontalAlignment="Right">
-
-                                                    <Button Width="30"
-                                                                        Height="30"
-                                                                        BorderThickness="0"
-                                                                        Margin="0, 0, 8, 0"
-                                                                        Style="{StaticResource add_member_btn}">
-                                                        <Button.Background>
-                                                            <ImageBrush ImageSource="../Assets/Images/monney.png" />
-                                                        </Button.Background>
-                                                    </Button>
-
-                                                    <Button Width="30"
-                                                                        Height="30"
-                                                                        BorderThickness="0"
-                                                                        Style="{StaticResource add_member_btn}">
-                                                        <Button.Background>
-                                                            <ImageBrush ImageSource="../Assets/Images/telephone.png" />
-                                                        </Button.Background>
-                                                    </Button>
-
-
-                                                </StackPanel>
-
-
-                                            </Grid>
-                                            <Grid Margin="0, 0, 0, 8">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="50" />
-                                                    <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition Width="80" />
-                                                </Grid.ColumnDefinitions>
-
-                                                <Button Width="35"
-                                                                    Height="35"
-                                                                    BorderThickness="0"
-                                                                    Style="{StaticResource add_member_btn}">
-                                                    <Button.Background>
-                                                        <ImageBrush ImageSource="../Assets/Images/man.png" />
-                                                    </Button.Background>
-                                                </Button>
-                                                <StackPanel Grid.Column="1">
-                                                    <TextBlock  VerticalAlignment="Center" 
-                                                                            Text="Tên thành viên"/>
-                                                    <TextBlock Text="Thành viên"
-                                                                           Foreground="#b1b1b1"
-                                                                           FontSize="10"/>
-                                                </StackPanel>
-
-                                                <StackPanel Orientation="Horizontal"
-                                                                        Grid.Column="2"
-                                                                        HorizontalAlignment="Right">
-
-                                                    <Button Width="30"
-                                                                        Height="30"
-                                                                        BorderThickness="0"
-                                                                        Margin="0, 0, 8, 0"
-                                                                        Style="{StaticResource add_member_btn}">
-                                                        <Button.Background>
-                                                            <ImageBrush ImageSource="../Assets/Images/monney.png" />
-                                                        </Button.Background>
-                                                    </Button>
-
-                                                    <Button Width="30"
-                                                                        Height="30"
-                                                                        BorderThickness="0"
-                                                                        Style="{StaticResource add_member_btn}">
-                                                        <Button.Background>
-                                                            <ImageBrush ImageSource="../Assets/Images/telephone.png" />
-                                                        </Button.Background>
-                                                    </Button>
-
-
-                                                </StackPanel>
-
-
-                                            </Grid>
-                                            <Grid Margin="0, 0, 0, 8">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="50" />
-                                                    <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition Width="80" />
-                                                </Grid.ColumnDefinitions>
-
-                                                <Button Width="35"
-                                                                    Height="35"
-                                                                    BorderThickness="0"
-                                                                    Style="{StaticResource add_member_btn}">
-                                                    <Button.Background>
-                                                        <ImageBrush ImageSource="../Assets/Images/man.png" />
-                                                    </Button.Background>
-                                                </Button>
-                                                <StackPanel Grid.Column="1">
-                                                    <TextBlock  VerticalAlignment="Center" 
-                                                                            Text="Tên thành viên"/>
-                                                    <TextBlock Text="Thành viên"
-                                                                           Foreground="#b1b1b1"
-                                                                           FontSize="10"/>
-                                                </StackPanel>
-
-                                                <StackPanel Orientation="Horizontal"
-                                                                        Grid.Column="2"
-                                                                        HorizontalAlignment="Right">
-
-                                                    <Button Width="30"
-                                                                        Height="30"
-                                                                        BorderThickness="0"
-                                                                        Margin="0, 0, 8, 0"
-                                                                        Style="{StaticResource add_member_btn}">
-                                                        <Button.Background>
-                                                            <ImageBrush ImageSource="../Assets/Images/monney.png" />
-                                                        </Button.Background>
-                                                    </Button>
-
-                                                    <Button Width="30"
-                                                                        Height="30"
-                                                                        BorderThickness="0"
-                                                                        Style="{StaticResource add_member_btn}">
-                                                        <Button.Background>
-                                                            <ImageBrush ImageSource="../Assets/Images/telephone.png" />
-                                                        </Button.Background>
-                                                    </Button>
-
-
-                                                </StackPanel>
-
-
-                                            </Grid>
-                                            <Grid Margin="0, 0, 0, 10">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="50" />
-                                                    <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition Width="80" />
-                                                </Grid.ColumnDefinitions>
-
-                                                <Button Width="35"
-                                                                    Height="35"
-                                                                    BorderThickness="0"
-                                                                    Style="{StaticResource add_member_btn}">
-                                                    <Button.Background>
-                                                        <ImageBrush ImageSource="../Assets/Images/man.png" />
-                                                    </Button.Background>
-                                                </Button>
-                                                <StackPanel Grid.Column="1">
-                                                    <TextBlock  VerticalAlignment="Center" 
-                                                                            Text="Tên thành viên"/>
-                                                    <TextBlock Text="Thành viên"
-                                                                           Foreground="#b1b1b1"
-                                                                           FontSize="10"/>
-                                                </StackPanel>
-
-                                                <StackPanel Orientation="Horizontal"
-                                                                        Grid.Column="2"
-                                                                        HorizontalAlignment="Right">
-
-                                                    <Button Width="30"
-                                                                        Height="30"
-                                                                        BorderThickness="0"
-                                                                        Margin="0, 0, 8, 0"
-                                                                        Style="{StaticResource add_member_btn}">
-                                                        <Button.Background>
-                                                            <ImageBrush ImageSource="../Assets/Images/monney.png" />
-                                                        </Button.Background>
-                                                    </Button>
-
-                                                    <Button Width="30"
-                                                                        Height="30"
-                                                                        BorderThickness="0"
-                                                                        Style="{StaticResource add_member_btn}">
-                                                        <Button.Background>
-                                                            <ImageBrush ImageSource="../Assets/Images/telephone.png" />
-                                                        </Button.Background>
-                                                    </Button>
-
-
-                                                </StackPanel>
-
-
-                                            </Grid>
-                                        </StackPanel>
-                                    </ScrollViewer>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </Border>
-
-
-        </Grid>
-
-    </Grid>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ListView>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Border>
+
+                    <Border Canvas.Left="21" Canvas.Top="999" Width="380" Height="60" CornerRadius="10" BorderThickness="1" BorderBrush="#FF484848">
+
+                    </Border>
+                    <Button x:Name="Imgsss" Click="Imgsss_Click" Height="60" VerticalAlignment="Bottom" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="#FF2B2B2B" FontSize="14" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Center" Canvas.Left="21" Canvas.Top="999" Width="380">
+                        <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Image Source="/assets/add-pictures.png" Width="50" Height="50" RenderOptions.BitmapScalingMode="HighQuality" Stretch="UniformToFill"></Image>
+                        </WrapPanel>
+                    </Button>
+                    
+                </Canvas>
+            </ScrollViewer>
+        </DockPanel>
+    </materialDesign:TransitioningContent>
 
 </UserControl>
