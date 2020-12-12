@@ -1,8 +1,9 @@
 ﻿using System;
 
+using WeSplit.ViewModel;
 namespace WeSplit.Models
 {
-    public class Trip
+    public class Trip : BaseViewModel
     {
         private string description;
         private string title;
@@ -41,7 +42,7 @@ namespace WeSplit.Models
         public string ThumnailPath
         {
             get { return thumnailPath; }
-            set { thumnailPath = value; }
+            set { OnPropertyChanged(ref thumnailPath, value); }
         }
         public System.DateTime StartDate
         {
