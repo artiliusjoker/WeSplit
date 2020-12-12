@@ -130,5 +130,10 @@ namespace WeSplit.Models
             List<string> list = new List<string>(DatabaseEntity.Entity.DB.COSTs.ToList().Select(x => x.NAME));
             return list;
         }
+        public static List<Member> GetAllMembers()
+        {
+            List<Member> list = new List<Member>(DatabaseEntity.Entity.DB.MEMBERs.ToList().Select(x => new Member(x)));
+            return list;
+        }
     }
 }

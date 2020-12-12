@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using WeSplit.Models;
 
 namespace WeSplit.ViewModel
@@ -15,6 +16,10 @@ namespace WeSplit.ViewModel
             CostComboContent = DataAccess.GetCostsType();
             // Chi phí của chuyến đi
             TripCosts = new ObservableCollection<TripCost>(DataAccess.GetTripCosts(trip.ID));
+            // Thành viên của chuyến đi
+            TripMembers = DataAccess.GetTripMembers(TripSelected.ID);
+            // Tất cả thành viên trong nhóm
+            AllMembers = new ObservableCollection<Member>(DataAccess.GetAllMembers());
         }
 
         public Trip TripSelected { get; set; }
@@ -26,5 +31,9 @@ namespace WeSplit.ViewModel
             get;
             set;         
         }
+
+        public BindingList<Member> TripMembers { get; set; }
+
+        public ObservableCollection<Member> AllMembers { get; set; }
     }
 }
