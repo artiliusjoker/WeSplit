@@ -141,6 +141,7 @@
     <Compile Include="ViewModel\DetailTripViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\SplashViewModel.cs" />
+    <Compile Include="ViewModel\UpdateTripViewModel.cs" />
     <Compile Include="View\DetailTripWindow.xaml.cs">
       <DependentUpon>DetailTripWindow.xaml</DependentUpon>
     </Compile>
@@ -149,6 +150,9 @@
     </Compile>
     <Compile Include="View\UserControlView\DetailTrip.xaml.cs">
       <DependentUpon>DetailTrip.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControlView\UpdateTrip.xaml.cs">
+      <DependentUpon>UpdateTrip.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -179,6 +183,10 @@
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
     <Page Include="View\UserControlView\DetailTrip.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\UserControlView\UpdateTrip.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -224,6 +232,10 @@
     <Resource Include="assets\static_des_splash.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="assets\cancel.png" />
+    <Resource Include="assets\save.png" />
+    <Resource Include="assets\add-thumbnail-picture.png" />
+    <Resource Include="assets\add-pictures.png" />
     <Content Include="Models\DatabaseModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DatabaseModel.edmx</DependentUpon>

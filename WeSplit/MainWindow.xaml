@@ -28,6 +28,9 @@
         <DataTemplate x:Name="ListCurrentTrips" DataType="{x:Type viewModel:CurrentTripsViewModel }">
             <view:CurrrentTripControl/>
         </DataTemplate>
+        <DataTemplate x:Name="UpdateChosenTrip" DataType="{x:Type viewModel:UpdateTripViewModel }">
+            <view:updateTrip/>
+        </DataTemplate>
     </Window.Resources>
 
     <Window.Triggers>

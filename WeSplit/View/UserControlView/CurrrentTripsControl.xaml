@@ -198,13 +198,15 @@
                                             Width="24" />
                                         </Button>
                                         <Button
-                                        Margin="10, 10, 0, 0"
-                                        Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                                        ToolTip="Chỉnh sửa">
+                                            Command="{Binding DataContext.UpdateTrip, RelativeSource={RelativeSource AncestorType=Window, AncestorLevel=1}}"
+                                            CommandParameter="{Binding}"
+                                            Margin="10, 10, 0, 0"
+                                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                                            ToolTip="Chỉnh sửa">
                                             <md:PackIcon
-                                            Kind="Wrench"
-                                            Height="24"
-                                            Width="24" />
+                                                Kind="Wrench"
+                                                Height="24"
+                                                Width="24" />
                                         </Button>
                                     </StackPanel>
                                 </Grid>
