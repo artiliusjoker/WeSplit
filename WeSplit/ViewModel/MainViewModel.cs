@@ -47,7 +47,8 @@ namespace WeSplit.ViewModel
 
             UpdateTrip = new RelayCommand<object>((p) => { return p != null; }, (p) =>
             {
-                CurrentView = new UpdateTripViewModel();
+                Trip tripSelected = (Trip)p;
+                CurrentView = new UpdateTripViewModel(tripSelected);
             });
 
             DiscardChanges = new RelayCommand<object>((p) => { return true; }, (p) =>

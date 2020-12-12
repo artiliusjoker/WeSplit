@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using WeSplit.Models;
 
 namespace WeSplit.ViewModel
 {
     class UpdateTripViewModel
     {
+        public UpdateTripViewModel() { }
+
+        public UpdateTripViewModel(Trip trip) 
+        {
+            TripSelected = trip;
+        }
+
+        public Trip TripSelected { get; set; }
     }
 }
