@@ -125,9 +125,9 @@ namespace WeSplit.Models
                 }));
             return list;
         }
-        public static List<string> GetCostsType()
+        public static List<COST> GetCostsType()
         {
-            List<string> list = new List<string>(DatabaseEntity.Entity.DB.COSTs.ToList().Select(x => x.NAME));
+            List<COST> list = new List<COST>(DatabaseEntity.Entity.DB.COSTs.ToList());
             return list;
         }
         public static List<Member> GetAllMembers()

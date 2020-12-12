@@ -13,7 +13,7 @@ namespace WeSplit.ViewModel
         {
             TripSelected = trip;
             // Danh sách các loại chi phí trong combo box
-            CostComboContent = DataAccess.GetCostsType();
+            AllCostTypes = DataAccess.GetCostsType();
             // Chi phí của chuyến đi
             TripCosts = new ObservableCollection<TripCost>(DataAccess.GetTripCosts(trip.ID));
             // Thành viên của chuyến đi
@@ -26,7 +26,7 @@ namespace WeSplit.ViewModel
 
         public Trip TripSelected { get; set; }
 
-        public List<string> CostComboContent { get; private set; }
+        public List<COST> AllCostTypes { get; private set; }
 
         public ObservableCollection<TripCost> TripCosts { get; set; }
 

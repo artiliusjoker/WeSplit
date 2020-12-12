@@ -110,7 +110,7 @@
                         </WrapPanel>
                     </Button>
                     <ComboBox
-                        ItemsSource="{Binding CostComboContent}"
+                        ItemsSource="{Binding AllCostTypes}"
                         DockPanel.Dock="Top"
                         Canvas.Left="440" Canvas.Top="21"
                         x:Name="Expenditures"
@@ -119,6 +119,15 @@
                         materialDesign:HintAssist.HintOpacity=".26"                      
                         IsEditable="True"
                         Width="250">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Path=COST_ID}"/>
+                                    <TextBlock Text=" - "/>
+                                    <TextBlock Text="{Binding Path=NAME}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
                     </ComboBox>
                     
                     <TextBox 
@@ -139,7 +148,7 @@
                            Margin="10,0,5,0"
                            HorizontalAlignment="Left"
                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                           ToolTip="Chỉnh sửa">
+                           ToolTip="Thêm mới chi phí">
                         <materialDesign:PackIcon
                            Kind="PlusThick"
                            Height="40"
@@ -207,7 +216,7 @@
                           Margin="10,0,5,0"
                           HorizontalAlignment="Left"
                           Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                          ToolTip="Chỉnh sửa">
+                          ToolTip="Thêm mới thành viên">
                         <materialDesign:PackIcon
                            Kind="PlusThick"
                            Height="40"
