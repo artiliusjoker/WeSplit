@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"  
              xmlns:local="clr-namespace:WeSplit.View.UserControlView"
+             xmlns:Converter="clr-namespace:WeSplit.Helpers.Converter"
              mc:Ignorable="d"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
@@ -15,6 +16,11 @@
              FontFamily="{DynamicResource MaterialDesignFont}"
              d:DesignHeight="728" d:DesignWidth="1010">
 
+    <UserControl.Resources>
+        <Converter:ImageConverter x:Key="ImagePathConverter"/>
+        <Converter:CurrencyConverter x:Key="CurrencyConverter"/>
+    </UserControl.Resources>
+    
     <materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect ExpandIn, Duration=0:0:0}">
         <DockPanel Name="USUpdateTrips" LastChildFill="True">
             <Grid DockPanel.Dock="Top">
@@ -104,12 +110,13 @@
                         </WrapPanel>
                     </Button>
                     <ComboBox
+                        ItemsSource="{Binding CostComboContent}"
                         DockPanel.Dock="Top"
                         Canvas.Left="440" Canvas.Top="21"
                         x:Name="Expenditures"
                         FontSize="18"
                         materialDesign:HintAssist.Hint="Chi phí"
-                        materialDesign:HintAssist.HintOpacity=".26"
+                        materialDesign:HintAssist.HintOpacity=".26"                      
                         IsEditable="True"
                         Width="250">
                     </ComboBox>
@@ -139,39 +146,30 @@
                            Width="40" />
                     </Button>
                     <Border Canvas.Left="440" Canvas.Top="101" Width="540" Height="150" CornerRadius="10" BorderThickness="1" BorderBrush="#FF484848">
-                        <ItemsControl Name="listExpenditures" Canvas.Left="440" Canvas.Top="101" Width="540" Height="150" FontSize="18">
-                            <ItemsControl.ItemsPanel>
+                        <ListView Name="listExpenditures" ItemsSource="{Binding TripCosts}" ScrollViewer.VerticalScrollBarVisibility ="Hidden" Canvas.Left="440" Canvas.Top="101" Width="540" Height="150" FontSize="18">
+                            <ListView.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <StackPanel />
+                                    <StackPanel/>
                                 </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
+                            </ListView.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <StackPanel>
-                                        <ListView ItemsSource="{Binding Expenses}" ScrollViewer.VerticalScrollBarVisibility ="Hidden" Canvas.Left="440" Canvas.Top="101" Width="656" Height="150">
-                                            <ListView.ItemsPanel>
-                                                <ItemsPanelTemplate>
-                                                    <StackPanel/>
-                                                </ItemsPanelTemplate>
-                                            </ListView.ItemsPanel>
-                                            <ItemsControl.ItemTemplate>
-                                                <DataTemplate>
-                                                    <WrapPanel>
-                                                        <TextBlock Text="{Binding}" Width="580" Height="Auto" FontSize="18" TextAlignment="Justify" HorizontalAlignment="Left"/>
-                                                        <Button x:Name="buttonEditExpenses"  Height="25" Width="25" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF404040" Margin="0 0 5 0">
-                                                            <materialDesign:PackIcon Kind="Pencil" Width="25" Height="25" Foreground="#FF1273EB" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                        </Button>
-                                                        <Button x:Name="buttonDeleteExpenses"  Height="25" Width="25" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF404040">
-                                                            <materialDesign:PackIcon Kind="Delete" Width="25" Height="25" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                        </Button>
-                                                    </WrapPanel>
-                                                </DataTemplate>
-                                            </ItemsControl.ItemTemplate>
-                                        </ListView>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Name}" 
+                                                   Width="300" Height="Auto" FontSize="18" 
+                                                   TextAlignment="Justify"/>
+                                        <TextBlock Text="{Binding Amount , Converter={StaticResource CurrencyConverter}}" 
+                                                   Width="180" Height="Auto" FontSize="18" 
+                                                   TextAlignment="Justify"/>
+                                        <Button 
+                                                x:Name="buttonDeleteExpenses"  
+                                                Height="25" Width="25" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF404040">
+                                            <materialDesign:PackIcon Kind="Delete" Width="25" Height="25" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Button>
                                     </StackPanel>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
-                        </ItemsControl>
+                        </ListView>
                     </Border>
                     <TextBox 
                 x:Name="memberName"
