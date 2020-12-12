@@ -9,7 +9,8 @@ using WeSplit.Utils;
 namespace WeSplit.Models
 {
     class DataAccess
-    {       
+    {
+        #region QueryData
         public static List<Trip> SearchTrips(Helpers.SearchInfo info)
         {
             List<Trip> result = new List<Trip>();         
@@ -135,5 +136,31 @@ namespace WeSplit.Models
             List<Member> list = new List<Member>(DatabaseEntity.Entity.DB.MEMBERs.ToList().Select(x => new Member(x)));
             return list;
         }
+        #endregion
+
+        #region UpdateData
+
+        public void UpdateTripInfo(Trip updatedItem)
+        {
+            TRIP item = new TRIP()
+            {
+                TRIP_ID = updatedItem.ID,
+                DESCRIPTION = updatedItem.Description,
+                TITTLE = updatedItem.Title,
+                THUMNAIL = updatedItem.ThumnailPath,
+                TOGODATE = updatedItem.StartDate,
+                RETURNDATE = updatedItem.EndDate,
+                ISDONE = (bool?)false
+        };
+            // assume Entity base class have an Id property for all items
+            var entity = DatabaseEntity.Entity.DB.TRIPs.Find(item.TRIP_ID);
+            if (entity == null)
+            {
+                return;
+            }
+            DatabaseEntity.Entity.DB.Entry(entity).CurrentValues.SetValues(item);
+            DatabaseEntity.Entity.DB.SaveChanges();
+        }
+        #endregion
     }
 }
