@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WeSplit.Models
 {
@@ -14,16 +10,17 @@ namespace WeSplit.Models
         private int _ID;
         private System.DateTime startDate;
         private System.DateTime endDate;
+        private bool isDone;
 
         public Trip(TRIP trip)
         {
             ID = trip.TRIP_ID;
             Description = trip.DESCRIPTION;
             Title = trip.TITTLE;
-            string folder = AppDomain.CurrentDomain.BaseDirectory;
-            thumnailPath = folder + trip.THUMNAIL;
+            thumnailPath = trip.THUMNAIL;
             StartDate = (DateTime)trip.TOGODATE;
             EndDate = (DateTime)trip.RETURNDATE;
+            isDone = (bool)trip.ISDONE;
         }
 
         public int ID
@@ -56,7 +53,11 @@ namespace WeSplit.Models
             get { return endDate; }
             set { endDate = value; }
         }
-
+        public bool IsDone
+        {
+            get { return isDone; }
+            set { isDone = value; }
+        }
     }
 
     public class Location : ViewModel.BaseViewModel
