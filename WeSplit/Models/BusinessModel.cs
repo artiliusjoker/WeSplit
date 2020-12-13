@@ -24,6 +24,22 @@ namespace WeSplit.Models
             isDone = (bool)trip.ISDONE;
         }
 
+        public Trip(Trip trip)
+        {
+            ID = trip.ID;
+            Description = trip.Description;
+            Title = trip.Title;
+            thumnailPath = trip.ThumnailPath;
+            StartDate = trip.StartDate;
+            EndDate = trip.EndDate;
+            isDone = trip.IsDone;
+        }
+
+        public Trip Clone()
+        {
+            return new Trip(this);
+        }
+
         public int ID
         {
             get { return _ID; }
@@ -32,12 +48,12 @@ namespace WeSplit.Models
         public string Title
         {
             get { return title; }
-            set { title = value; }
+            set { OnPropertyChanged(ref title, value); }
         }
         public string Description
         {
             get { return description; }
-            set { description = value; }
+            set { OnPropertyChanged(ref description, value); }
         }
         public string ThumnailPath
         {
@@ -47,12 +63,12 @@ namespace WeSplit.Models
         public System.DateTime StartDate
         {
             get { return startDate; }
-            set { startDate = value; }
+            set { OnPropertyChanged(ref startDate, value); }
         }
         public System.DateTime EndDate
         {
             get { return endDate; }
-            set { endDate = value; }
+            set { OnPropertyChanged(ref endDate, value); }
         }
         public bool IsDone
         {

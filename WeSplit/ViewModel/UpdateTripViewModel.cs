@@ -27,19 +27,25 @@ namespace WeSplit.ViewModel
                 {
                     // Thay đổi UI
                     var newThumbnailOpened = open.FileName;
-                    string newThumbnailFileName = Path.GetFileName(newThumbnailOpened);
-                    string newThumbnail = $"Assets\\trips\\{TripSelected.ID}\\{newThumbnailFileName}";
-
-                    // Copy hình thumbnail mới vào folder của chương trình
-                    string currentFolder = AppDomain.CurrentDomain.BaseDirectory;
-                    string thumbnailDestination = $"{currentFolder}{newThumbnail}";
-                    File.Copy(newThumbnailOpened, thumbnailDestination, true);
-
-                    TripSelected.ThumnailPath = newThumbnail;
+                    TripBinding.ThumnailPath = newThumbnailOpened;                
                 }
             });
-
+            SaveDetailsCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                // Copy hình thumbnail mới vào folder của chương trình và lưu record vào DB
+                if (TripBinding.ThumnailPath != TripSelected.ThumnailPath)
+                {
+                    string newThumbnailFileName = Path.GetFileName(TripBinding.ThumnailPath);
+                    string newThumbnail = $"Assets\\trips\\{TripBinding.ID}\\{newThumbnailFileName}";
+                    string currentFolder = AppDomain.CurrentDomain.BaseDirectory;
+                    string newThumbnailDestination = $"{currentFolder}{newThumbnail}";
+                    File.Copy(TripBinding.ThumnailPath, newThumbnailDestination, true);
+                    TripSelected.ThumnailPath = newThumbnail;
+                }                  
+            });
+            // Clone
             TripSelected = trip;
+            TripBinding = trip.Clone();
             // Danh sách các loại chi phí trong combo box
             AllCostTypes = DataAccess.GetCostsType();
             // Chi phí của chuyến đi
@@ -54,6 +60,8 @@ namespace WeSplit.ViewModel
 
         public Trip TripSelected { get; set; }
 
+        public Trip TripBinding { get; set; }
+
         public List<COST> AllCostTypes { get; private set; }
 
         public ObservableCollection<TripCost> TripCosts { get; set; }
@@ -65,5 +73,7 @@ namespace WeSplit.ViewModel
         public ObservableCollection<TripImages> TripImages { get; set; }
 
         public ICommand ChooseTripThumbnailCommand { get; set; }
+
+        public ICommand SaveDetailsCommand { get; set; }
     }
 }
