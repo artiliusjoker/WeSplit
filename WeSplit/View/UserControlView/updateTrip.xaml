@@ -268,8 +268,8 @@
                     BorderThickness="1"
                     CornerRadius="10"
                     Height="300"
-                    VerticalAlignment="Center" BorderBrush="#FF484848" Width="960" Canvas.Left="21" Canvas.Top="681">
-                        <ListView Name="listImages" Width="960" Canvas.Left="21" Canvas.Top="681" Height="300" ItemsSource="{Binding TripImages}" ScrollViewer.VerticalScrollBarVisibility ="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    VerticalAlignment="Center" BorderBrush="#FF484848" Width="380" Canvas.Left="21" Canvas.Top="681">
+                        <ListView Name="listImages" Width="380" Canvas.Left="21" Canvas.Top="681" Height="300" ItemsSource="{Binding TripImages}" ScrollViewer.VerticalScrollBarVisibility ="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                             <ListView.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <WrapPanel></WrapPanel>
@@ -292,14 +292,71 @@
                         </ListView>
                     </Border>
 
-                    <Border Canvas.Left="21" Canvas.Top="999" Width="960" Height="60" CornerRadius="10" BorderThickness="1" BorderBrush="#FF484848">
+                    <Border Canvas.Left="21" Canvas.Top="999" Width="380" Height="60" CornerRadius="10" BorderThickness="1" BorderBrush="#FF484848">
 
                     </Border>
-                    <Button x:Name="Imgsss" Height="60" VerticalAlignment="Bottom" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="#FF2B2B2B" FontSize="14" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Center" Canvas.Left="21" Canvas.Top="999" Width="960">
+                    <Button x:Name="Imgsss" Height="60" VerticalAlignment="Bottom" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="#FF2B2B2B" FontSize="14" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Center" Canvas.Left="21" Canvas.Top="999" Width="380">
                         <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image Source="/assets/add-pictures.png" Width="50" Height="50" RenderOptions.BitmapScalingMode="HighQuality" Stretch="UniformToFill"></Image>
                         </WrapPanel>
                     </Button>
+                    
+                    <ComboBox
+                        ItemsSource="{Binding AllLocations}"
+                        Canvas.Left="440" Canvas.Top="681"
+                        x:Name="Locations"
+                        FontSize="18"
+                        materialDesign:HintAssist.Hint="Địa điểm đi qua"
+                        materialDesign:HintAssist.HintOpacity=".26"                      
+                        IsEditable="True"
+                        Width="480">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Path=Name}"/>
+                                    <TextBlock Text=" - "/>
+                                    <TextBlock Text="{Binding Path=PhoneNumber}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                    <Button  Canvas.Left="930" Canvas.Top="681"
+                          Margin="10,0,5,0"
+                          HorizontalAlignment="Left"
+                          Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                          ToolTip="Thêm mới thành viên">
+                        <materialDesign:PackIcon
+                           Kind="PlusThick"
+                           Height="40"
+                           Width="40" />
+                    </Button>
+                    <Border Canvas.Left="440" Canvas.Top="761" Width="540" Height="300" CornerRadius="10" BorderThickness="1" BorderBrush="#FF484848">
+                        <ListView Name="LocationsList" ItemsSource="{Binding TripMembers}" ScrollViewer.VerticalScrollBarVisibility ="Hidden" Canvas.Left="440" Canvas.Top="761" Width="540" Height="300" FontSize="18">
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel/>
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Name}" 
+                                                   Width="300" Height="Auto" FontSize="18" 
+                                                   TextAlignment="Justify"/>
+                                        <TextBlock Text="{Binding AmountPaid , Converter={StaticResource CurrencyConverter}}" 
+                                                   Width="180" Height="Auto" FontSize="18" 
+                                                   TextAlignment="Justify"/>
+                                        <Button 
+                                                x:Name="buttonDeleteExpenses"  
+                                                Height="25" Width="25" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF404040">
+                                            <materialDesign:PackIcon Kind="Delete" Width="25" Height="25" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ListView>
+                    </Border>
 
                     <Grid Canvas.Left="21" Canvas.Top="1060"
                           Width="960" Height="60"
