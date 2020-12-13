@@ -124,6 +124,7 @@
                         </WrapPanel>
                     </Button>
                     <ComboBox
+                        SelectedValue="{Binding CostSelected, UpdateSourceTrigger=PropertyChanged}"
                         ItemsSource="{Binding AllCostTypes}"
                         DockPanel.Dock="Top"
                         Canvas.Left="440" Canvas.Top="21"
@@ -131,7 +132,7 @@
                         FontSize="18"
                         materialDesign:HintAssist.Hint="Chi phí"
                         materialDesign:HintAssist.HintOpacity=".26"                      
-                        IsEditable="True"
+                        IsEditable="False"
                         Width="250">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
@@ -147,7 +148,7 @@
                     <TextBox 
                         x:Name="Prices"
                         FontSize="18"
-                        Text="{Binding SearchKeyword, UpdateSourceTrigger=PropertyChanged}"
+                        Text="{Binding CostAmountInput, UpdateSourceTrigger=PropertyChanged}"
                         DockPanel.Dock="Top"
                         Width="200"
                         BorderThickness="0"
@@ -159,6 +160,7 @@
                         materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
                         materialDesign:TextFieldAssist.TextFieldCornerRadius="4" Canvas.Left="710" Canvas.Top="21" RenderTransformOrigin="0.029,0.592"/>
                     <Button  Canvas.Left="930" Canvas.Top="21"
+                             Command="{Binding AddCostCommand}"
                            Margin="10,0,5,0"
                            HorizontalAlignment="Left"
                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"

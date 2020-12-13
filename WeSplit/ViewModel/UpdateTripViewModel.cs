@@ -15,6 +15,11 @@ namespace WeSplit.ViewModel
 
         public UpdateTripViewModel(Trip trip) 
         {
+            AddCostCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                var x = CostAmountInput;
+                var y = CostSelected;
+            });
             ChooseTripThumbnailCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 OpenFileDialog open = new OpenFileDialog
@@ -118,6 +123,32 @@ namespace WeSplit.ViewModel
             }
         }
 
+        public COST costSelected;
+        public COST CostSelected
+        {
+            get
+            {
+                return costSelected;
+            }
+            set
+            {
+                OnPropertyChanged(ref costSelected, value);
+            }
+        }
+
+        public string costAmountInput;
+        public string CostAmountInput
+        {
+            get
+            {
+                return costAmountInput;
+            }
+            set
+            {
+                OnPropertyChanged(ref costAmountInput, value);
+            }
+        }
+
         public List<COST> AllCostTypes { get; private set; }
 
         public List<Member> AllMembers { get; set; }
@@ -135,5 +166,8 @@ namespace WeSplit.ViewModel
         public ICommand ChooseTripThumbnailCommand { get; set; }
         public ICommand SaveDetailsCommand { get; set; }
         public ICommand DiscardChangesAndReload { get; set; }
+        public ICommand AddCostCommand { get; set; }
+        public ICommand AddLocationCommand { get; set; }
+        public ICommand AddMemberCommand { get; set; }
     }
 }
