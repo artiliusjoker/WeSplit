@@ -86,6 +86,7 @@
     </ApplicationDefinition>
     <Compile Include="Helpers\Converter\CurrencyConverter.cs" />
     <Compile Include="Helpers\Converter\ImageConverter.cs" />
+    <Compile Include="Helpers\Converter\LongStringConverter.cs" />
     <Compile Include="Helpers\Pagination.cs" />
     <Compile Include="Helpers\SearchInfo.cs" />
     <Compile Include="Helpers\VisualTreeViewHelper.cs" />
