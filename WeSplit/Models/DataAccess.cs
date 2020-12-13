@@ -140,7 +140,7 @@ namespace WeSplit.Models
 
         #region UpdateData
 
-        public void UpdateTripInfo(Trip updatedItem)
+        public static void UpdateTripInfo(Trip updatedItem)
         {
             TRIP item = new TRIP()
             {
@@ -150,9 +150,8 @@ namespace WeSplit.Models
                 THUMNAIL = updatedItem.ThumnailPath,
                 TOGODATE = updatedItem.StartDate,
                 RETURNDATE = updatedItem.EndDate,
-                ISDONE = (bool?)false
+                ISDONE = (bool?)updatedItem.IsDone
         };
-            // assume Entity base class have an Id property for all items
             var entity = DatabaseEntity.Entity.DB.TRIPs.Find(item.TRIP_ID);
             if (entity == null)
             {

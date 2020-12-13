@@ -32,6 +32,19 @@ namespace WeSplit.ViewModel
             });
             SaveDetailsCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
+                bool isChanged = false;
+                // Title
+                if (TripBinding.Title != TripSelected.Title)
+                {
+                    TripSelected.Title = TripBinding.Title;
+                    isChanged = true;
+                }
+                // Description
+                if (TripBinding.Description != TripSelected.Description)
+                {
+                    TripSelected.Description = TripBinding.Description;
+                    isChanged = true;
+                }
                 // Copy hình thumbnail mới vào folder của chương trình và lưu record vào DB
                 if (TripBinding.ThumnailPath != TripSelected.ThumnailPath)
                 {
@@ -41,7 +54,24 @@ namespace WeSplit.ViewModel
                     string newThumbnailDestination = $"{currentFolder}{newThumbnail}";
                     File.Copy(TripBinding.ThumnailPath, newThumbnailDestination, true);
                     TripSelected.ThumnailPath = newThumbnail;
-                }                  
+                    isChanged = true;
+                }
+                // StartDate
+                if (TripBinding.StartDate != TripSelected.StartDate)
+                {
+                    TripSelected.StartDate = TripBinding.StartDate;
+                    isChanged = true;
+                }
+                // EndDate
+                if (TripBinding.EndDate != TripSelected.EndDate)
+                {
+                    TripSelected.EndDate = TripBinding.EndDate;
+                    isChanged = true;
+                }
+                if(isChanged)
+                {
+                    DataAccess.UpdateTripInfo(TripSelected);
+                }    
             });
             DiscardChangesAndReload = new RelayCommand<object>((p) => { return true; }, (p) =>
             {

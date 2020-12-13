@@ -446,3 +446,5 @@ where t2.NAME like '%' + 'Lê Pele' + '%' AND t1.ISDONE = 1;
 SELECT t1.*
 FROM dbo.TRIP t1
 where dbo.RemoveAllSpaces(dbo.fuConvertToUnsign2(t1.TITTLE)) like N'%' + dbo.RemoveAllSpaces(dbo.fuConvertToUnsign2('chuyen d')) + '%';
+
+select * from dbo.TRIP
