@@ -84,13 +84,13 @@ namespace WeSplit.Models
             return new Trip(trip);
         }
 
-        public static BindingList<Location> GetTripLocations(int tripID)
+        public static List<Location> GetTripLocations(int tripID)
         {
             List<Location> list = new List<Location>(DatabaseEntity.Entity.DB.TRIP_LOCATIONS.ToList()
                 .Where(x => x.TRIP_ID == tripID)
                 .Select(x => new Location(x.LOCATION)));
 
-            return new BindingList<Location>(list);
+            return list;
         }
 
         public static List<TripImages> GetTripImages(int tripID)
@@ -134,6 +134,11 @@ namespace WeSplit.Models
         public static List<Member> GetAllMembers()
         {
             List<Member> list = new List<Member>(DatabaseEntity.Entity.DB.MEMBERs.ToList().Select(x => new Member(x)));
+            return list;
+        }
+        public static List<Location> GetAllLocations()
+        {
+            List<Location> list = new List<Location>(DatabaseEntity.Entity.DB.LOCATIONs.ToList().Select(x => new Location(x)));
             return list;
         }
         #endregion

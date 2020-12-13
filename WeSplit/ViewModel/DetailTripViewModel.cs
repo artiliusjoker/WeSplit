@@ -44,7 +44,7 @@ namespace WeSplit.ViewModel
 
         public List<Member> MoneySplit { get; set; }
 
-        public BindingList<Location> Locations { get; set; }
+        public List<Location> Locations { get; set; }
 
         public BindingList<Member> Members{ get; set; }
 

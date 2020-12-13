@@ -315,7 +315,7 @@
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="{Binding Path=Name}"/>
                                     <TextBlock Text=" - "/>
-                                    <TextBlock Text="{Binding Path=PhoneNumber}"/>
+                                    <TextBlock Text="{Binding Path=Address}"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
@@ -332,7 +332,7 @@
                            Width="40" />
                     </Button>
                     <Border Canvas.Left="440" Canvas.Top="761" Width="540" Height="300" CornerRadius="10" BorderThickness="1" BorderBrush="#FF484848">
-                        <ListView Name="LocationsList" ItemsSource="{Binding TripMembers}" ScrollViewer.VerticalScrollBarVisibility ="Hidden" Canvas.Left="440" Canvas.Top="761" Width="540" Height="300" FontSize="18">
+                        <ListView Name="LocationsList" ItemsSource="{Binding TripLocations}" ScrollViewer.VerticalScrollBarVisibility ="Hidden" Canvas.Left="440" Canvas.Top="761" Width="540" Height="300" FontSize="18">
                             <ListView.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel/>
@@ -342,12 +342,14 @@
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="{Binding Name}" 
-                                                   Width="300" Height="Auto" FontSize="18" 
-                                                   TextAlignment="Justify"/>
-                                        <TextBlock Text="{Binding AmountPaid , Converter={StaticResource CurrencyConverter}}" 
-                                                   Width="180" Height="Auto" FontSize="18" 
-                                                   TextAlignment="Justify"/>
-                                        <Button 
+                                                   Width="150" Height="Auto" FontSize="16" 
+                                                   TextAlignment="Left"
+                                                   TextWrapping="Wrap"/>
+                                        <TextBlock Text="{Binding Address}" 
+                                                   Width="300" Height="Auto" FontSize="16" 
+                                                   TextAlignment="Left"
+                                                   TextWrapping="Wrap"/>
+                                        <Button
                                                 x:Name="buttonDeleteExpenses"  
                                                 Height="25" Width="25" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF404040">
                                             <materialDesign:PackIcon Kind="Delete" Width="25" Height="25" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center"/>

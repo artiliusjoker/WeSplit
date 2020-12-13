@@ -83,6 +83,8 @@ namespace WeSplit.ViewModel
             AllCostTypes = DataAccess.GetCostsType();
             // Tất cả thành viên trong nhóm
             AllMembers = DataAccess.GetAllMembers();
+            // Tất cả địa điểm có thể đi
+            AllLocations = DataAccess.GetAllLocations();
             // Populate dynamic data
             PopulateData();
         }
@@ -97,6 +99,8 @@ namespace WeSplit.ViewModel
             TripMembers = DataAccess.GetTripMembers(TripSelected.ID);
             // Tất cả hình ảnh của chuyến đi
             TripImages = new ObservableCollection<TripImages>(DataAccess.GetTripImages(TripSelected.ID));
+            // Tất cả địa điểm của chuyến đi
+            TripLocations = new ObservableCollection<Location>(DataAccess.GetTripLocations(TripSelected.ID));
         }
 
         public Trip TripSelected { get; set; }
@@ -118,11 +122,15 @@ namespace WeSplit.ViewModel
 
         public List<Member> AllMembers { get; set; }
 
+        public List<Location> AllLocations { get; set; }
+
         public ObservableCollection<TripCost> TripCosts { get; set; }
 
         public BindingList<Member> TripMembers { get; set; }
 
         public ObservableCollection<TripImages> TripImages { get; set; }
+
+        public ObservableCollection<Location> TripLocations { get; set; }
 
         public ICommand ChooseTripThumbnailCommand { get; set; }
         public ICommand SaveDetailsCommand { get; set; }
