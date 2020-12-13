@@ -9,6 +9,10 @@ namespace WeSplit.Helpers.Converter
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             string imgPath = (string)value;
+            if(System.IO.Path.IsPathRooted(imgPath))
+            {
+                return imgPath;
+            }    
             imgPath = imgPath.Replace('/' , '\\');
             var baseFolder = AppDomain.CurrentDomain.BaseDirectory;
             var absolute = $"{baseFolder}{imgPath}";
