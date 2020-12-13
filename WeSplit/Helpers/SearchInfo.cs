@@ -14,9 +14,9 @@ namespace WeSplit.Helpers
         public string Keyword { get; set; }
         public SearchInfo()
         {
-            TripFinishedSearchChecked = true;
-            MemberSearchChecked = true;
-            TripOngoingSearchChecked = true;
+            TripFinishedSearchChecked = false;
+            MemberSearchChecked = false;
+            TripOngoingSearchChecked = false;
         }
     }
 }
