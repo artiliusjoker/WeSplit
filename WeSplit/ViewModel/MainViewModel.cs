@@ -32,7 +32,7 @@ namespace WeSplit.ViewModel
 
         public ICommand UpdateTrip { get; set; }
 
-        public ICommand DiscardChanges { get; set; }
+        public ICommand DiscardChangesAndGoBack { get; set; }
 
         public MainViewModel()
         {
@@ -51,7 +51,7 @@ namespace WeSplit.ViewModel
                 CurrentView = new UpdateTripViewModel(tripSelected);
             });
 
-            DiscardChanges = new RelayCommand<object>((p) => { return true; }, (p) =>
+            DiscardChangesAndGoBack = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 CurrentView = CurrentTripsVM;
             });

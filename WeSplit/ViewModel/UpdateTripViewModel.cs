@@ -43,37 +43,59 @@ namespace WeSplit.ViewModel
                     TripSelected.ThumnailPath = newThumbnail;
                 }                  
             });
-            // Clone
+            DiscardChangesAndReload = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                PopulateData();             
+            });
+            // Get selected Trip
             TripSelected = trip;
-            TripBinding = trip.Clone();
             // Danh sách các loại chi phí trong combo box
             AllCostTypes = DataAccess.GetCostsType();
+            // Tất cả thành viên trong nhóm
+            AllMembers = DataAccess.GetAllMembers();
+            // Populate dynamic data
+            PopulateData();
+        }
+
+        private void PopulateData()
+        {
+            TripBinding = TripSelected.Clone();
+            
             // Chi phí của chuyến đi
-            TripCosts = new ObservableCollection<TripCost>(DataAccess.GetTripCosts(trip.ID));
+            TripCosts = new ObservableCollection<TripCost>(DataAccess.GetTripCosts(TripSelected.ID));
             // Thành viên của chuyến đi
             TripMembers = DataAccess.GetTripMembers(TripSelected.ID);
-            // Tất cả thành viên trong nhóm
-            AllMembers = new ObservableCollection<Member>(DataAccess.GetAllMembers());
             // Tất cả hình ảnh của chuyến đi
             TripImages = new ObservableCollection<TripImages>(DataAccess.GetTripImages(TripSelected.ID));
         }
 
         public Trip TripSelected { get; set; }
 
-        public Trip TripBinding { get; set; }
+        public Trip tripBinding;
+        public Trip TripBinding 
+        {
+            get
+            {
+                return tripBinding;
+            }
+            set
+            {
+                OnPropertyChanged(ref tripBinding, value);
+            }
+        }
 
         public List<COST> AllCostTypes { get; private set; }
+
+        public List<Member> AllMembers { get; set; }
 
         public ObservableCollection<TripCost> TripCosts { get; set; }
 
         public BindingList<Member> TripMembers { get; set; }
 
-        public ObservableCollection<Member> AllMembers { get; set; }
-
         public ObservableCollection<TripImages> TripImages { get; set; }
 
         public ICommand ChooseTripThumbnailCommand { get; set; }
-
         public ICommand SaveDetailsCommand { get; set; }
+        public ICommand DiscardChangesAndReload { get; set; }
     }
 }

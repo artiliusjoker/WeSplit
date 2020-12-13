@@ -39,6 +39,7 @@
                 </WrapPanel>
                 <WrapPanel HorizontalAlignment="Right">
                     <Button 
+                           Command="{Binding SaveDetailsCommand}"
                            Margin="0 10 15 0"
                            HorizontalAlignment="Left"
                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
@@ -48,7 +49,17 @@
                            Height="40"
                            Width="40" />
                     </Button>
-                    <Button Command="{Binding DataContext.DiscardChanges, RelativeSource={RelativeSource AncestorType=Window, AncestorLevel=1}}"
+                    <Button Command="{Binding DiscardChangesAndReload}"
+                           Margin="0 10 15 0"
+                           HorizontalAlignment="Left"
+                           Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                           ToolTip="Làm lại">
+                        <materialDesign:PackIcon
+                           Kind="Reload"
+                           Height="40"
+                           Width="40" />
+                    </Button>
+                    <Button Command="{Binding DataContext.DiscardChangesAndGoBack, RelativeSource={RelativeSource AncestorType=Window, AncestorLevel=1}}"
                            Margin="0 10 15 0"
                            HorizontalAlignment="Left"
                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
