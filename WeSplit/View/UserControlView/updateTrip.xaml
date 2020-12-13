@@ -184,7 +184,7 @@
                                     IsReadOnly="True"/>
 
                                 <materialDesign:DataGridTextColumn
-                                    Binding="{Binding Amount}"
+                                    Binding="{Binding Amount, StringFormat=\{0:N0\}}"
                                     Header="Tiền"
                                     Width="200"
                                     EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
@@ -294,7 +294,7 @@
                                     IsReadOnly="True"/>
 
                                 <materialDesign:DataGridTextColumn
-                                    Binding="{Binding AmountPaid}"
+                                    Binding="{Binding AmountPaid, StringFormat=\{0:N0\}}"
                                     Header="Tiền đã trả"
                                     Width="200"
                                     EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
