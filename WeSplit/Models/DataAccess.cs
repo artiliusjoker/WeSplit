@@ -67,14 +67,14 @@ namespace WeSplit.Models
         public static List<Trip> GetFinishedTrips()
         {
             List<Trip> list = new List<Trip>(DatabaseEntity.Entity.DB.TRIPs.ToList()
-                .Where(x => x.ISDONE == false)
+                .Where(x => x.ISDONE == true)
                 .Select(x => new Trip(x)));
             return list;
         }
         public static List<Trip> GetOngoingTrips()
         {
             List<Trip> list = new List<Trip>(DatabaseEntity.Entity.DB.TRIPs.ToList()
-                .Where(x => x.ISDONE == true)
+                .Where(x => x.ISDONE == false)
                 .Select(x => new Trip(x)));
             return list;
         }

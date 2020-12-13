@@ -68,7 +68,7 @@ namespace WeSplit.ViewModel
                 CalculatePagingInfo();
             });
 
-            Trips = TripService.GetOngoingTrips();
+            Trips = DataAccess.GetOngoingTrips();
 
             CalculatePagingInfo();
             Search = new Helpers.SearchInfo();

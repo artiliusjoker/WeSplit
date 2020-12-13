@@ -119,7 +119,6 @@
     <Compile Include="Models\TRIP.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TripService.cs" />
     <Compile Include="Models\TRIP_COSTS.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
