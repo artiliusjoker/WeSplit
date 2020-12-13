@@ -20,6 +20,24 @@ namespace WeSplit.ViewModel
                 var x = CostAmountInput;
                 var y = CostSelected;
             });
+            AddTripImageCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                OpenFileDialog open = new OpenFileDialog
+                {
+                    Multiselect = false,
+                    Filter = "Image Files(*.jpg; *.png; *.jpeg; *.gif; *.bmp)|*.jpg; *.png; *.jpeg; *.gif; *.bmp"
+                };
+                bool? result = open.ShowDialog();
+                if (result == true)
+                {
+                    // Thay đổi UI
+                    var newThumbnailOpened = open.FileName;
+                    AllTripImages.Add(new TripImages() { 
+                        Trip_ID = TripSelected.ID,
+                        ImagePath = newThumbnailOpened
+                    });
+                }
+            });
             ChooseTripThumbnailCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 OpenFileDialog open = new OpenFileDialog
@@ -82,6 +100,22 @@ namespace WeSplit.ViewModel
             {
                 PopulateData();             
             });
+            DeleteTripImageCommand = new RelayCommand<object>((p) => { return p != null; }, (p) =>
+            {
+                TripImages selectedItem = (TripImages)p;
+                foreach(TripImages element in AllTripImages)
+                {
+                    if(element.ImagePath == selectedItem.ImagePath)
+                    {
+                        AllTripImages.Remove(element);
+                        ImagesDeleted.Add(element);
+                        break;
+                    }    
+                }    
+            });
+            // List deleted
+            ImagesDeleted = new List<TripImages>();
+
             // Get selected Trip
             TripSelected = trip;
             // Danh sách các loại chi phí trong combo box
@@ -97,20 +131,20 @@ namespace WeSplit.ViewModel
         private void PopulateData()
         {
             TripBinding = TripSelected.Clone();
-            
+
             // Chi phí của chuyến đi
             TripCosts = new ObservableCollection<TripCost>(DataAccess.GetTripCosts(TripSelected.ID));
             // Thành viên của chuyến đi
             TripMembers = DataAccess.GetTripMembers(TripSelected.ID);
             // Tất cả hình ảnh của chuyến đi
-            TripImages = new ObservableCollection<TripImages>(DataAccess.GetTripImages(TripSelected.ID));
+            AllTripImages = new ObservableCollection<TripImages>(DataAccess.GetTripImages(TripSelected.ID));
             // Tất cả địa điểm của chuyến đi
-            TripLocations = new ObservableCollection<Location>(DataAccess.GetTripLocations(TripSelected.ID));
+            TripLocations = new ObservableCollection<Location>(DataAccess.GetTripLocations(TripSelected.ID));           
         }
 
         public Trip TripSelected { get; set; }
 
-        public Trip tripBinding;
+        private Trip tripBinding;
         public Trip TripBinding 
         {
             get
@@ -123,7 +157,7 @@ namespace WeSplit.ViewModel
             }
         }
 
-        public COST costSelected;
+        private COST costSelected;
         public COST CostSelected
         {
             get
@@ -136,7 +170,7 @@ namespace WeSplit.ViewModel
             }
         }
 
-        public string costAmountInput;
+        private string costAmountInput;
         public string CostAmountInput
         {
             get
@@ -159,15 +193,35 @@ namespace WeSplit.ViewModel
 
         public BindingList<Member> TripMembers { get; set; }
 
-        public ObservableCollection<TripImages> TripImages { get; set; }
+        private ObservableCollection<TripImages> _allTripImages;
+        public ObservableCollection<TripImages> AllTripImages
+        {
+            get
+            {
+                return _allTripImages;
+            }
+            set { OnPropertyChanged(ref _allTripImages, value); }
+        }
 
         public ObservableCollection<Location> TripLocations { get; set; }
 
+        public ICommand AddTripImageCommand { get; set; }
         public ICommand ChooseTripThumbnailCommand { get; set; }
+        public ICommand DeleteTripImageCommand { get; set; }
         public ICommand SaveDetailsCommand { get; set; }
         public ICommand DiscardChangesAndReload { get; set; }
         public ICommand AddCostCommand { get; set; }
         public ICommand AddLocationCommand { get; set; }
         public ICommand AddMemberCommand { get; set; }
+
+        #region DELETE
+        List<TripImages> ImagesDeleted { get; set; }
+        List<Location> LocationsDeleted { get; set; }
+        List<TripCost> MembersDeleted { get; set; }
+        List<TripCost> CostsDeleted { get; set; }
+        private void ClearDeletedLists()
+        {
+        }
+        #endregion
     }
 }

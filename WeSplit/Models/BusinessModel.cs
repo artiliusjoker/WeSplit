@@ -150,9 +150,16 @@ namespace WeSplit.Models
     {
         public string ImagePath { get; set; }
 
-        public TripImages(string imgPath)
+        public int Trip_ID { get; set; }
+
+        public TripImages(TRIP_IMAGES trip_image)
         {
-            this.ImagePath = imgPath;
+            this.ImagePath = trip_image.IMAGE_PATH;
+            this.Trip_ID = trip_image.TRIP_ID;
+        }
+        public TripImages()
+        {
+            
         }
     }
 

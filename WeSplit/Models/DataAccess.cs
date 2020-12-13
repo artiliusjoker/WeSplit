@@ -97,7 +97,7 @@ namespace WeSplit.Models
         {
             List<TripImages> list = new List<TripImages>(DatabaseEntity.Entity.DB.TRIP_IMAGES.ToList()
                 .Where(x => x.TRIP_ID == tripID)
-                .Select(x => new TripImages(x.IMAGE_PATH)));
+                .Select(x => new TripImages(x)));
             return list;
         }
         public static BindingList<Member> GetTripMembers(int tripID)
