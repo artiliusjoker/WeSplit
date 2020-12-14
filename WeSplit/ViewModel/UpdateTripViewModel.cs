@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Input;
+using System.Linq;
 using WeSplit.Models;
 
 namespace WeSplit.ViewModel
@@ -17,25 +18,34 @@ namespace WeSplit.ViewModel
         {
             AddCostCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                var x = CostAmountInput;
-                var y = CostSelected;
+                if (int.TryParse(CostAmountInput, out int amount))
+                {
+                }
             });
             AddTripImageCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 OpenFileDialog open = new OpenFileDialog
                 {
-                    Multiselect = false,
+                    Multiselect = true,
                     Filter = "Image Files(*.jpg; *.png; *.jpeg; *.gif; *.bmp)|*.jpg; *.png; *.jpeg; *.gif; *.bmp"
                 };
                 bool? result = open.ShowDialog();
                 if (result == true)
                 {
-                    // Thay đổi UI
-                    var newThumbnailOpened = open.FileName;
-                    AllTripImages.Add(new TripImages() { 
-                        Trip_ID = TripSelected.ID,
-                        ImagePath = newThumbnailOpened
-                    });
+                    // Những hình đã có trong DB
+                    var existingImgs = new HashSet<string>(from img in AllTripImages select img.ImagePath);
+                    // Những hình đã chọn, lọc ra hình chưa có
+                    var newItems = open.FileNames.Where(item => !existingImgs.Contains(item));
+                    // Thêm vào nhũng hình chưa có
+                    foreach (var item in newItems)
+                    {
+                        // Thay đổi UI
+                        AllTripImages.Add(new TripImages()
+                        {
+                            Trip_ID = TripSelected.ID,
+                            ImagePath = item
+                        }) ;
+                    }                 
                 }
             });
             ChooseTripThumbnailCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
@@ -205,14 +215,23 @@ namespace WeSplit.ViewModel
 
         public ObservableCollection<Location> TripLocations { get; set; }
 
-        public ICommand AddTripImageCommand { get; set; }
         public ICommand ChooseTripThumbnailCommand { get; set; }
-        public ICommand DeleteTripImageCommand { get; set; }
         public ICommand SaveDetailsCommand { get; set; }
         public ICommand DiscardChangesAndReload { get; set; }
+
+        public ICommand DeleteTripLocationCommand { get; set; }
+        public ICommand DeleteTripCostCommand { get; set; }
+        public ICommand DeleteTripMemberCommand { get; set; }
+        public ICommand DeleteTripImageCommand { get; set; }
+
         public ICommand AddCostCommand { get; set; }
         public ICommand AddLocationCommand { get; set; }
         public ICommand AddMemberCommand { get; set; }
+        public ICommand AddTripImageCommand { get; set; }
+
+
+        #region ADD
+        #endregion
 
         #region DELETE
         List<TripImages> ImagesDeleted { get; set; }
