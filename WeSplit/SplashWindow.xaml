@@ -4,200 +4,75 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WeSplit"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="SplashWindow"
-        Height="600"
-        Width="500"
+        Height="800"
+        Width="600"
         WindowStartupLocation="CenterScreen"
         Loaded="Window_Loaded"
         ResizeMode="NoResize"
         WindowStyle="None"
         AllowsTransparency="True"
-        Background="Transparent">
+        Background="Transparent"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto">
 
-    <Window.Resources>
-        <Style x:Key="FocusVisual">
-            <Setter Property="Control.Template">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Rectangle Margin="2"
-                                   SnapsToDevicePixels="true"
-                                   Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
-                                   StrokeThickness="1"
-                                   StrokeDashArray="1 2" />
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <SolidColorBrush x:Key="Button.Static.Background"
-                         Color="#FFDDDDDD" />
-        <SolidColorBrush x:Key="Button.Static.Border"
-                         Color="#FF707070" />
-        <SolidColorBrush x:Key="Button.MouseOver.Background"
-                         Color="#FFBEE6FD" />
-        <SolidColorBrush x:Key="Button.MouseOver.Border"
-                         Color="#FF3C7FB1" />
-        <SolidColorBrush x:Key="Button.Pressed.Background"
-                         Color="#FFC4E5F6" />
-        <SolidColorBrush x:Key="Button.Pressed.Border"
-                         Color="#FF2C628B" />
-        <SolidColorBrush x:Key="Button.Disabled.Background"
-                         Color="#FFF4F4F4" />
-        <SolidColorBrush x:Key="Button.Disabled.Border"
-                         Color="#FFADB2B5" />
-        <SolidColorBrush x:Key="Button.Disabled.Foreground"
-                         Color="#FF838383" />
-        <Style x:Key="ButtonStyle1"
-               TargetType="{x:Type Button}">
-            <Setter Property="FocusVisualStyle"
-                    Value="{StaticResource FocusVisual}" />
-            <Setter Property="Margin"
-                    Value="20"></Setter>
-            <Setter Property="Background"
-                    Value="{StaticResource Button.Static.Background}" />
-            <Setter Property="BorderBrush"
-                    Value="{StaticResource Button.Static.Border}" />
-            <Setter Property="Foreground"
-                    Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
-            <Setter Property="BorderThickness"
-                    Value="0" />
-            <Setter Property="HorizontalContentAlignment"
-                    Value="Center" />
-            <Setter Property="VerticalContentAlignment"
-                    Value="Center" />
-            <Setter Property="Padding"
-                    Value="1" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border x:Name="border"
-                                CornerRadius="20"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                Background="{TemplateBinding Background}"
-                                SnapsToDevicePixels="true">
-                            <ContentPresenter x:Name="contentPresenter"
-                                              Focusable="False"
-                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                              Margin="{TemplateBinding Padding}"
-                                              RecognizesAccessKey="True"
-                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsDefaulted"
-                                     Value="true">
-                                <Setter Property="BorderBrush"
-                                        TargetName="border"
-                                        Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
-                            </Trigger>
-                            <Trigger Property="IsMouseOver"
-                                     Value="true">
-                                <Setter Property="Background"
-                                        TargetName="border"
-                                        Value="{StaticResource Button.MouseOver.Background}" />
-                                <Setter Property="BorderBrush"
-                                        TargetName="border"
-                                        Value="{StaticResource Button.MouseOver.Border}" />
-                            </Trigger>
-                            <Trigger Property="IsPressed"
-                                     Value="true">
-                                <Setter Property="Background"
-                                        TargetName="border"
-                                        Value="{StaticResource Button.Pressed.Background}" />
-                                <Setter Property="BorderBrush"
-                                        TargetName="border"
-                                        Value="{StaticResource Button.Pressed.Border}" />
-                            </Trigger>
-                            <Trigger Property="IsEnabled"
-                                     Value="false">
-                                <Setter Property="Background"
-                                        TargetName="border"
-                                        Value="{StaticResource Button.Disabled.Background}" />
-                                <Setter Property="BorderBrush"
-                                        TargetName="border"
-                                        Value="{StaticResource Button.Disabled.Border}" />
-                                <Setter Property="TextElement.Foreground"
-                                        TargetName="contentPresenter"
-                                        Value="{StaticResource Button.Disabled.Foreground}" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Window.Resources>
-
-    <Border CornerRadius="50">
-        <Border.Background>
-            <ImageBrush ImageSource="/Assets/static_bg_splash.jpg"  Stretch="Fill"></ImageBrush>
-        </Border.Background>
+    <Border CornerRadius="52" BorderThickness="0" Background="White">
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="457*"/>
-                <ColumnDefinition Width="43*"/>
-            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="1.5*"></RowDefinition>
-                <RowDefinition Height="0.5*"></RowDefinition>
-                <RowDefinition Height="0.2*"></RowDefinition>
-                <RowDefinition Height="0.4*"></RowDefinition>
-
+                <RowDefinition Height="400"></RowDefinition>
+                <RowDefinition Height="250"></RowDefinition>
+                <RowDefinition Height="150"></RowDefinition>
             </Grid.RowDefinitions>
-       
-            <Border CornerRadius="8,8,8,8"
-                    Height="300"
-                    Width="300"
-                    x:Name="SplashEllipse" 
-                    Margin="100,23,57.107,23.4">
-                <Border.Background>
-                    <ImageBrush Stretch="Fill" ImageSource="/Assets/static_des_splash.jpg"/>
-                </Border.Background>
-            </Border>
-
-            <StackPanel Grid.ColumnSpan="2" Margin="0,346,0,46" Grid.RowSpan="3">
-
-                <TextBlock Name="tbxName"
-                           Margin="25,0"
-                           HorizontalAlignment="Center"
-                           TextWrapping="Wrap"
-                           FontSize="18"
-                           FontStyle="Italic"
-                           FontFamily="Comic Sans MS">
-                </TextBlock>
-                <TextBlock Name="tbxAddress"
-                           Margin="25,0"
-                           HorizontalAlignment="Center"
-                           TextWrapping="Wrap"
-                           FontSize="18"
-                           FontStyle="Normal"
-                           FontFamily="Comic Sans MS">
-                </TextBlock>
-                <TextBlock Name="tbxDescription"
-                           Margin="25,0"
-                           HorizontalAlignment="Center"
-                           TextWrapping="Wrap"
-                           FontSize="18"
-                           FontStyle="Normal"
-                           FontFamily="Comic Sans MS">
-                </TextBlock>
-            </StackPanel>
-
-            <CheckBox Grid.Row="2"
-                      HorizontalAlignment="Center"
-                      FontSize="15"
-                      FontStyle="Italic"
-                      Name="checkBox" Margin="94,0.4,51.107,0">
-                Không hiện hộp thoại này mỗi khi khởi động
-            </CheckBox>
-
-            <Button Name="btn2"
-                    Grid.Row="3"
-                    FontSize="20"
+            <Grid Grid.Row="0">
+                <Border Width="400" Height="300" CornerRadius="370" Margin="0,0,0,0" Panel.ZIndex="2" VerticalAlignment="Center">
+                    <Border.Background>
+                        <ImageBrush x:Name="BackgoundImg" ImageSource="/Assets/10751.jpg" RenderOptions.BitmapScalingMode="HighQuality" Stretch="UniformToFill"></ImageBrush>
+                    </Border.Background>
+                </Border>
+            </Grid>
+            <Grid Grid.Row="1">
+                <StackPanel Margin="15">
+                    <TextBlock Name="tbxName" TextWrapping="Wrap" TextAlignment="Center" FontSize="36" Margin="0,0,0,10">
+                        <TextBlock.Foreground>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF5C99D6" Offset="0"/>
+                                <GradientStop Color="#FF31577E" Offset="1"/>
+                            </LinearGradientBrush>
+                        </TextBlock.Foreground>
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Name="tbxDescription" Text="{Binding}" FontSize="20" TextAlignment="Justify"></TextBlock>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="2">
+                <StackPanel>
+                    <CheckBox Name="checkBox" Content="Do not show this dialog box every time start" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,30,0,0" Foreground="#FF767676" BorderBrush="White" Background="#FF2ED573">
+                    </CheckBox>
+                    <Button Name="Continue"
+                    Click="Button_Click"
+                    Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                    Height="50"
                     Width="150"
-                    Background="#FF5C99D6"
-                    Style="{DynamicResource ButtonStyle1}"
-                    Click="Button_Click" Margin="175,20,132.107,20">Bắt đầu</Button>
+                    materialDesign:ButtonAssist.CornerRadius="25"
+                    VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,15,0,0">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                <GradientStop Color="#FF5C99D6" Offset="0"/>
+                                <GradientStop Color="#FF31577E" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                    Text="Continue" TextAlignment="Center" FontSize="16" Margin="0,0,5,0" />
+                            <materialDesign:PackIcon Kind="ArrowRight" Width="auto" Height="20"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
         </Grid>
     </Border>
 </Window>
