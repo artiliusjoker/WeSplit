@@ -36,6 +36,12 @@ namespace WeSplit.ViewModel
 
         public ICommand OpenHomeView { get; set; }
 
+        public ICommand OpenAddTripView { get; set; }
+
+        public ICommand OpenLocationsView { get; set; }
+
+        public ICommand OpenMembersView { get; set; }
+
         public MainViewModel()
         {
             CurrentView = CurrentTripsVM;
@@ -58,6 +64,18 @@ namespace WeSplit.ViewModel
                 CurrentView = CurrentTripsVM;
             });
             OpenHomeView = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                CurrentView = CurrentTripsVM;
+            });
+            OpenAddTripView = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                CurrentView = CurrentTripsVM;
+            });
+            OpenLocationsView = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                CurrentView = CurrentTripsVM;
+            });
+            OpenMembersView = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 CurrentView = CurrentTripsVM;
             });
