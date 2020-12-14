@@ -9,7 +9,7 @@
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" 
         WindowStyle="None"
         xmlns:view="clr-namespace:WeSplit.View.UserControlView"
-        xmlns:viewModel="clr-namespace:WeSplit.ViewModel"
+        xmlns:viewModel="clr-namespace:WeSplit.ViewModel" xmlns:i1="http://schemas.microsoft.com/xaml/behaviors"
         Name="ThisWindow">
 
     <Window.Resources>
@@ -100,38 +100,57 @@
                     <Image Height="80" VerticalAlignment="Bottom"/>
                 </Grid>
                 <ListView x:Name="ListViewMenu" Foreground="#FF5C99D6" 
-                          ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                          SelectionChanged="ListViewMenu_SelectionChanged">
-                    <ListViewItem x:Name="ItemHome" Height="60">
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListViewItem                       
+                        x:Name="ItemHome" Height="60">
                         <StackPanel Orientation="Horizontal">
+                            <i1:Interaction.Triggers>
+                                <i1:EventTrigger EventName="MouseLeftButtonDown">
+                                    <i1:InvokeCommandAction Command="{Binding OpenHomeView}" >
+                                    </i1:InvokeCommandAction>
+                                </i1:EventTrigger>
+                            </i1:Interaction.Triggers>
                             <materialDesign:PackIcon Kind="ViewDashboard" Height="25" Width="25" Margin="10"/>
                             <TextBlock Text="Home" VerticalAlignment="Center" Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem x:Name="ItemCreate" Height="60">
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Pencil" Height="25" Width="25" Margin="10"/>
+                            <i1:Interaction.Triggers>
+                                <i1:EventTrigger EventName="MouseLeftButtonDown">
+                                    <i1:InvokeCommandAction Command="{Binding OpenAddTripView}" >
+                                    </i1:InvokeCommandAction>
+                                </i1:EventTrigger>
+                            </i1:Interaction.Triggers>
+                            <materialDesign:PackIcon Kind="PlusThick" Height="25" Width="25" Margin="10"/>
                             <TextBlock Text="Create" VerticalAlignment="Center" Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Height="60">
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="CheckboxMarkedCircle" Height="25" Width="25" Margin="10"/>
+                            <i1:Interaction.Triggers>
+                                <i1:EventTrigger EventName="MouseLeftButtonDown">
+                                    <i1:InvokeCommandAction Command="{Binding OpenLocationsView}" >
+                                    </i1:InvokeCommandAction>
+                                </i1:EventTrigger>
+                            </i1:Interaction.Triggers>
+                            <materialDesign:PackIcon Kind="MapMarker" Height="25" Width="25" Margin="10"/>
                             <TextBlock Text="Completed" VerticalAlignment="Center"  Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Height="60">
                         <StackPanel Orientation="Horizontal">
+                            <i1:Interaction.Triggers>
+                                <i1:EventTrigger EventName="MouseLeftButtonDown">
+                                    <i1:InvokeCommandAction Command="{Binding OpenMembersView}" >
+                                    </i1:InvokeCommandAction>
+                                </i1:EventTrigger>
+                            </i1:Interaction.Triggers>
                             <materialDesign:PackIcon Kind="AccountGroup" Height="25" Width="25" Margin="10"/>
                             <TextBlock Text="Members" VerticalAlignment="Center"  Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem Height="60">
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="AccountMultiplePlus" Height="25" Width="25" Margin="10"/>
-                            <TextBlock Text="Add Member" VerticalAlignment="Center"  Margin="20 10"/>
-                        </StackPanel>
-                    </ListViewItem>
+                    
                 </ListView>
             </StackPanel>
         </Grid>

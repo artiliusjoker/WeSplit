@@ -34,6 +34,8 @@ namespace WeSplit.ViewModel
 
         public ICommand DiscardChangesAndGoBack { get; set; }
 
+        public ICommand OpenHomeView { get; set; }
+
         public MainViewModel()
         {
             CurrentView = CurrentTripsVM;
@@ -52,6 +54,10 @@ namespace WeSplit.ViewModel
             });
 
             DiscardChangesAndGoBack = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                CurrentView = CurrentTripsVM;
+            });
+            OpenHomeView = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 CurrentView = CurrentTripsVM;
             });
