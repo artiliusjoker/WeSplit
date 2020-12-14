@@ -170,6 +170,21 @@ namespace WeSplit.ViewModel
                     }    
                 }    
             });
+            DeleteTripCostCommand = new RelayCommand<object>((p) => { return p != null; }, (p) =>
+            {
+                TripCost selectedItem = (TripCost)p;
+                TripCosts.Remove(selectedItem);
+            });
+            DeleteTripLocationCommand = new RelayCommand<object>((p) => { return p != null; }, (p) =>
+            {
+                Location selectedItem = (Location)p;
+                TripLocations.Remove(selectedItem);               
+            });
+            DeleteTripMemberCommand = new RelayCommand<object>((p) => { return p != null; }, (p) =>
+            {
+                Member selectedItem = (Member)p;
+                TripMembers.Remove(selectedItem);  
+            });
             // List deleted
             ImagesDeleted = new List<TripImages>();
 
