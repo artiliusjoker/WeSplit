@@ -1,4 +1,4 @@
-﻿
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,6 +10,15 @@ namespace WeSplit.Models
 {
     class DataAccess
     {
+        public static Location GetRandomLocationForSplash()
+        {
+            var rand = new Random();
+
+            var skip = (int)(rand.NextDouble() * DatabaseEntity.Entity.DB.LOCATIONs.Count());
+            LOCATION result = DatabaseEntity.Entity.DB.LOCATIONs.OrderBy(location => location.LOCATION_ID).Skip(skip).Take(1).First();
+            return new Location(result);
+        }
+
         #region QueryData
         public static List<Trip> SearchTrips(Helpers.SearchInfo info)
         {

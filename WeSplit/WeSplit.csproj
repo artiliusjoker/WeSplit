@@ -145,11 +145,20 @@
     <Compile Include="View\DetailTripWindow.xaml.cs">
       <DependentUpon>DetailTripWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UserControlView\AddTrip.xaml.cs">
+      <DependentUpon>AddTrip.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UserControlView\CurrrentTripsControl.xaml.cs">
       <DependentUpon>CurrrentTripsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UserControlView\DetailTrip.xaml.cs">
       <DependentUpon>DetailTrip.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControlView\Location.xaml.cs">
+      <DependentUpon>Location.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControlView\Member.xaml.cs">
+      <DependentUpon>Member.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UserControlView\UpdateTrip.xaml.cs">
       <DependentUpon>UpdateTrip.xaml</DependentUpon>
@@ -178,6 +187,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\UserControlView\AddTrip.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\UserControlView\CurrrentTripsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
@@ -185,6 +198,14 @@
     <Page Include="View\UserControlView\DetailTrip.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\UserControlView\Location.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControlView\Member.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UserControlView\UpdateTrip.xaml">
       <Generator>MSBuild:Compile</Generator>

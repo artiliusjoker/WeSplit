@@ -40,6 +40,10 @@ namespace WeSplit
                 this.Close();
                 return;
             }
+            Models.Location randomized = Models.DataAccess.GetRandomLocationForSplash();
+            tbxName.Text = randomized.Name;
+            tbxAddress.Text = randomized.Address;
+            tbxDescription.Text = randomized.Description;
             this.Show();
         }
     }

@@ -157,16 +157,30 @@
 
             <StackPanel Grid.ColumnSpan="2" Margin="0,346,0,46" Grid.RowSpan="3">
 
-                <TextBlock Name="tbxIntroduction"
+                <TextBlock Name="tbxName"
                            Margin="25,0"
                            HorizontalAlignment="Center"
                            TextWrapping="Wrap"
                            FontSize="18"
                            FontStyle="Italic"
                            FontFamily="Comic Sans MS">
-            Vịnh Hạ Long
                 </TextBlock>
-
+                <TextBlock Name="tbxAddress"
+                           Margin="25,0"
+                           HorizontalAlignment="Center"
+                           TextWrapping="Wrap"
+                           FontSize="18"
+                           FontStyle="Normal"
+                           FontFamily="Comic Sans MS">
+                </TextBlock>
+                <TextBlock Name="tbxDescription"
+                           Margin="25,0"
+                           HorizontalAlignment="Center"
+                           TextWrapping="Wrap"
+                           FontSize="18"
+                           FontStyle="Normal"
+                           FontFamily="Comic Sans MS">
+                </TextBlock>
             </StackPanel>
 
             <CheckBox Grid.Row="2"
@@ -181,7 +195,7 @@
                     Grid.Row="3"
                     FontSize="20"
                     Width="150"
-                    Background="#FF8522BD"
+                    Background="#FF5C99D6"
                     Style="{DynamicResource ButtonStyle1}"
                     Click="Button_Click" Margin="175,20,132.107,20">Bắt đầu</Button>
         </Grid>
