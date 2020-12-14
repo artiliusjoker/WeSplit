@@ -73,7 +73,7 @@ namespace WeSplit.Models
         public bool IsDone
         {
             get { return isDone; }
-            set { isDone = value; }
+            set { OnPropertyChanged(ref isDone, value); }
         }
     }
 

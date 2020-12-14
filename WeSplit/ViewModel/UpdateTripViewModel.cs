@@ -216,7 +216,7 @@ namespace WeSplit.ViewModel
             // Chi phí của chuyến đi
             TripCosts = new ObservableCollection<TripCost>(DataAccess.GetTripCosts(TripSelected.ID));
             // Thành viên của chuyến đi
-            TripMembers = DataAccess.GetTripMembers(TripSelected.ID);
+            TripMembers = new ObservableCollection<Member>(DataAccess.GetTripMembers(TripSelected.ID));
             // Tất cả hình ảnh của chuyến đi
             AllTripImages = new ObservableCollection<TripImages>(DataAccess.GetTripImages(TripSelected.ID));
             // Tất cả địa điểm của chuyến đi
@@ -257,9 +257,18 @@ namespace WeSplit.ViewModel
                 OnPropertyChanged(ref _tripCosts, value);
             }
         }
-
-        public BindingList<Member> TripMembers { get; set; }
-
+        private ObservableCollection<Member> _tripMembers;
+        public ObservableCollection<Member> TripMembers
+        {
+            get
+            {
+                return _tripMembers;
+            }
+            set
+            {
+                OnPropertyChanged(ref _tripMembers, value);
+            }
+        }
         private ObservableCollection<TripImages> _allTripImages;
         public ObservableCollection<TripImages> AllTripImages
         {
@@ -269,8 +278,18 @@ namespace WeSplit.ViewModel
             }
             set { OnPropertyChanged(ref _allTripImages, value); }
         }
-
-        public ObservableCollection<Location> TripLocations { get; set; }
+        private ObservableCollection<Location> _tripLocations;
+        public ObservableCollection<Location> TripLocations
+        {
+            get
+            {
+                return _tripLocations;
+            }
+            set
+            {
+                OnPropertyChanged(ref _tripLocations, value);
+            }
+        }
 
         public ICommand ChooseTripThumbnailCommand { get; set; }
         public ICommand SaveDetailsCommand { get; set; }
