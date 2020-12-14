@@ -141,6 +141,16 @@ namespace WeSplit.Models
         {
             return this.Name;
         }
+
+        public TRIP_MEMBERS ToTripMember(int tripID)
+        {
+            return new TRIP_MEMBERS()
+            {
+                TRIP_ID = tripID,
+                MEMBER_ID = MemberID,
+                AMOUNT_PAID = AmountPaid
+            };
+        }
     }
 
     public class TripCost : ViewModel.BaseViewModel

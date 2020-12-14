@@ -239,6 +239,41 @@ namespace WeSplit.Models
             // Save
             DatabaseEntity.Entity.DB.SaveChanges();
         }
+        public static void UpdateAddRemoveTripMembers(int tripID, List<Member> tripMembers)
+        {
+            var currentTripMembers = DatabaseEntity.Entity.DB.TRIP_MEMBERS
+                                        .Where(tl => tl.TRIP_ID == tripID);
+            // Delete children
+            foreach (var existingElement in currentTripMembers.ToList())
+            {
+                if (!tripMembers.Any(c => c.MemberID == existingElement.MEMBER_ID))
+                    DatabaseEntity.Entity.DB.TRIP_MEMBERS.Remove(existingElement);
+            }
+            // Update and Insert children
+            List<TRIP_MEMBERS> newElements = new List<TRIP_MEMBERS>();
+            foreach (Member member in tripMembers)
+            {
+                var existingElement = DatabaseEntity.Entity.DB.TRIP_MEMBERS
+                    .Where(element => element.MEMBER_ID == member.MemberID)
+                    .SingleOrDefault();
+
+                if (existingElement != null)
+                {
+                    // Update
+                    existingElement.AMOUNT_PAID = member.AmountPaid;
+                }
+                else
+                {
+                    newElements.Add(member.ToTripMember(tripID));
+                }
+            }
+            foreach (TRIP_MEMBERS element in newElements)
+            {
+                DatabaseEntity.Entity.DB.TRIP_MEMBERS.Add(element);
+            }
+            // Save
+            DatabaseEntity.Entity.DB.SaveChanges();
+        }
         #endregion
     }
 }
