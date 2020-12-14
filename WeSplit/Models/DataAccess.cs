@@ -1,8 +1,8 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Diagnostics;
+using System.Data.Entity;
 using System.Linq;
 using WeSplit.Utils;
 
@@ -163,6 +163,45 @@ namespace WeSplit.Models
                 return;
             }
             DatabaseEntity.Entity.DB.Entry(entity).CurrentValues.SetValues(item);
+            DatabaseEntity.Entity.DB.SaveChanges();
+        }
+
+        #endregion
+
+        #region ListData
+        public static void UpdateAddRemoveTripLocations(int tripID, List<Location> tripLocations)
+        {
+            var currentTripLocations = DatabaseEntity.Entity.DB.TRIP_LOCATIONS
+                                        .Where(tl => tl.TRIP_ID == tripID);
+            // Delete children
+            foreach (var existingElement in currentTripLocations.ToList())
+            {
+                if (!tripLocations.Any(c => c.ID == existingElement.LOCATION_ID))
+                    DatabaseEntity.Entity.DB.TRIP_LOCATIONS.Remove(existingElement);
+            }
+            // Update and Insert children
+            List<TRIP_LOCATIONS> newElements = new List<TRIP_LOCATIONS>();
+            foreach (Location location in tripLocations)
+            {
+                var existingElement = DatabaseEntity.Entity.DB.TRIP_LOCATIONS
+                    .Where(element => element.LOCATION_ID == location.ID)
+                    .SingleOrDefault();
+
+                if (existingElement != null)
+                {
+                    // Update
+                    existingElement.LOCATION_ID = location.ID;
+                }                       
+                else
+                {
+                    newElements.Add(location.ToTripLocation(tripID));
+                }
+            }
+            foreach(TRIP_LOCATIONS element in newElements)
+            {
+                DatabaseEntity.Entity.DB.TRIP_LOCATIONS.Add(element);
+            }    
+            // Save
             DatabaseEntity.Entity.DB.SaveChanges();
         }
         #endregion

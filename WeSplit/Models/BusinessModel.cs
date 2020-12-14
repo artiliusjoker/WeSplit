@@ -102,6 +102,15 @@ namespace WeSplit.Models
         {
             return this.Name;
         }
+        public TRIP_LOCATIONS ToTripLocation(int tripID)
+        {
+            return new TRIP_LOCATIONS()
+            {
+                TRIP_ID = tripID,
+                COSTS = 0,
+                LOCATION_ID = ID
+            };
+        }
     }
 
     public class Member : ViewModel.BaseViewModel

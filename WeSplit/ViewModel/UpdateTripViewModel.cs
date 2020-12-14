@@ -151,11 +151,12 @@ namespace WeSplit.ViewModel
                 if(isChanged)
                 {
                     DataAccess.UpdateTripInfo(TripSelected);
-                }    
+                }
+                DataAccess.UpdateAddRemoveTripLocations(TripSelected.ID, TripLocations.ToList());
             });
             DiscardChangesAndReload = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                PopulateData();             
+                Reset();             
             });
             DeleteTripImageCommand = new RelayCommand<object>((p) => { return p != null; }, (p) =>
             {
@@ -178,16 +179,15 @@ namespace WeSplit.ViewModel
             DeleteTripLocationCommand = new RelayCommand<object>((p) => { return p != null; }, (p) =>
             {
                 Location selectedItem = (Location)p;
-                TripLocations.Remove(selectedItem);               
+                TripLocations.Remove(selectedItem);
+                LocationsDeleted.Add(selectedItem);
             });
             DeleteTripMemberCommand = new RelayCommand<object>((p) => { return p != null; }, (p) =>
             {
                 Member selectedItem = (Member)p;
                 TripMembers.Remove(selectedItem);  
             });
-            // List deleted
-            ImagesDeleted = new List<TripImages>();
-
+            
             // Get selected Trip
             TripSelected = trip;
             // Danh sách các loại chi phí trong combo box
@@ -197,13 +197,12 @@ namespace WeSplit.ViewModel
             // Tất cả địa điểm có thể đi
             AllLocations = DataAccess.GetAllLocations();
             // Populate dynamic data
-            PopulateData();
+            Reset();
         }
 
-        private void PopulateData()
+        private void Reset()
         {
             TripBinding = TripSelected.Clone();
-
             // Chi phí của chuyến đi
             TripCosts = new ObservableCollection<TripCost>(DataAccess.GetTripCosts(TripSelected.ID));
             // Thành viên của chuyến đi
@@ -212,9 +211,17 @@ namespace WeSplit.ViewModel
             AllTripImages = new ObservableCollection<TripImages>(DataAccess.GetTripImages(TripSelected.ID));
             // Tất cả địa điểm của chuyến đi
             TripLocations = new ObservableCollection<Location>(DataAccess.GetTripLocations(TripSelected.ID));
+
+            // List deleted
+            ImagesDeleted = new List<TripImages>();
+            LocationsDeleted = new List<Location>();
+            MembersDeleted = new List<Member>();
+            CostsDeleted = new List<TripCost>();
+            // New images' paths
+            NewImagesPaths = new List<string>();
         }
 
-        public Trip TripSelected { get; set; }
+        private Trip TripSelected { get; set; }
 
         private Trip tripBinding;
         public Trip TripBinding 
@@ -283,16 +290,14 @@ namespace WeSplit.ViewModel
         public string MemberCostAmountInput { get; set; }
         public Member MemberCBBSelected { get; set; }
         public Location LocationCBBSelected { get; set; }
+        private List<string> NewImagesPaths { get; set; }
         #endregion
 
         #region DELETE
-        List<TripImages> ImagesDeleted { get; set; }
-        List<Location> LocationsDeleted { get; set; }
-        List<TripCost> MembersDeleted { get; set; }
-        List<TripCost> CostsDeleted { get; set; }
-        private void ClearDeletedLists()
-        {
-        }
+        private List<TripImages> ImagesDeleted { get; set; }
+        private List<Location> LocationsDeleted { get; set; }
+        private List<Member> MembersDeleted { get; set; }
+        private List<TripCost> CostsDeleted { get; set; }       
         #endregion
     }
 }
