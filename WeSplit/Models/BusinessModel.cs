@@ -169,6 +169,16 @@ namespace WeSplit.Models
             this.Amount = (double)costs.AMOUNT;
         }
         public TripCost() { }
+
+        public TRIP_COSTS ToTripCost()
+        {
+            return new TRIP_COSTS()
+            {
+                COST_ID = ID,
+                TRIP_ID = Trip_ID,
+                AMOUNT = Amount
+            };
+        }
     }
     public class TripMember : ViewModel.BaseViewModel
     {

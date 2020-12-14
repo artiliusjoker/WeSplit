@@ -274,6 +274,41 @@ namespace WeSplit.Models
             // Save
             DatabaseEntity.Entity.DB.SaveChanges();
         }
+        public static void UpdateAddRemoveTripCosts(int tripID, List<TripCost> tripCosts)
+        {
+            var currentTripCosts = DatabaseEntity.Entity.DB.TRIP_COSTS
+                                        .Where(tl => tl.TRIP_ID == tripID);
+            // Delete children
+            foreach (var existingElement in currentTripCosts.ToList())
+            {
+                if (!tripCosts.Any(c => c.ID == existingElement.COST_ID))
+                    DatabaseEntity.Entity.DB.TRIP_COSTS.Remove(existingElement);
+            }
+            // Update and Insert children
+            List<TRIP_COSTS> newElements = new List<TRIP_COSTS>();
+            foreach (TripCost cost in tripCosts)
+            {
+                var existingElement = DatabaseEntity.Entity.DB.TRIP_COSTS
+                    .Where(element => (element.COST_ID == cost.ID) && (element.TRIP_ID == cost.Trip_ID))
+                    .SingleOrDefault();
+
+                if (existingElement != null)
+                {
+                    // Update
+                    existingElement.AMOUNT = cost.Amount;
+                }
+                else
+                {
+                    newElements.Add(cost.ToTripCost());
+                }
+            }
+            foreach (TRIP_COSTS element in newElements)
+            {
+                DatabaseEntity.Entity.DB.TRIP_COSTS.Add(element);
+            }
+            // Save
+            DatabaseEntity.Entity.DB.SaveChanges();
+        }
         #endregion
     }
 }

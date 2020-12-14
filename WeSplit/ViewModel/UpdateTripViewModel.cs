@@ -164,6 +164,7 @@ namespace WeSplit.ViewModel
                 // Thành viên
                 DataAccess.UpdateAddRemoveTripMembers(TripSelected.ID, TripMembers.ToList());
                 // Chi phí
+                DataAccess.UpdateAddRemoveTripCosts(TripSelected.ID, TripCosts.ToList());
             });
             DiscardChangesAndReload = new RelayCommand<object>((p) => { return true; }, (p) =>
             {               
