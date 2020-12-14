@@ -175,7 +175,7 @@
                         <DataGrid  ScrollViewer.VerticalScrollBarVisibility ="Hidden" Canvas.Left="440" Canvas.Top="101"
                                    Width="535" Height="145" FontSize="18"
                                    ItemsSource="{Binding TripCosts}"
-                                   CanUserAddRows="True"
+                                   CanUserAddRows="False"
                                    AutoGenerateColumns="False"
                                    HeadersVisibility="All">
                             <DataGrid.Columns>
@@ -230,7 +230,6 @@
                                             <Button 
                                                 Command="{Binding Path=DataContext.DeleteTripCostCommand, ElementName=UpdateTripUC}"
                                                 CommandParameter="{Binding}"
-                                                x:Name="buttonDeleteExpenses"  
                                                 Height="25" Width="25" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
                                                 Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF404040">
                                                 <materialDesign:PackIcon Kind="Delete" Width="25" Height="25" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -343,7 +342,6 @@
                                             <Button 
                                                 Command="{Binding Path=DataContext.DeleteTripMemberCommand, ElementName=UpdateTripUC}"
                                                 CommandParameter="{Binding}"
-                                                x:Name="buttonDeleteExpenses"  
                                                 Height="25" Width="25" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
                                                 Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF404040">
                                                 <materialDesign:PackIcon Kind="Delete" Width="25" Height="25" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -451,7 +449,6 @@
                                                    TextWrapping="Wrap"/>
                                         <Button Command="{Binding Path=DataContext.DeleteTripLocationCommand, ElementName=UpdateTripUC}"
                                                 CommandParameter="{Binding}"
-                                                x:Name="buttonDeleteExpenses"  
                                                 Height="25" Width="25" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF404040">
                                             <materialDesign:PackIcon Kind="Delete" Width="25" Height="25" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                         </Button>

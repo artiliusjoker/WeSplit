@@ -211,7 +211,7 @@ namespace WeSplit.ViewModel
             // Tất cả hình ảnh của chuyến đi
             AllTripImages = new ObservableCollection<TripImages>(DataAccess.GetTripImages(TripSelected.ID));
             // Tất cả địa điểm của chuyến đi
-            TripLocations = new ObservableCollection<Location>(DataAccess.GetTripLocations(TripSelected.ID));           
+            TripLocations = new ObservableCollection<Location>(DataAccess.GetTripLocations(TripSelected.ID));
         }
 
         public Trip TripSelected { get; set; }
@@ -235,7 +235,18 @@ namespace WeSplit.ViewModel
 
         public List<Location> AllLocations { get; set; }
 
-        public ObservableCollection<TripCost> TripCosts { get; set; }
+        private ObservableCollection<TripCost> _tripCosts;
+        public ObservableCollection<TripCost> TripCosts 
+        {
+            get
+            {
+                return _tripCosts;
+            }
+            set
+            {
+                OnPropertyChanged(ref _tripCosts, value);
+            }
+        }
 
         public BindingList<Member> TripMembers { get; set; }
 
