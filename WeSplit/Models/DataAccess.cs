@@ -184,7 +184,7 @@ namespace WeSplit.Models
             foreach (Location location in tripLocations)
             {
                 var existingElement = DatabaseEntity.Entity.DB.TRIP_LOCATIONS
-                    .Where(element => element.LOCATION_ID == location.ID)
+                    .Where(element => (element.LOCATION_ID == location.ID) && (element.TRIP_ID == tripID))
                     .SingleOrDefault();
 
                 if (existingElement != null)
@@ -219,7 +219,7 @@ namespace WeSplit.Models
             foreach (TripImages image in tripImages)
             {
                 var existingElement = DatabaseEntity.Entity.DB.TRIP_IMAGES
-                    .Where(element => element.IMAGE_PATH == image.ImagePath)
+                    .Where(element => (element.IMAGE_PATH == image.ImagePath) && (element.TRIP_ID == tripID))
                     .SingleOrDefault();
 
                 if (existingElement != null)
@@ -254,7 +254,7 @@ namespace WeSplit.Models
             foreach (Member member in tripMembers)
             {
                 var existingElement = DatabaseEntity.Entity.DB.TRIP_MEMBERS
-                    .Where(element => element.MEMBER_ID == member.MemberID)
+                    .Where(element => (element.MEMBER_ID == member.MemberID) && (element.TRIP_ID == tripID))
                     .SingleOrDefault();
 
                 if (existingElement != null)
