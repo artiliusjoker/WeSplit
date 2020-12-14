@@ -118,7 +118,10 @@ namespace WeSplit.Models
             this.Avatar = member.Avatar;
             this.AmountPaid = member.AmountPaid;
         }
-
+        public override string ToString()
+        {
+            return this.Name;
+        }
     }
 
     public class TripCost : ViewModel.BaseViewModel
@@ -136,7 +139,7 @@ namespace WeSplit.Models
             this.Trip_ID = costs.TRIP_ID;
             this.Amount = (double)costs.AMOUNT;
         }
-
+        public TripCost() { }
     }
     public class TripMember : ViewModel.BaseViewModel
     {

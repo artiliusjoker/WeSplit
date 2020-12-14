@@ -16,10 +16,45 @@ namespace WeSplit.ViewModel
 
         public UpdateTripViewModel(Trip trip) 
         {
+            AddMemberCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                if (int.TryParse(MemberCostAmountInput, out int amount))
+                {
+                    double doubleAmount = (double)amount;
+                    // Những thành viên đã có trong DB
+                    var existingMembers = new HashSet<int>(from member in TripMembers select member.MemberID);
+                    // Kiểm tra thành viên được thêm vào có trong DB chưa
+                    bool isExisted = existingMembers.Any(memberID => memberID == MemberCBBSelected.MemberID);
+                    if (!isExisted)
+                    {
+                        // Thêm vào thành viên mới lên UI
+                        TripMembers.Add(new Member(MemberCBBSelected)
+                        {
+                            AmountPaid = doubleAmount
+                        }) ;                      
+                    }
+                }
+            });
             AddCostCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 if (int.TryParse(CostAmountInput, out int amount))
                 {
+                    double doubleAmount = (double)amount;
+                    // Những chi phí đã có trong DB
+                    var existingCosts = new HashSet<int>(from cost in TripCosts select cost.ID);
+                    // Kiểm tra chi phí mới có trong DB chưa
+                    bool isExisted = existingCosts.Any(costID => costID == CostSelected.COST_ID);
+                    if(!isExisted)
+                    {
+                        // Thêm vào chi phí mới lên UI
+                        TripCosts.Add(new TripCost()
+                        {
+                            Name = CostSelected.NAME,
+                            ID = CostSelected.COST_ID,
+                            Trip_ID = TripSelected.ID,
+                            Amount = doubleAmount
+                        }) ;
+                    }
                 }
             });
             AddTripImageCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
@@ -167,32 +202,6 @@ namespace WeSplit.ViewModel
             }
         }
 
-        private COST costSelected;
-        public COST CostSelected
-        {
-            get
-            {
-                return costSelected;
-            }
-            set
-            {
-                OnPropertyChanged(ref costSelected, value);
-            }
-        }
-
-        private string costAmountInput;
-        public string CostAmountInput
-        {
-            get
-            {
-                return costAmountInput;
-            }
-            set
-            {
-                OnPropertyChanged(ref costAmountInput, value);
-            }
-        }
-
         public List<COST> AllCostTypes { get; private set; }
 
         public List<Member> AllMembers { get; set; }
@@ -231,6 +240,11 @@ namespace WeSplit.ViewModel
 
 
         #region ADD
+        public COST CostSelected { get; set; }
+        public string CostAmountInput { get; set; }    
+        public string MemberCostAmountInput { get; set; }
+        public Member MemberCBBSelected { get; set; }
+        public Location LocationCBBSelected { get; set; }
         #endregion
 
         #region DELETE

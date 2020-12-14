@@ -241,6 +241,7 @@
                     </Border>
                     <ComboBox
                         ItemsSource="{Binding AllMembers}"
+                        SelectedValue="{Binding MemberCBBSelected, UpdateSourceTrigger=PropertyChanged}"
                         Canvas.Left="440" Canvas.Top="285"
                         x:Name="Members"
                         FontSize="18"
@@ -261,9 +262,8 @@
                     <TextBox
                 x:Name="moneyPaid"
                 FontSize="18"
-                Text="{Binding SearchKeyword, UpdateSourceTrigger=PropertyChanged}"
-                Width="200"
-                
+                Text="{Binding MemberCostAmountInput, UpdateSourceTrigger=PropertyChanged}"
+                Width="200"              
                 BorderThickness="0"
                 materialDesign:HintAssist.Hint="Tiền đã trả"
                 materialDesign:HintAssist.IsFloating="True"
@@ -271,7 +271,8 @@
                 materialDesign:TextFieldAssist.HasOutlinedTextField="True"
                 materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
                 materialDesign:TextFieldAssist.TextFieldCornerRadius="4" Canvas.Left="710" Canvas.Top="285"/>
-                    <Button  Canvas.Left="930" Canvas.Top="285"
+                    <Button Command="{Binding AddMemberCommand}"  
+                          Canvas.Left="930" Canvas.Top="285"
                           Margin="10,0,5,0"
                           HorizontalAlignment="Left"
                           Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
