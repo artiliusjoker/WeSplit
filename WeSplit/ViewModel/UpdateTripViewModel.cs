@@ -174,7 +174,6 @@ namespace WeSplit.ViewModel
                     if(element.ImagePath == selectedItem.ImagePath)
                     {
                         AllTripImages.Remove(element);
-                        ImagesDeleted.Add(element);
                         break;
                     }    
                 }    
@@ -188,7 +187,6 @@ namespace WeSplit.ViewModel
             {
                 Location selectedItem = (Location)p;
                 TripLocations.Remove(selectedItem);
-                LocationsDeleted.Add(selectedItem);
             });
             DeleteTripMemberCommand = new RelayCommand<object>((p) => { return p != null; }, (p) =>
             {
@@ -219,13 +217,7 @@ namespace WeSplit.ViewModel
             AllTripImages = new ObservableCollection<TripImages>(DataAccess.GetTripImages(TripSelected.ID));
             // Tất cả địa điểm của chuyến đi
             TripLocations = new ObservableCollection<Location>(DataAccess.GetTripLocations(TripSelected.ID));
-
-            // List deleted
-            ImagesDeleted = new List<TripImages>();
-            LocationsDeleted = new List<Location>();
-            MembersDeleted = new List<Member>();
-            CostsDeleted = new List<TripCost>();
-            
+        
         }
 
         private Trip TripSelected { get; set; }
@@ -299,11 +291,7 @@ namespace WeSplit.ViewModel
         public Location LocationCBBSelected { get; set; }
         #endregion
 
-        #region DELETE
-        private List<TripImages> ImagesDeleted { get; set; }
-        private List<Location> LocationsDeleted { get; set; }
-        private List<Member> MembersDeleted { get; set; }
-        private List<TripCost> CostsDeleted { get; set; }       
+        #region DELETE       
         #endregion
     }
 }
