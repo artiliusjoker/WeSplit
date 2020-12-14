@@ -128,11 +128,7 @@ namespace WeSplit.ViewModel
                 // Copy hình thumbnail mới vào folder của chương trình và lưu record vào DB
                 if (TripBinding.ThumnailPath != TripSelected.ThumnailPath)
                 {
-                    string newThumbnailFileName = Path.GetFileName(TripBinding.ThumnailPath);
-                    string newThumbnail = $"Assets\\trips\\{TripBinding.ID}\\{newThumbnailFileName}";
-                    string currentFolder = AppDomain.CurrentDomain.BaseDirectory;
-                    string newThumbnailDestination = $"{currentFolder}{newThumbnail}";
-                    File.Copy(TripBinding.ThumnailPath, newThumbnailDestination, true);
+                    string newThumbnail = Utils.StringHelper.CopyFile(TripBinding.ThumnailPath, TripSelected.ID, true);
                     TripSelected.ThumnailPath = newThumbnail;
                     isChanged = true;
                 }
@@ -152,10 +148,22 @@ namespace WeSplit.ViewModel
                 {
                     DataAccess.UpdateTripInfo(TripSelected);
                 }
+                // Địa điểm
                 DataAccess.UpdateAddRemoveTripLocations(TripSelected.ID, TripLocations.ToList());
+                // Hình ảnh
+                foreach (TripImages image in AllTripImages)
+                {
+                    if (image.IsNew)
+                    {
+                        string newThumbnail = Utils.StringHelper.CopyFile(image.ImagePath, TripSelected.ID, false);
+                        image.ImagePath = newThumbnail;
+                        image.IsNew = false;
+                    }
+                }
+                DataAccess.UpdateAddRemoveTripImages(TripSelected.ID, AllTripImages.ToList());
             });
             DiscardChangesAndReload = new RelayCommand<object>((p) => { return true; }, (p) =>
-            {
+            {               
                 Reset();             
             });
             DeleteTripImageCommand = new RelayCommand<object>((p) => { return p != null; }, (p) =>
@@ -217,8 +225,7 @@ namespace WeSplit.ViewModel
             LocationsDeleted = new List<Location>();
             MembersDeleted = new List<Member>();
             CostsDeleted = new List<TripCost>();
-            // New images' paths
-            NewImagesPaths = new List<string>();
+            
         }
 
         private Trip TripSelected { get; set; }
@@ -290,7 +297,6 @@ namespace WeSplit.ViewModel
         public string MemberCostAmountInput { get; set; }
         public Member MemberCBBSelected { get; set; }
         public Location LocationCBBSelected { get; set; }
-        private List<string> NewImagesPaths { get; set; }
         #endregion
 
         #region DELETE

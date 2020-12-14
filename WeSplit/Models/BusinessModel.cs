@@ -171,17 +171,26 @@ namespace WeSplit.Models
     public class TripImages : ViewModel.BaseViewModel
     {
         public string ImagePath { get; set; }
-
+        public bool IsNew { get; set; }
         public int Trip_ID { get; set; }
 
         public TripImages(TRIP_IMAGES trip_image)
         {
             this.ImagePath = trip_image.IMAGE_PATH;
             this.Trip_ID = trip_image.TRIP_ID;
+            IsNew = false;
         }
         public TripImages()
         {
-            
+            IsNew = true;
+        }
+        public TRIP_IMAGES ToTripImage()
+        {
+            return new TRIP_IMAGES()
+            {
+                IMAGE_PATH = ImagePath,
+                TRIP_ID = Trip_ID
+            };
         }
     }
 

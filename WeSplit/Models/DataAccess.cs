@@ -204,6 +204,41 @@ namespace WeSplit.Models
             // Save
             DatabaseEntity.Entity.DB.SaveChanges();
         }
+        public static void UpdateAddRemoveTripImages(int tripID, List<TripImages> tripImages)
+        {
+            var currentTripImages = DatabaseEntity.Entity.DB.TRIP_IMAGES
+                                        .Where(tl => tl.TRIP_ID == tripID);
+            // Delete children
+            foreach (var existingElement in currentTripImages.ToList())
+            {
+                if (!tripImages.Any(c => c.ImagePath == existingElement.IMAGE_PATH))
+                    DatabaseEntity.Entity.DB.TRIP_IMAGES.Remove(existingElement);
+            }
+            // Update and Insert children
+            List<TRIP_IMAGES> newElements = new List<TRIP_IMAGES>();
+            foreach (TripImages image in tripImages)
+            {
+                var existingElement = DatabaseEntity.Entity.DB.TRIP_IMAGES
+                    .Where(element => element.IMAGE_PATH == image.ImagePath)
+                    .SingleOrDefault();
+
+                if (existingElement != null)
+                {
+                    // Update
+                    existingElement.IMAGE_PATH = image.ImagePath;
+                }
+                else
+                {
+                    newElements.Add(image.ToTripImage());
+                }
+            }
+            foreach (TRIP_IMAGES element in newElements)
+            {
+                DatabaseEntity.Entity.DB.TRIP_IMAGES.Add(element);
+            }
+            // Save
+            DatabaseEntity.Entity.DB.SaveChanges();
+        }
         #endregion
     }
 }

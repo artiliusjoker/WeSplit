@@ -1,5 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using System.Linq;
+using System.IO;
+using System;
 
 namespace WeSplit.Utils
 {
@@ -53,6 +55,21 @@ namespace WeSplit.Utils
             }
             input = input.ToLower();
             return input;
+        }
+        public static string CopyFile(string pathCopy, int tripID, bool type)
+        {              
+            string newThumbnailFileName = Path.GetFileName(pathCopy);
+            string newThumbnail;
+            if (type)
+            {
+                newThumbnail = $"Assets\\trips\\{tripID}\\{newThumbnailFileName}";
+            }
+            else newThumbnail = $"Assets\\trips\\{tripID}\\list\\{newThumbnailFileName}";
+
+            string currentFolder = AppDomain.CurrentDomain.BaseDirectory;
+            string newThumbnailDestination = $"{currentFolder}{newThumbnail}";
+            File.Copy(pathCopy, newThumbnailDestination, true);
+            return newThumbnail;
         }
     }
 }
