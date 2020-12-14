@@ -16,6 +16,18 @@ namespace WeSplit.ViewModel
 
         public UpdateTripViewModel(Trip trip) 
         {
+            AddLocationCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                // Những địa điểm đã có trong DB
+                var existingLocations = new HashSet<int>(from location in TripLocations select location.ID);
+                // Kiểm tra thành viên được thêm vào có trong DB chưa
+                bool isExisted = existingLocations.Any(locationID => locationID == LocationCBBSelected.ID);
+                if (!isExisted)
+                {
+                    // Thêm vào thành viên mới lên UI
+                    TripLocations.Add(new Location(LocationCBBSelected));                  
+                }
+            });
             AddMemberCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 if (int.TryParse(MemberCostAmountInput, out int amount))

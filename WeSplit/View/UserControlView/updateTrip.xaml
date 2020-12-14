@@ -397,6 +397,7 @@
                     
                     <ComboBox
                         ItemsSource="{Binding AllLocations}"
+                        SelectedValue="{Binding LocationCBBSelected, UpdateSourceTrigger=PropertyChanged}"
                         Canvas.Left="440" Canvas.Top="681"
                         x:Name="Locations"
                         FontSize="18"
@@ -415,7 +416,8 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
 
-                    <Button  Canvas.Left="930" Canvas.Top="681"
+                    <Button Command="{Binding AddLocationCommand}"  
+                          Canvas.Left="930" Canvas.Top="681"
                           Margin="10,0,5,0"
                           HorizontalAlignment="Left"
                           Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"

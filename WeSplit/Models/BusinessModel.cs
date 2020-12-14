@@ -91,7 +91,17 @@ namespace WeSplit.Models
             this.Address = location.ADDRESS;
             this.Description = location.DESCRIPTION;
         }
-
+        public Location(Location location)
+        {
+            this.ID = location.ID;
+            this.Name = location.Name;
+            this.Address = location.Address;
+            this.Description = location.Description;
+        }
+        public override string ToString()
+        {
+            return this.Name;
+        }
     }
 
     public class Member : ViewModel.BaseViewModel
