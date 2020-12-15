@@ -139,10 +139,14 @@
     <Compile Include="ViewModel\AddTripViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\CurrentTripsViewModel.cs" />
+    <Compile Include="ViewModel\CustomDialog.cs" />
     <Compile Include="ViewModel\DetailTripViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\SplashViewModel.cs" />
     <Compile Include="ViewModel\UpdateTripViewModel.cs" />
+    <Compile Include="View\CustomDialog.xaml.cs">
+      <DependentUpon>CustomDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\DetailTripWindow.xaml.cs">
       <DependentUpon>DetailTripWindow.xaml</DependentUpon>
     </Compile>
@@ -181,6 +185,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SplashWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CustomDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
