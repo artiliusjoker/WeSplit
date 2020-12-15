@@ -35,6 +35,16 @@ namespace WeSplit.Models
             isDone = trip.IsDone;
         }
 
+        public Trip ()
+        {
+            Description = "";
+            Title = "";
+            thumnailPath = "";
+            StartDate = new DateTime();
+            EndDate = new DateTime();
+            isDone = false;
+        }
+
         public Trip Clone()
         {
             return new Trip(this);

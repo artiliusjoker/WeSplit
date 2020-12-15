@@ -136,6 +136,7 @@
       <DependentUpon>SplashWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\StringHelper.cs" />
+    <Compile Include="ViewModel\AddTripViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\CurrentTripsViewModel.cs" />
     <Compile Include="ViewModel\DetailTripViewModel.cs" />

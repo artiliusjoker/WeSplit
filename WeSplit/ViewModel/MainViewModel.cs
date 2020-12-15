@@ -77,7 +77,7 @@ namespace WeSplit.ViewModel
             });
             OpenMembersView = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                CurrentView = CurrentTripsVM;
+                CurrentView = new AddTripViewModel();
             });
         }
     }

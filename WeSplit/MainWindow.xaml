@@ -31,6 +31,9 @@
         <DataTemplate x:Name="UpdateChosenTrip" DataType="{x:Type viewModel:UpdateTripViewModel }">
             <view:updateTrip/>
         </DataTemplate>
+        <DataTemplate x:Name="AddTrip" DataType="{x:Type viewModel:AddTripViewModel }">
+            <view:AddTrip/>
+        </DataTemplate>
     </Window.Resources>
 
     <Window.Triggers>
