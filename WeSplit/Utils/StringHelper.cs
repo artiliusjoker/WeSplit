@@ -1,5 +1,4 @@
-﻿using System.Text.RegularExpressions;
-using System.Linq;
+﻿using System.Linq;
 using System.IO;
 using System;
 
@@ -59,6 +58,7 @@ namespace WeSplit.Utils
         public static string CopyFile(string pathCopy, int tripID, bool type)
         {              
             string newThumbnailFileName = Path.GetFileName(pathCopy);
+
             string newThumbnail;
             if (type)
             {
@@ -66,6 +66,9 @@ namespace WeSplit.Utils
             }
             else newThumbnail = $"Assets\\trips\\{tripID}\\list\\{newThumbnailFileName}";
 
+            // Create dir if it is new trip
+            Directory.CreateDirectory($"Assets\\trips\\{tripID}\\list");
+            // Copy images to dir
             string currentFolder = AppDomain.CurrentDomain.BaseDirectory;
             string newThumbnailDestination = $"{currentFolder}{newThumbnail}";
             File.Copy(pathCopy, newThumbnailDestination, true);

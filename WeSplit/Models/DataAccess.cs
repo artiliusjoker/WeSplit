@@ -10,6 +10,7 @@ namespace WeSplit.Models
 {
     class DataAccess
     {
+        #region Others
         public static Location GetRandomLocationForSplash()
         {
             var rand = new Random();
@@ -25,6 +26,15 @@ namespace WeSplit.Models
             maxID += 1;
             return new Trip(maxID);
         }
+        public static bool AddNewTrip(Trip newTrip)
+        {            
+            TRIP newTripCreated = DatabaseEntity.Entity.DB.TRIPs.Add(newTrip.ToTrip());
+            if (newTripCreated == null)
+                return false;
+            DatabaseEntity.Entity.DB.SaveChanges();
+            return true;
+        }
+        #endregion
 
         #region QueryData
         public static List<Trip> SearchTrips(Helpers.SearchInfo info)

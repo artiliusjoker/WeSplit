@@ -51,6 +51,39 @@ namespace WeSplit.Models
             return new Trip(this);
         }
 
+        public bool IsAnyFieldNull()
+        {
+            // Title
+            if (Title == null)
+            {
+                return true;
+            }
+            // Description
+            if (Description == null)
+            {
+                return true;
+            }
+            // Thumbnail
+            if (thumnailPath == null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public TRIP ToTrip()
+        {
+            return new TRIP
+            {
+                TRIP_ID = ID,
+                DESCRIPTION = Description,
+                TITTLE = Title,
+                THUMNAIL = ThumnailPath,
+                TOGODATE = StartDate,
+                RETURNDATE = EndDate,
+                ISDONE = (bool?)IsDone
+            };
+        }
         public int ID
         {
             get { return _ID; }

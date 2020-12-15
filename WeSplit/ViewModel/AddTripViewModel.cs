@@ -164,59 +164,48 @@ namespace WeSplit.ViewModel
             // Other commands          
             AddNewTripCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                bool isChanged = false;
+                TripSelected = TripBinding.Clone();
+                if (TripSelected.IsAnyFieldNull()) 
+                {
+                    return; 
+                }
                 // Title
-                if (TripBinding.Title != TripSelected.Title)
-                {
                     TripSelected.Title = TripBinding.Title;
-                    isChanged = true;
-                }
+
                 // Description
-                if (TripBinding.Description != TripSelected.Description)
-                {
                     TripSelected.Description = TripBinding.Description;
-                    isChanged = true;
-                }
-                // Copy hình thumbnail mới vào folder của chương trình và lưu record vào DB
-                if (TripBinding.ThumnailPath != TripSelected.ThumnailPath)
-                {
-                    string newThumbnail = Utils.StringHelper.CopyFile(TripBinding.ThumnailPath, TripSelected.ID, true);
-                    TripSelected.ThumnailPath = newThumbnail;
-                    isChanged = true;
-                }
-                // StartDate
-                if (TripBinding.StartDate != TripSelected.StartDate)
-                {
-                    TripSelected.StartDate = TripBinding.StartDate;
-                    isChanged = true;
-                }
-                // EndDate
-                if (TripBinding.EndDate != TripSelected.EndDate)
-                {
-                    TripSelected.EndDate = TripBinding.EndDate;
-                    isChanged = true;
-                }
-                if (isChanged)
-                {
-                    DataAccess.UpdateTripInfo(TripSelected);
-                }
-                // Địa điểm
-                DataAccess.UpdateAddRemoveTripLocations(TripSelected.ID, TripLocations.ToList());
-                // Hình ảnh
-                foreach (TripImages image in AllTripImages)
-                {
-                    if (image.IsNew)
-                    {
-                        string newThumbnail = Utils.StringHelper.CopyFile(image.ImagePath, TripSelected.ID, false);
-                        image.ImagePath = newThumbnail;
-                        image.IsNew = false;
-                    }
-                }
-                DataAccess.UpdateAddRemoveTripImages(TripSelected.ID, AllTripImages.ToList());
-                // Thành viên
-                DataAccess.UpdateAddRemoveTripMembers(TripSelected.ID, TripMembers.ToList());
-                // Chi phí
-                DataAccess.UpdateAddRemoveTripCosts(TripSelected.ID, TripCosts.ToList());
+
+                // Copy hình thumbnail mới vào folder của chương trình và lưu record vào DB       
+                string newThumbnail = Utils.StringHelper.CopyFile(TripBinding.ThumnailPath, TripSelected.ID, true);
+                TripSelected.ThumnailPath = newThumbnail;
+
+                // StartDate              
+                TripSelected.StartDate = TripBinding.StartDate;
+                
+                // EndDate            
+                TripSelected.EndDate = TripBinding.EndDate;
+                
+                if(!DataAccess.AddNewTrip(TripSelected))
+                { 
+                    return; 
+                }    
+                //// Địa điểm
+                //DataAccess.UpdateAddRemoveTripLocations(TripSelected.ID, TripLocations.ToList());
+                //// Hình ảnh
+                //foreach (TripImages image in AllTripImages)
+                //{
+                //    if (image.IsNew)
+                //    {
+                //        string newThumbnail = Utils.StringHelper.CopyFile(image.ImagePath, TripSelected.ID, false);
+                //        image.ImagePath = newThumbnail;
+                //        image.IsNew = false;
+                //    }
+                //}
+                //DataAccess.UpdateAddRemoveTripImages(TripSelected.ID, AllTripImages.ToList());
+                //// Thành viên
+                //DataAccess.UpdateAddRemoveTripMembers(TripSelected.ID, TripMembers.ToList());
+                //// Chi phí
+                //DataAccess.UpdateAddRemoveTripCosts(TripSelected.ID, TripCosts.ToList());
             });
             DiscardChangesAndReload = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
