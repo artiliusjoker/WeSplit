@@ -70,17 +70,19 @@
             Grid.Row="2"
             Grid.Column="0"
             Panel.ZIndex="10"
-            Margin="20,10,10,0"
+            Margin="20,0,10,0"
+            Height="30"
+            VerticalAlignment="Top"
             md:ShadowAssist.ShadowDepth="Depth2"
             md:ShadowAssist.ShadowEdges="Bottom"
             Background="Transparent"
             UniformCornerRadius="16">
                 <TextBlock
                 Name="Quantity"
-                VerticalAlignment="Center"
-                FontSize="16"
+                VerticalAlignment="Top"
+                FontSize="14"
                 FontWeight="Medium"
-                Foreground="#000"
+                Foreground="White"
                 Text="{Binding Info}"
                 TextAlignment="center" />
             </md:Card>

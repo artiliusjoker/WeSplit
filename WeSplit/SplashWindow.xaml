@@ -50,7 +50,7 @@
             </Grid>
             <Grid Grid.Row="2">
                 <StackPanel>
-                    <CheckBox Name="checkBox" Content="Do not show this dialog box every time start" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,30,0,0" Foreground="#FF767676" BorderBrush="White" Background="#FF2ED573">
+                    <CheckBox Name="checkBox" Content="Không hiển thị vào lần sau" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,30,0,0" Foreground="#FF767676" BorderBrush="White" Background="#FF2ED573">
                     </CheckBox>
                     <Button Name="Continue"
                     Click="Button_Click"
@@ -67,7 +67,7 @@
                         </Button.Background>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock
-                    Text="Continue" TextAlignment="Center" FontSize="16" Margin="0,0,5,0" />
+                    Text="Tiếp tục" TextAlignment="Center" FontSize="16" Margin="0,0,5,0" />
                             <materialDesign:PackIcon Kind="ArrowRight" Width="auto" Height="20"/>
                         </StackPanel>
                     </Button>

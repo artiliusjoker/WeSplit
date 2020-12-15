@@ -66,12 +66,14 @@ namespace WeSplit.ViewModel
                 Trips = DataAccess.SearchTrips(Search);
                 bindingItems = new ObservableCollection<Trip>(Trips.ToList());
                 CalculatePagingInfo();
+                Info = $"Tìm thấy {Trips.Count} kết quả";
             });
 
             Trips = DataAccess.GetOngoingTrips();
 
             CalculatePagingInfo();
             Search = new Helpers.SearchInfo();
+            Info = "";
         }
 
         #region Pagination
@@ -129,7 +131,18 @@ namespace WeSplit.ViewModel
         #endregion
 
         #region Searching
-
+        private string _info;
+        public string Info
+        {
+            get
+            {
+                return _info;
+            }
+            set
+            {
+                OnPropertyChanged(ref _info, value);
+            }
+        }
         public ICommand SearchCommand { get; set; }
         public Helpers.SearchInfo Search { get; set; } 
 
