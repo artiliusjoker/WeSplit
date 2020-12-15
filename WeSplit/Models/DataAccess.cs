@@ -19,6 +19,13 @@ namespace WeSplit.Models
             return new Location(result);
         }
 
+        public static Trip GetNewTrip()
+        {
+            int maxID = DatabaseEntity.Entity.DB.TRIPs.Max(trip => trip.TRIP_ID);
+            maxID += 1;
+            return new Trip(maxID);
+        }
+
         #region QueryData
         public static List<Trip> SearchTrips(Helpers.SearchInfo info)
         {

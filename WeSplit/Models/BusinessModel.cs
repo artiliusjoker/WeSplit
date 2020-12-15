@@ -35,13 +35,14 @@ namespace WeSplit.Models
             isDone = trip.IsDone;
         }
 
-        public Trip ()
+        public Trip (int newID)
         {
+            ID = newID;
             Description = "";
             Title = "";
             thumnailPath = "";
-            StartDate = new DateTime();
-            EndDate = new DateTime();
+            StartDate = DateTime.Today;
+            EndDate = DateTime.Today;
             isDone = false;
         }
 
