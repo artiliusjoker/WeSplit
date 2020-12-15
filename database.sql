@@ -434,8 +434,3 @@ INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (7, N'Assets\trips\7
 INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (7, N'Assets\trips\7\list\2.jpg')
 INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (7, N'Assets\trips\7\list\3.jpg')
 INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (7, N'Assets\trips\7\list\4.jpg')
-
-delete from TRIP where TRIP_ID = 8
-go
-delete from TRIP where TRIP_ID = 9
-go

@@ -19,20 +19,13 @@ namespace WeSplit.Models
             LOCATION result = DatabaseEntity.Entity.DB.LOCATIONs.OrderBy(location => location.LOCATION_ID).Skip(skip).Take(1).First();
             return new Location(result);
         }
-
-        public static Trip GetNewTrip()
-        {
-            int maxID = DatabaseEntity.Entity.DB.TRIPs.Max(trip => trip.TRIP_ID);
-            maxID += 1;
-            return new Trip(maxID);
-        }
-        public static bool AddNewTrip(Trip newTrip)
+        public static int AddNewTrip(Trip newTrip)
         {            
             TRIP newTripCreated = DatabaseEntity.Entity.DB.TRIPs.Add(newTrip.ToTrip());
             if (newTripCreated == null)
-                return false;
+                return -1;
             DatabaseEntity.Entity.DB.SaveChanges();
-            return true;
+            return newTripCreated.TRIP_ID;
         }
         #endregion
 

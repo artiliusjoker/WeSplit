@@ -28,7 +28,7 @@ namespace WeSplit.ViewModel
 
         public AddTripViewModel()
         {
-            TripSelected = DataAccess.GetNewTrip();
+            TripSelected = new Trip(0);
             ResetView();
             // Danh sách các loại chi phí trong combo box
             AllCostTypes = DataAccess.GetCostsType();
@@ -169,21 +169,22 @@ namespace WeSplit.ViewModel
                 {
                     return; 
                 }
-                // Copy hình thumbnail mới vào folder của chương trình và lưu record vào DB
-                if (TripBinding.ThumnailPath != TripSelected.ThumnailPath)
-                {
-                    string newThumbnail = Utils.StringHelper.CopyFile(TripBinding.ThumnailPath, TripSelected.ID, true);
-                    TripSelected.ThumnailPath = newThumbnail;
-                }
-                if (!DataAccess.AddNewTrip(TripSelected))
+                // Copy hình thumbnail mới vào folder của chương trình và lưu record vào DB          
+                string newThumbnail = Utils.StringHelper.CopyFile(TripBinding.ThumnailPath, TripSelected.ID, true);
+                TripSelected.ThumnailPath = newThumbnail;
+
+                int newID = DataAccess.AddNewTrip(TripSelected);
+                if ( newID < 0)
                 { 
                     return; 
                 }
-                // Địa điểm
+                TripSelected.ID = newID;
+                // Địa điểm             
                 DataAccess.UpdateAddRemoveTripLocations(TripSelected.ID, TripLocations.ToList());
                 // Hình ảnh
                 foreach (TripImages image in AllTripImages)
                 {
+                    image.Trip_ID = newID;
                     if (image.IsNew)
                     {
                         string newImage = Utils.StringHelper.CopyFile(image.ImagePath, TripSelected.ID, false);
@@ -195,6 +196,10 @@ namespace WeSplit.ViewModel
                 // Thành viên
                 DataAccess.UpdateAddRemoveTripMembers(TripSelected.ID, TripMembers.ToList());
                 // Chi phí
+                foreach(TripCost tripCost in TripCosts)
+                {
+                    tripCost.Trip_ID = newID;
+                }    
                 DataAccess.UpdateAddRemoveTripCosts(TripSelected.ID, TripCosts.ToList());
             });
             DiscardChangesAndReload = new RelayCommand<object>((p) => { return true; }, (p) =>
