@@ -114,7 +114,7 @@
                                 </i1:EventTrigger>
                             </i1:Interaction.Triggers>
                             <materialDesign:PackIcon Kind="ViewDashboard" Height="25" Width="25" Margin="10"/>
-                            <TextBlock Text="Home" VerticalAlignment="Center" Margin="20 10"/>
+                            <TextBlock Text="Trang chủ" VerticalAlignment="Center" Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem x:Name="ItemCreate" Height="60">
@@ -126,7 +126,7 @@
                                 </i1:EventTrigger>
                             </i1:Interaction.Triggers>
                             <materialDesign:PackIcon Kind="PlusThick" Height="25" Width="25" Margin="10"/>
-                            <TextBlock Text="Create" VerticalAlignment="Center" Margin="20 10"/>
+                            <TextBlock Text="Tạo chuyến đi" VerticalAlignment="Center" Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Height="60">
@@ -138,7 +138,7 @@
                                 </i1:EventTrigger>
                             </i1:Interaction.Triggers>
                             <materialDesign:PackIcon Kind="MapMarker" Height="25" Width="25" Margin="10"/>
-                            <TextBlock Text="Completed" VerticalAlignment="Center"  Margin="20 10"/>
+                            <TextBlock Text="Địa điểm" VerticalAlignment="Center"  Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Height="60">
@@ -150,7 +150,7 @@
                                 </i1:EventTrigger>
                             </i1:Interaction.Triggers>
                             <materialDesign:PackIcon Kind="AccountGroup" Height="25" Width="25" Margin="10"/>
-                            <TextBlock Text="Members" VerticalAlignment="Center"  Margin="20 10"/>
+                            <TextBlock Text="Thành viên" VerticalAlignment="Center"  Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
                     

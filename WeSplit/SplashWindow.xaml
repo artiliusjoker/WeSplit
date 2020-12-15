@@ -45,7 +45,8 @@
                             </LinearGradientBrush>
                         </TextBlock.Foreground>
                     </TextBlock>
-                    <TextBlock TextWrapping="Wrap" Name="tbxDescription" Text="{Binding}" FontSize="20" TextAlignment="Justify"></TextBlock>
+                    <TextBlock TextWrapping="Wrap" Name="tbxDescription" Margin="10, 10"
+                               Text="{Binding}" FontSize="20" TextAlignment="Justify"></TextBlock>
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="2">

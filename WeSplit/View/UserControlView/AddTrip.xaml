@@ -227,7 +227,7 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <Button 
-                                                Command="{Binding Path=DataContext.DeleteTripCostCommand, ElementName=UpdateTripUC}"
+                                                Command="{Binding Path=DataContext.DeleteTripCostCommand, ElementName=AddTripUC}"
                                                 CommandParameter="{Binding}"
                                                 Height="25" Width="25" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
                                                 Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF404040">
@@ -339,7 +339,7 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <Button 
-                                                Command="{Binding Path=DataContext.DeleteTripMemberCommand, ElementName=UpdateTripUC}"
+                                                Command="{Binding Path=DataContext.DeleteTripMemberCommand, ElementName=AddTripUC}"
                                                 CommandParameter="{Binding}"
                                                 Height="25" Width="25" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
                                                 Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF404040">
@@ -373,7 +373,7 @@
                                                 <ImageBrush ImageSource="{Binding ImagePath, Converter={StaticResource ImagePathConverter}}" RenderOptions.BitmapScalingMode="HighQuality" Stretch="UniformToFill"></ImageBrush>
                                             </Border.Background>
                                         </Border>
-                                        <Button Command="{Binding Path=DataContext.DeleteTripImageCommand, ElementName=UpdateTripUC}"
+                                        <Button Command="{Binding Path=DataContext.DeleteTripImageCommand, ElementName=AddTripUC}"
                                                 CommandParameter="{Binding}"
                                                 x:Name="buttonDeleteImages" Height="25" Width="25" 
                                                 Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF404040">
@@ -446,7 +446,7 @@
                                                    Width="300" Height="Auto" FontSize="16" 
                                                    TextAlignment="Left"
                                                    TextWrapping="Wrap"/>
-                                        <Button Command="{Binding Path=DataContext.DeleteTripLocationCommand, ElementName=UpdateTripUC}"
+                                        <Button Command="{Binding Path=DataContext.DeleteTripLocationCommand, ElementName=AddTripUC}"
                                                 CommandParameter="{Binding}"
                                                 Height="25" Width="25" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF404040">
                                             <materialDesign:PackIcon Kind="Delete" Width="25" Height="25" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center"/>
