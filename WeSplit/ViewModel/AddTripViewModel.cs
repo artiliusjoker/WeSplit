@@ -36,6 +36,7 @@ namespace WeSplit.ViewModel
             AllMembers = DataAccess.GetAllMembers();
             // Tất cả địa điểm có thể đi
             AllLocations = DataAccess.GetAllLocations();
+
             // Delete commands
             DeleteTripImageCommand = new RelayCommand<object>((p) => { return p != null; }, (p) =>
             {
@@ -64,6 +65,7 @@ namespace WeSplit.ViewModel
                 Member selectedItem = (Member)p;
                 TripMembers.Remove(selectedItem);
             });
+
             // Add commands
             AddLocationCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
@@ -158,6 +160,67 @@ namespace WeSplit.ViewModel
                     var newThumbnailOpened = open.FileName;
                     TripBinding.ThumnailPath = newThumbnailOpened;
                 }
+            });
+            // Other commands          
+            AddNewTripCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                bool isChanged = false;
+                // Title
+                if (TripBinding.Title != TripSelected.Title)
+                {
+                    TripSelected.Title = TripBinding.Title;
+                    isChanged = true;
+                }
+                // Description
+                if (TripBinding.Description != TripSelected.Description)
+                {
+                    TripSelected.Description = TripBinding.Description;
+                    isChanged = true;
+                }
+                // Copy hình thumbnail mới vào folder của chương trình và lưu record vào DB
+                if (TripBinding.ThumnailPath != TripSelected.ThumnailPath)
+                {
+                    string newThumbnail = Utils.StringHelper.CopyFile(TripBinding.ThumnailPath, TripSelected.ID, true);
+                    TripSelected.ThumnailPath = newThumbnail;
+                    isChanged = true;
+                }
+                // StartDate
+                if (TripBinding.StartDate != TripSelected.StartDate)
+                {
+                    TripSelected.StartDate = TripBinding.StartDate;
+                    isChanged = true;
+                }
+                // EndDate
+                if (TripBinding.EndDate != TripSelected.EndDate)
+                {
+                    TripSelected.EndDate = TripBinding.EndDate;
+                    isChanged = true;
+                }
+                if (isChanged)
+                {
+                    DataAccess.UpdateTripInfo(TripSelected);
+                }
+                // Địa điểm
+                DataAccess.UpdateAddRemoveTripLocations(TripSelected.ID, TripLocations.ToList());
+                // Hình ảnh
+                foreach (TripImages image in AllTripImages)
+                {
+                    if (image.IsNew)
+                    {
+                        string newThumbnail = Utils.StringHelper.CopyFile(image.ImagePath, TripSelected.ID, false);
+                        image.ImagePath = newThumbnail;
+                        image.IsNew = false;
+                    }
+                }
+                DataAccess.UpdateAddRemoveTripImages(TripSelected.ID, AllTripImages.ToList());
+                // Thành viên
+                DataAccess.UpdateAddRemoveTripMembers(TripSelected.ID, TripMembers.ToList());
+                // Chi phí
+                DataAccess.UpdateAddRemoveTripCosts(TripSelected.ID, TripCosts.ToList());
+            });
+            DiscardChangesAndReload = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                ResetView();
             });
         }
 

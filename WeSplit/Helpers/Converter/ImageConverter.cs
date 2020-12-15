@@ -9,6 +9,10 @@ namespace WeSplit.Helpers.Converter
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             string imgPath = (string)value;
+            if(imgPath == "")
+            {
+                return "/Assets/sidebar_background.jpg";
+            }    
             if(System.IO.Path.IsPathRooted(imgPath))
             {
                 return imgPath;

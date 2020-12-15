@@ -115,7 +115,7 @@
                     <Border Canvas.Left="21" Canvas.Top="580" Width="380" Height="60" CornerRadius="10" BorderThickness="1" BorderBrush="#FF484848">
 
                     </Border>
-                    <Button Command="{Binding ChooseTripThumbnailCommand}"
+                    <Button Command="{Binding AddTripThumbnailCommand}"
                             x:Name="ChooseImg"  Height="60" VerticalAlignment="Bottom" 
                             BorderBrush="{x:Null}" Background="{x:Null}" 
                             Foreground="#FF2B2B2B" FontSize="14" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Center" Canvas.Left="21" Canvas.Top="580" Width="380">
@@ -124,7 +124,7 @@
                         </WrapPanel>
                     </Button>
                     <ComboBox
-                        SelectedValue="{Binding CostSelected, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedValue="{Binding CostCBBSelected, UpdateSourceTrigger=PropertyChanged}"
                         ItemsSource="{Binding AllCostTypes}"
                         DockPanel.Dock="Top"
                         Canvas.Left="440" Canvas.Top="21"
