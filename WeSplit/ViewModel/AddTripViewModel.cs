@@ -1,10 +1,7 @@
 ﻿using Microsoft.Win32;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using WeSplit.Models;
 
@@ -77,7 +74,9 @@ namespace WeSplit.ViewModel
                 {
                     // Thêm vào thành viên mới lên UI
                     TripLocations.Add(new Location(LocationCBBSelected));
+                    return;
                 }
+                CustomDialog.ShowDialog("Địa điểm đã có trong danh sách", CustomDialog.Buttons.OK);
             });
             AddMemberCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
@@ -95,8 +94,12 @@ namespace WeSplit.ViewModel
                         {
                             AmountPaid = doubleAmount
                         });
+                        return;
                     }
+                    CustomDialog.ShowDialog("Thành viên đã có trong danh sách, thay đổi tiền trong bảng", CustomDialog.Buttons.OK);
+                    return;
                 }
+                CustomDialog.ShowDialog("Nhập tiền không đúng định dạng", CustomDialog.Buttons.OK);
             });
             AddCostCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
@@ -117,8 +120,12 @@ namespace WeSplit.ViewModel
                             Trip_ID = TripSelected.ID,
                             Amount = doubleAmount
                         });
+                        return;
                     }
+                    CustomDialog.ShowDialog("Chi phí đã có trong danh sách, thay đổi tiền trong bảng", CustomDialog.Buttons.OK);
+                    return;
                 }
+                CustomDialog.ShowDialog("Nhập tiền không đúng định dạng", CustomDialog.Buttons.OK);
             });
             AddTripImageCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
@@ -165,8 +172,9 @@ namespace WeSplit.ViewModel
             AddNewTripCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 TripSelected = TripBinding.Clone();
-                if (TripSelected.IsAnyFieldNull()) 
+                if (TripSelected.IsAnyFieldNull())
                 {
+                    CustomDialog.ShowDialog("Không thể thêm mới: có thông tin bỏ trống !", CustomDialog.Buttons.OK);
                     return; 
                 }
                 // Copy hình thumbnail mới vào folder của chương trình và lưu record vào DB          
@@ -175,7 +183,8 @@ namespace WeSplit.ViewModel
 
                 int newID = DataAccess.AddNewTrip(TripSelected);
                 if ( newID < 0)
-                { 
+                {
+                    CustomDialog.ShowDialog("Không thể thêm mới: lỗi nghiêm trọng !", CustomDialog.Buttons.OK);
                     return; 
                 }
                 TripSelected.ID = newID;
@@ -201,10 +210,11 @@ namespace WeSplit.ViewModel
                     tripCost.Trip_ID = newID;
                 }    
                 DataAccess.UpdateAddRemoveTripCosts(TripSelected.ID, TripCosts.ToList());
+                CustomDialog.ShowDialog("Thêm mới thành công", CustomDialog.Buttons.OK);
             });
             DiscardChangesAndReload = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                ResetView();
+                ResetView();           
             });
         }
 

@@ -54,17 +54,17 @@ namespace WeSplit.Models
         public bool IsAnyFieldNull()
         {
             // Title
-            if (Title == null)
+            if (Title == "")
             {
                 return true;
             }
             // Description
-            if (Description == null)
+            if (Description == "")
             {
                 return true;
             }
             // Thumbnail
-            if (thumnailPath == null)
+            if (thumnailPath == "")
             {
                 return true;
             }
