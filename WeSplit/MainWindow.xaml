@@ -34,6 +34,18 @@
         <DataTemplate x:Name="AddTrip" DataType="{x:Type viewModel:AddTripViewModel }">
             <view:AddTrip/>
         </DataTemplate>
+        
+        <Style x:Key="TransparentStyle" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="Transparent">
+                            <ContentPresenter/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
 
     <Window.Triggers>
@@ -106,52 +118,44 @@
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <ListViewItem                       
                         x:Name="ItemHome" Height="60">
-                        <StackPanel Orientation="Horizontal">
-                            <i1:Interaction.Triggers>
-                                <i1:EventTrigger EventName="MouseLeftButtonDown">
-                                    <i1:InvokeCommandAction Command="{Binding OpenHomeView}" >
-                                    </i1:InvokeCommandAction>
-                                </i1:EventTrigger>
-                            </i1:Interaction.Triggers>
-                            <materialDesign:PackIcon Kind="ViewDashboard" Height="25" Width="25" Margin="10"/>
-                            <TextBlock Text="Trang chủ" VerticalAlignment="Center" Margin="20 10"/>
-                        </StackPanel>
+                        <Button Style="{StaticResource TransparentStyle}"
+                                Command="{Binding OpenHomeView}">
+                            <StackPanel Orientation="Horizontal">
+
+                                <materialDesign:PackIcon Foreground="#FF5C99D6" Kind="ViewDashboard" Height="25" Width="25" Margin="10"/>
+                                <TextBlock Foreground="#FF5C99D6" Text="Trang chủ" VerticalAlignment="Center" Margin="20 10"/>
+                            </StackPanel>
+                        </Button>
                     </ListViewItem>
                     <ListViewItem x:Name="ItemCreate" Height="60">
-                        <StackPanel Orientation="Horizontal">
-                            <i1:Interaction.Triggers>
-                                <i1:EventTrigger EventName="MouseLeftButtonDown">
-                                    <i1:InvokeCommandAction Command="{Binding OpenAddTripView}" >
-                                    </i1:InvokeCommandAction>
-                                </i1:EventTrigger>
-                            </i1:Interaction.Triggers>
-                            <materialDesign:PackIcon Kind="PlusThick" Height="25" Width="25" Margin="10"/>
-                            <TextBlock Text="Tạo chuyến đi" VerticalAlignment="Center" Margin="20 10"/>
-                        </StackPanel>
+                        <Button Style="{StaticResource TransparentStyle}"
+                                Command="{Binding OpenAddTripView}">
+                            <StackPanel Orientation="Horizontal">
+
+                                <materialDesign:PackIcon Foreground="#FF5C99D6" Kind="PlusThick" Height="25" Width="25" Margin="10"/>
+                                <TextBlock Foreground="#FF5C99D6" Text="Thêm chuyến đi" VerticalAlignment="Center" Margin="20 10"/>
+                            </StackPanel>
+                        </Button>
                     </ListViewItem>
                     <ListViewItem Height="60">
-                        <StackPanel Orientation="Horizontal">
-                            <i1:Interaction.Triggers>
-                                <i1:EventTrigger EventName="MouseLeftButtonDown">
-                                    <i1:InvokeCommandAction Command="{Binding OpenLocationsView}" >
-                                    </i1:InvokeCommandAction>
-                                </i1:EventTrigger>
-                            </i1:Interaction.Triggers>
-                            <materialDesign:PackIcon Kind="MapMarker" Height="25" Width="25" Margin="10"/>
-                            <TextBlock Text="Địa điểm" VerticalAlignment="Center"  Margin="20 10"/>
-                        </StackPanel>
+                        <Button Style="{StaticResource TransparentStyle}"
+                                Command="{Binding OpenLocationsView}">
+                            <StackPanel Orientation="Horizontal">
+
+                                <materialDesign:PackIcon Foreground="#FF5C99D6" Kind="MapMarker" Height="25" Width="25" Margin="10"/>
+                                <TextBlock Foreground="#FF5C99D6" Text="Địa điểm" VerticalAlignment="Center" Margin="20 10"/>
+                            </StackPanel>
+                        </Button>
                     </ListViewItem>
                     <ListViewItem Height="60">
-                        <StackPanel Orientation="Horizontal">
-                            <i1:Interaction.Triggers>
-                                <i1:EventTrigger EventName="MouseLeftButtonDown">
-                                    <i1:InvokeCommandAction Command="{Binding OpenMembersView}" >
-                                    </i1:InvokeCommandAction>
-                                </i1:EventTrigger>
-                            </i1:Interaction.Triggers>
-                            <materialDesign:PackIcon Kind="AccountGroup" Height="25" Width="25" Margin="10"/>
-                            <TextBlock Text="Thành viên" VerticalAlignment="Center"  Margin="20 10"/>
-                        </StackPanel>
+                        <Button Style="{StaticResource TransparentStyle}"
+                                Command="{Binding OpenMembersView}">
+                            <StackPanel Orientation="Horizontal">
+
+                                <materialDesign:PackIcon Foreground="#FF5C99D6" Kind="AccountGroup" Height="25" Width="25" Margin="10"/>
+                                <TextBlock Foreground="#FF5C99D6" Text="Thành viên" VerticalAlignment="Center" Margin="20 10"/>
+                            </StackPanel>
+                        </Button>
                     </ListViewItem>
                     
                 </ListView>
