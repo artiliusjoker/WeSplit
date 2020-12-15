@@ -435,16 +435,7 @@ INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (7, N'Assets\trips\7
 INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (7, N'Assets\trips\7\list\3.jpg')
 INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (7, N'Assets\trips\7\list\4.jpg')
 
-SELECT t1.*
-FROM 
-    dbo.TRIP t1
-INNER JOIN
-    (SELECT dbo.TRIP_MEMBERS.TRIP_ID, dbo.MEMBER.NAME FROM dbo.MEMBER inner join dbo.TRIP_MEMBERS on dbo.TRIP_MEMBERS.MEMBER_ID = dbo.MEMBER.MEMBER_ID) t2
-ON (t1.TRIP_ID = t2.TRIP_ID)
-where t2.NAME like '%' + 'Lê Pele' + '%' AND t1.ISDONE = 1;
-
-SELECT t1.*
-FROM dbo.TRIP t1
-where dbo.RemoveAllSpaces(dbo.fuConvertToUnsign2(t1.TITTLE)) like N'%' + dbo.RemoveAllSpaces(dbo.fuConvertToUnsign2('chuyen d')) + '%';
-
-select * from dbo.TRIP
+delete from TRIP where TRIP_ID = 8
+go
+delete from TRIP where TRIP_ID = 9
+go
