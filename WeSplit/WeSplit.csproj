@@ -141,6 +141,7 @@
     <Compile Include="ViewModel\CurrentTripsViewModel.cs" />
     <Compile Include="ViewModel\CustomDialog.cs" />
     <Compile Include="ViewModel\DetailTripViewModel.cs" />
+    <Compile Include="ViewModel\LocationViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\SplashViewModel.cs" />
     <Compile Include="ViewModel\UpdateTripViewModel.cs" />

@@ -4,9 +4,197 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WeSplit.View.UserControlView"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"  
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="728" d:DesignWidth="1010"
+             Name="LocationsUC"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{DynamicResource MaterialDesignFont}">
+
+    <UserControl.Resources>
+        
+    </UserControl.Resources>
+    
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Margin="20, 15, 20, 15" VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="6*"/>
+                    <ColumnDefinition Width="4* "/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0"
+                    VerticalAlignment="Center"
+                    TextAlignment="Left"
+                    Text="Thêm địa điểm"
+                    FontSize="20"/>
+                <Button Grid.Column="1"
+                        Command="{Binding AddLocationCommand}"
+                        Margin="0,5,10,5"
+                        HorizontalAlignment="Right"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                        ToolTip="Thêm mới chi phí">
+                    <materialDesign:PackIcon
+                        Kind="PlusThick"
+                        Height="20"
+                        Width="20" />
+                </Button>
+            </Grid>
+
+            <Grid Grid.Row="1"
+              Margin="5, 20, 5, 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0"
+                        Margin="0, 0, 5, 0">
+                    <Label Content="Tên địa điểm"
+                       FontSize="14"
+                       FontFamily="../Assets/Fonts/Roboto.ttf #Roboto"/>
+                    <Border Margin="5, 10, 5, 10" Grid.Row="1" Grid.Column="0"
+                                                materialDesign:HintAssist.Hint="Tên địa điểm"
+                                                materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                                BorderThickness="1"
+                                                CornerRadius="10"
+                                                VerticalAlignment="Center" BorderBrush="#FF484848">
+                        <TextBox Padding="5, 5, 5, 5"
+                            Text="{Binding Place.Name}"
+                            FontSize="14"
+                            TextWrapping="Wrap"
+                            BorderThickness="0">
+                        </TextBox>
+                    </Border>
+                    
+
+                    <Label Content="Địa chỉ"
+                       Margin="0, 10, 0, 0"
+                       FontSize="14"
+                       FontFamily="../Assets/Fonts/Roboto.ttf #Roboto"/>
+                    <Border Margin="5, 10, 5, 10" Grid.Row="1" Grid.Column="0"
+                                                materialDesign:HintAssist.Hint="Địa chỉ"
+                                                materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                                BorderThickness="1"
+                                                CornerRadius="10"
+                                                VerticalAlignment="Center" BorderBrush="#FF484848">
+                        <TextBox Padding="5, 5, 5, 5"
+                            Text="{Binding Place.Name}"
+                            FontSize="14"
+                            TextWrapping="Wrap"
+                            BorderThickness="0">
+                        </TextBox>
+                    </Border>
+                </StackPanel>
+                
+                <StackPanel Grid.Column="1"
+                        Margin="5, 0, 0, 0">
+                    <Label Content="Mô tả địa điểm"
+                       FontSize="14"
+                       FontFamily="../Assets/Fonts/Roboto.ttf #Roboto"/>
+                    <Border Margin="5, 10, 5, 10" Grid.Row="1" Grid.Column="0"
+                                                materialDesign:HintAssist.Hint="Tên địa điểm"
+                                                materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                                BorderThickness="1"
+                                                CornerRadius="10"
+                                                VerticalAlignment="Center" BorderBrush="#FF484848">
+                        <TextBox Padding="5, 5, 5, 5" Height="150"
+                            Text="{Binding Place.Name}"
+                            FontSize="14"
+                            TextWrapping="Wrap"
+                            BorderThickness="0">
+                        </TextBox>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+        <Grid   Grid.Column="1"
+                Margin="20, 15, 20, 15" 
+                VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="6*"/>
+                    <ColumnDefinition Width="4* "/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0"
+                    VerticalAlignment="Center"
+                    TextAlignment="Left"
+                    Text="Danh sách địa điểm"
+                    FontSize="20"/>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" FlowDirection="RightToLeft">
+                    <Button Grid.Column="1"
+                        Command="{Binding AddLocationCommand}"
+                        Margin="0,5,10,5"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                        ToolTip="Thêm mới chi phí">
+                        <materialDesign:PackIcon
+                        Kind="Reload"
+                        Height="20"
+                        Width="20" />
+                    </Button>
+                    <Button Grid.Column="1"
+                        Command="{Binding AddLocationCommand}"
+                        Margin="0,5,10,5"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                        ToolTip="Thêm mới chi phí">
+                        <materialDesign:PackIcon
+                        Kind="ContentSave"
+                        Height="20"
+                        Width="20" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="1"
+                  Margin="5, 20, 5, 0">
+                <DataGrid  ScrollViewer.VerticalScrollBarVisibility ="Hidden"
+                           Height="300" FontSize="18"
+                           ItemsSource="{Binding TripCosts}"
+                           CanUserAddRows="False"
+                           AutoGenerateColumns="False"
+                           HeadersVisibility="All">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                                    Binding="{Binding Name}"
+                                    Header="Tên địa điểm"
+                                    Width="*"
+                                    ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                    IsReadOnly="False"/>
+
+                        <DataGridTextColumn
+                                    Binding="{Binding Address}"
+                                    Header="Địa chỉ"
+                                    Width="*"
+                                    ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                    IsReadOnly="False"/>
+
+                        <DataGridTextColumn
+                                    Binding="{Binding Description}"
+                                    Header="Mô tả"
+                                    Width="*"
+                                    ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                    IsReadOnly="False"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>

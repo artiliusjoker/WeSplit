@@ -34,6 +34,9 @@
         <DataTemplate x:Name="AddTrip" DataType="{x:Type viewModel:AddTripViewModel }">
             <view:AddTrip/>
         </DataTemplate>
+        <DataTemplate x:Name="Location" DataType="{x:Type viewModel:LocationViewModel }">
+            <view:Location/>
+        </DataTemplate>
         
         <Style x:Key="TransparentStyle" TargetType="{x:Type Button}">
             <Setter Property="Template">

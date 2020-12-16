@@ -73,7 +73,7 @@ namespace WeSplit.ViewModel
             });
             OpenLocationsView = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                CurrentView = CurrentTripsVM;
+                CurrentView = new LocationViewModel();
             });
             OpenMembersView = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
