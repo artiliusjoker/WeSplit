@@ -153,6 +153,21 @@ namespace WeSplit.Models
             this.Address = location.Address;
             this.Description = location.Description;
         }
+        public Location()
+        {
+            this.ID = 0;
+            this.Name = "";
+            this.Address = "";
+            this.Description = "";
+        }
+        public Location Clone()
+        {
+            return new Location(this);
+        }
+        public bool IsAnyFieldNull()
+        {
+            return Name == "" || Address == "" || Description == "";
+        }
         public override string ToString()
         {
             return this.Name;

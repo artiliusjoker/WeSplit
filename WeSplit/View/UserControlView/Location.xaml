@@ -22,10 +22,13 @@
     
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Grid Margin="20, 15, 20, 15" VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="6*"/>
+        </Grid.RowDefinitions>
+        <Grid Margin="20, 10, 20, 10" VerticalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="60" />
                 <RowDefinition Height="*" />
@@ -46,7 +49,7 @@
                         Margin="0,5,10,5"
                         HorizontalAlignment="Right"
                         Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                        ToolTip="Thêm mới chi phí">
+                        ToolTip="Thêm mới địa điểm">
                     <materialDesign:PackIcon
                         Kind="PlusThick"
                         Height="20"
@@ -72,7 +75,7 @@
                                                 CornerRadius="10"
                                                 VerticalAlignment="Center" BorderBrush="#FF484848">
                         <TextBox Padding="5, 5, 5, 5"
-                            Text="{Binding Place.Name}"
+                            Text="{Binding NewLocation.Name}"
                             FontSize="14"
                             TextWrapping="Wrap"
                             BorderThickness="0">
@@ -91,7 +94,7 @@
                                                 CornerRadius="10"
                                                 VerticalAlignment="Center" BorderBrush="#FF484848">
                         <TextBox Padding="5, 5, 5, 5"
-                            Text="{Binding Place.Name}"
+                            Text="{Binding NewLocation.Address}"
                             FontSize="14"
                             TextWrapping="Wrap"
                             BorderThickness="0">
@@ -111,7 +114,7 @@
                                                 CornerRadius="10"
                                                 VerticalAlignment="Center" BorderBrush="#FF484848">
                         <TextBox Padding="5, 5, 5, 5" Height="150"
-                            Text="{Binding Place.Name}"
+                            Text="{Binding NewLocation.Description}"
                             FontSize="14"
                             TextWrapping="Wrap"
                             BorderThickness="0">
@@ -121,7 +124,7 @@
             </Grid>
         </Grid>
 
-        <Grid   Grid.Column="1"
+        <Grid   Grid.Row="1"
                 Margin="20, 15, 20, 15" 
                 VerticalAlignment="Center">
             <Grid.RowDefinitions>
@@ -141,20 +144,20 @@
                     FontSize="20"/>
                 <StackPanel Grid.Column="1" Orientation="Horizontal" FlowDirection="RightToLeft">
                     <Button Grid.Column="1"
-                        Command="{Binding AddLocationCommand}"
+                        Command="{Binding ResetViewCommand}"
                         Margin="0,5,10,5"
                         Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                        ToolTip="Thêm mới chi phí">
+                        ToolTip="Làm mới">
                         <materialDesign:PackIcon
                         Kind="Reload"
                         Height="20"
                         Width="20" />
                     </Button>
                     <Button Grid.Column="1"
-                        Command="{Binding AddLocationCommand}"
+                        Command="{Binding SaveLocationsCommand}"
                         Margin="0,5,10,5"
                         Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                        ToolTip="Thêm mới chi phí">
+                        ToolTip="Lưu danh sách">
                         <materialDesign:PackIcon
                         Kind="ContentSave"
                         Height="20"
@@ -162,15 +165,18 @@
                     </Button>
                 </StackPanel>
             </Grid>
-
-            <Grid Grid.Row="1"
-                  Margin="5, 20, 5, 0">
+            <Border Grid.Row="1"
+                    Margin="5, 10, 5, 10"
+                    BorderThickness="1"
+                    VerticalAlignment="Center" 
+                    BorderBrush="#FF484848">
                 <DataGrid  ScrollViewer.VerticalScrollBarVisibility ="Hidden"
                            Height="300" FontSize="18"
-                           ItemsSource="{Binding TripCosts}"
+                           ItemsSource="{Binding Locations}"
                            CanUserAddRows="False"
                            AutoGenerateColumns="False"
-                           HeadersVisibility="All">
+                           HeadersVisibility="All"
+                           Padding="5,5,5,5">
                     <DataGrid.Columns>
                         <DataGridTextColumn
                                     Binding="{Binding Name}"
@@ -194,7 +200,7 @@
                                     IsReadOnly="False"/>
                     </DataGrid.Columns>
                 </DataGrid>
-            </Grid>
+            </Border>
         </Grid>
     </Grid>
 </UserControl>
