@@ -108,7 +108,7 @@
                        FontSize="14"
                        FontFamily="../Assets/Fonts/Roboto.ttf #Roboto"/>
                     <Border Margin="5, 10, 5, 10" Grid.Row="1" Grid.Column="0"
-                                                materialDesign:HintAssist.Hint="Tên địa điểm"
+                                                materialDesign:HintAssist.Hint="Mô tả địa điểm"
                                                 materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                                 BorderThickness="1"
                                                 CornerRadius="10"

@@ -66,6 +66,8 @@ namespace WeSplit.ViewModel
             SaveLocationsCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 DataAccess.UpdateAddLocations(Locations.ToList());
+                CustomDialog.ShowDialog("Thêm vào địa điểm thành công", CustomDialog.Buttons.OK);
+                ResetView();
             });
             ResetView();
         }

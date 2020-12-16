@@ -71,6 +71,8 @@ namespace WeSplit.ViewModel
             SaveMembersCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 DataAccess.UpdateAddMembers(Members.ToList());
+                CustomDialog.ShowDialog("Đã tạo thành viên thành công", CustomDialog.Buttons.OK);
+                ResetView();
             });
             ResetView();
         }
