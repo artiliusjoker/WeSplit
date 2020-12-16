@@ -12,6 +12,7 @@ namespace WeSplit.Models
         private System.DateTime startDate;
         private System.DateTime endDate;
         private bool isDone;
+        private string tripStatus;
 
         public Trip(TRIP trip)
         {
@@ -118,6 +119,16 @@ namespace WeSplit.Models
         {
             get { return isDone; }
             set { OnPropertyChanged(ref isDone, value); }
+        }
+        public string TripStatus
+        {
+            get
+            {
+                if (isDone)
+                    return $"Đã kết thúc vào ngày {EndDate:dd/MM/yyyy}";
+                return $"Dự kiến kết thúc vào ngày {EndDate:dd/MM/yyyy}";
+            }
+            set { OnPropertyChanged(ref tripStatus, value); }
         }
     }
 
