@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -172,11 +173,35 @@ namespace WeSplit.ViewModel
             AddNewTripCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 TripSelected = TripBinding.Clone();
+                // Kiểm tra bỏ trống
                 if (TripSelected.IsAnyFieldNull())
                 {
                     CustomDialog.ShowDialog("Không thể thêm mới: có thông tin bỏ trống !", CustomDialog.Buttons.OK);
                     return; 
                 }
+                // Kiểm tra ngày về có sớm hơn ngày đi hay không
+                if (DateTime.Compare(TripSelected.EndDate, TripSelected.StartDate) < 0)
+                {
+                    CustomDialog.ShowDialog("Nhập sai ngày đi hoặc ngày về !", CustomDialog.Buttons.OK);
+                    return;
+                }
+                // Kiểm tra tiền
+                double totalMemberPaid = 0;
+                double totalCosts = 0;
+                foreach (Member member in TripMembers)
+                {
+                    totalMemberPaid += member.AmountPaid;
+                }
+                foreach (TripCost cost in TripCosts)
+                {
+                    totalCosts += cost.Amount;
+                }
+                if (totalMemberPaid > totalCosts)
+                {
+                    CustomDialog.ShowDialog("Tiền các thành viên nhiều hơn chi phí chuyến đi, xin hãy nhập lại !", CustomDialog.Buttons.OK);
+                    return;
+                }
+
                 // Copy hình thumbnail mới vào folder của chương trình và lưu record vào DB          
                 string newThumbnail = Utils.StringHelper.CopyFile(TripBinding.ThumnailPath, TripSelected.ID, true);
                 TripSelected.ThumnailPath = newThumbnail;
@@ -210,6 +235,7 @@ namespace WeSplit.ViewModel
                     tripCost.Trip_ID = newID;
                 }    
                 DataAccess.UpdateAddRemoveTripCosts(TripSelected.ID, TripCosts.ToList());
+
                 CustomDialog.ShowDialog("Thêm mới thành công", CustomDialog.Buttons.OK);
             });
             DiscardChangesAndReload = new RelayCommand<object>((p) => { return true; }, (p) =>
