@@ -187,7 +187,36 @@ namespace WeSplit.Models
 
         #endregion
 
-        #region ListData
+        #region ListFunctions
+        public static void UpdateAddMember(List<Member> members)
+        {
+            // Update and Add members
+            List<MEMBER> newElements = new List<MEMBER>();
+            foreach (Member member in members)
+            {
+                var existingElement = DatabaseEntity.Entity.DB.MEMBERs
+                    .Where(element => (element.MEMBER_ID == member.MemberID))
+                    .SingleOrDefault();
+
+                if (existingElement != null)
+                {
+                    // Update
+                    existingElement.NAME = member.Name;
+                    existingElement.PHONENUMBER = member.PhoneNumber;
+                }
+                else
+                {
+                    newElements.Add(member.ToMEMBER());
+                }
+            }
+            // Add
+            foreach (MEMBER element in newElements)
+            {
+                DatabaseEntity.Entity.DB.MEMBERs.Add(element);
+            }
+            // Save
+            DatabaseEntity.Entity.DB.SaveChanges();
+        }
         public static void UpdateAddLocations(List<Location> locations)
         {  
             // Update and Insert location

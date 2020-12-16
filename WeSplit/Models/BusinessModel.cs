@@ -230,6 +230,16 @@ namespace WeSplit.Models
                 AMOUNT_PAID = AmountPaid
             };
         }
+        public MEMBER ToMEMBER()
+        {
+            return new MEMBER()
+            {
+                MEMBER_ID = MemberID,
+                NAME = Name,
+                PHONENUMBER = PhoneNumber,
+                AVATAR = "NO"
+            };
+        }
     }
 
     public class TripCost : ViewModel.BaseViewModel
