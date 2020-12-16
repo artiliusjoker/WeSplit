@@ -65,7 +65,7 @@ namespace WeSplit.ViewModel
             });
             SaveLocationsCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                
+                DataAccess.UpdateAddLocations(Locations.ToList());
             });
             ResetView();
         }

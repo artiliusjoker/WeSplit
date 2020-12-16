@@ -188,6 +188,35 @@ namespace WeSplit.Models
         #endregion
 
         #region ListData
+        public static void UpdateAddLocations(List<Location> locations)
+        {  
+            // Update and Insert location
+            List<LOCATION> newElements = new List<LOCATION>();
+            foreach (Location location in locations)
+            {
+                var existingElement = DatabaseEntity.Entity.DB.LOCATIONs
+                    .Where(element => (element.LOCATION_ID == location.ID))
+                    .SingleOrDefault();
+
+                if (existingElement != null)
+                {
+                    // Update
+                    existingElement.NAME = location.Name;
+                    existingElement.ADDRESS = location.Address;
+                    existingElement.DESCRIPTION = location.Description;
+                }
+                else
+                {
+                    newElements.Add(location.ToLOCATION());
+                }
+            }
+            foreach (LOCATION element in newElements)
+            {
+                DatabaseEntity.Entity.DB.LOCATIONs.Add(element);
+            }
+            // Save
+            DatabaseEntity.Entity.DB.SaveChanges();
+        }
         public static void UpdateAddRemoveTripLocations(int tripID, List<Location> tripLocations)
         {
             var currentTripLocations = DatabaseEntity.Entity.DB.TRIP_LOCATIONS

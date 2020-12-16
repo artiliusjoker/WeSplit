@@ -138,7 +138,6 @@ namespace WeSplit.Models
         public string Name { get; set; }
         public string Address { get; set; }
         public string Description { get; set; }
-
         public Location(LOCATION location)
         {
             this.ID = location.LOCATION_ID;
@@ -178,6 +177,16 @@ namespace WeSplit.Models
             {
                 TRIP_ID = tripID,
                 COSTS = 0,
+                LOCATION_ID = ID
+            };
+        }
+        public LOCATION ToLOCATION()
+        {
+            return new LOCATION()
+            {
+                NAME = Name,
+                ADDRESS = Address,
+                DESCRIPTION = Description,
                 LOCATION_ID = ID
             };
         }
