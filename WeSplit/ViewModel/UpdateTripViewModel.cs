@@ -25,8 +25,10 @@ namespace WeSplit.ViewModel
                 if (!isExisted)
                 {
                     // Thêm vào thành viên mới lên UI
-                    TripLocations.Add(new Location(LocationCBBSelected));                  
+                    TripLocations.Add(new Location(LocationCBBSelected));
+                    return;
                 }
+                CustomDialog.ShowDialog("Địa điểm đã có !", CustomDialog.Buttons.OK);
             });
             AddMemberCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
@@ -43,8 +45,10 @@ namespace WeSplit.ViewModel
                         TripMembers.Add(new Member(MemberCBBSelected)
                         {
                             AmountPaid = doubleAmount
-                        }) ;                      
+                        });
+                        return;
                     }
+                    CustomDialog.ShowDialog("Thành viên đã có, thay đổi số tiền trên bảng", CustomDialog.Buttons.OK);
                 }
             });
             AddCostCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
@@ -65,8 +69,10 @@ namespace WeSplit.ViewModel
                             ID = CostSelected.COST_ID,
                             Trip_ID = TripSelected.ID,
                             Amount = doubleAmount
-                        }) ;
+                        });
+                        return;
                     }
+                    CustomDialog.ShowDialog("Chi phí đã có, thay đổi số tiền trên bảng", CustomDialog.Buttons.OK);
                 }
             });
             AddTripImageCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
@@ -113,6 +119,34 @@ namespace WeSplit.ViewModel
             SaveDetailsCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 bool isChanged = false;
+                // Kiểm tra có bỏ trống trường nào không
+                if (TripBinding.IsAnyFieldNull())
+                {
+                    CustomDialog.ShowDialog("Có thông tin bị bỏ trống, xin mời nhập lại !", CustomDialog.Buttons.OK);
+                    return;
+                }
+                // Kiểm tra ngày về có sớm hơn ngày đi hay không
+                if (DateTime.Compare(TripBinding.EndDate, TripBinding.StartDate) < 0)
+                {
+                    CustomDialog.ShowDialog("Nhập sai ngày đi hoặc ngày về !", CustomDialog.Buttons.OK);
+                    return;
+                }
+                // Kiểm tra tiền
+                double totalMemberPaid = 0;
+                double totalCosts = 0;
+                foreach(Member member in TripMembers)
+                {
+                    totalMemberPaid += member.AmountPaid;
+                }
+                foreach (TripCost cost in TripCosts)
+                {
+                    totalCosts += cost.Amount;
+                }
+                if(totalMemberPaid > totalCosts)
+                {
+                    CustomDialog.ShowDialog("Tiền các thành viên nhiều hơn chi phí chuyến đi, xin hãy nhập lại !", CustomDialog.Buttons.OK);
+                    return;
+                }    
                 // Title
                 if (TripBinding.Title != TripSelected.Title)
                 {
@@ -143,8 +177,16 @@ namespace WeSplit.ViewModel
                 {
                     TripSelected.EndDate = TripBinding.EndDate;
                     isChanged = true;
+                }               
+                // Kiểm tra ngày về với ngày hiện tại, nếu sớm hơn thì đã đi xong rồi, ngược lại thì đang đi
+                if (DateTime.Compare(TripSelected.EndDate, DateTime.Today) < 0)
+                {
+                    TripSelected.IsDone = true;
+                    isChanged = true;
                 }
-                if(isChanged)
+                else TripSelected.IsDone = false;
+                // Lưu dữ liệu vào DB
+                if (isChanged)
                 {
                     DataAccess.UpdateTripInfo(TripSelected);
                 }
@@ -165,6 +207,8 @@ namespace WeSplit.ViewModel
                 DataAccess.UpdateAddRemoveTripMembers(TripSelected.ID, TripMembers.ToList());
                 // Chi phí
                 DataAccess.UpdateAddRemoveTripCosts(TripSelected.ID, TripCosts.ToList());
+
+                CustomDialog.ShowDialog("Chỉnh sửa chuyến đi thành công", CustomDialog.Buttons.OK);
             });
             DiscardChangesAndReload = new RelayCommand<object>((p) => { return true; }, (p) =>
             {               
@@ -196,8 +240,7 @@ namespace WeSplit.ViewModel
             {
                 Member selectedItem = (Member)p;
                 TripMembers.Remove(selectedItem);  
-            });
-            
+            });          
             // Get selected Trip
             TripSelected = trip;
             // Danh sách các loại chi phí trong combo box
@@ -220,8 +263,7 @@ namespace WeSplit.ViewModel
             // Tất cả hình ảnh của chuyến đi
             AllTripImages = new ObservableCollection<TripImages>(DataAccess.GetTripImages(TripSelected.ID));
             // Tất cả địa điểm của chuyến đi
-            TripLocations = new ObservableCollection<Location>(DataAccess.GetTripLocations(TripSelected.ID));
-        
+            TripLocations = new ObservableCollection<Location>(DataAccess.GetTripLocations(TripSelected.ID));      
         }
 
         private Trip TripSelected { get; set; }
