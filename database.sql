@@ -5,84 +5,25 @@ GO
 USE WESPLIT
 go
 
--- Create function for searching, count amount of money ------------------------------------------------------------------------------------------
-DROP FUNCTION dbo.fuConvertToUnsign2
+-- Truncate tables ------------------------------------------------------------------------------------------
+Backup database WESPLIT
+to disk = 'D:\backup\wesplit.bak';
+truncate table [dbo].[COST]
 go
-DROP FUNCTION dbo.RemoveAllSpaces
+truncate table [dbo].[LOCATION]
 go
-CREATE FUNCTION RemoveAllSpaces
-(
-       @InputStr varchar(8000)
-)
-RETURNS varchar(8000)
-AS
-BEGIN
-declare @ResultStr varchar(8000)
-set @ResultStr = @InputStr
-while charindex('-', @ResultStr) > 0
-       set @ResultStr = replace(@InputStr, '-', '')
-
-return @ResultStr
-END
-
-GO
-CREATE FUNCTION fuConvertToUnsign2
-(
- @strInput NVARCHAR(4000)
-) 
-RETURNS NVARCHAR(4000)
-AS
-Begin
- Set @strInput=rtrim(ltrim(lower(@strInput)))
- IF @strInput IS NULL RETURN @strInput
- IF @strInput = '' RETURN @strInput
- Declare @text nvarchar(50), @i int
- Set @text='-''`~!@#$%^&*()?><:|}{,./\"''='';–'
- Select @i= PATINDEX('%['+@text+']%',@strInput ) 
- while @i > 0
- begin
- set @strInput = replace(@strInput, substring(@strInput, @i, 1), '')
- set @i = patindex('%['+@text+']%', @strInput)
- End
- Set @strInput =replace(@strInput,' ',' ')
- 
- DECLARE @RT NVARCHAR(4000)
- DECLARE @SIGN_CHARS NCHAR(136)
- DECLARE @UNSIGN_CHARS NCHAR (136)
- SET @SIGN_CHARS = N'ăâđêôơưàảãạáằẳẵặắầẩẫậấèẻẽẹéềểễệế
- ìỉĩịíòỏõọóồổỗộốờởỡợớùủũụúừửữựứỳỷỹỵý'
- +NCHAR(272)+ NCHAR(208)
- SET @UNSIGN_CHARS = N'aadeoouaaaaaaaaaaaaaaaeeeeeeeeee
- iiiiiooooooooooooooouuuuuuuuuuyyyyy'
- DECLARE @COUNTER int
- DECLARE @COUNTER1 int
- SET @COUNTER = 1
- WHILE (@COUNTER <=LEN(@strInput))
- BEGIN 
- SET @COUNTER1 = 1
- WHILE (@COUNTER1 <=LEN(@SIGN_CHARS)+1)
- BEGIN
- IF UNICODE(SUBSTRING(@SIGN_CHARS, @COUNTER1,1)) 
- = UNICODE(SUBSTRING(@strInput,@COUNTER ,1) )
- BEGIN 
- IF @COUNTER=1
- SET @strInput = SUBSTRING(@UNSIGN_CHARS, @COUNTER1,1) 
- + SUBSTRING(@strInput, @COUNTER+1,LEN(@strInput)-1) 
- ELSE
- SET @strInput = SUBSTRING(@strInput, 1, @COUNTER-1) 
- +SUBSTRING(@UNSIGN_CHARS, @COUNTER1,1) 
- + SUBSTRING(@strInput, @COUNTER+1,LEN(@strInput)- @COUNTER)
- BREAK
- END
- SET @COUNTER1 = @COUNTER1 +1
- END
- SET @COUNTER = @COUNTER +1
- End
- SET @strInput = replace(@strInput,' ','-')
- RETURN lower(@strInput)
-END
-GO
-
+truncate table [dbo].[MEMBER]
+go
+truncate table [dbo].[TRIP]
+go
+truncate table [dbo].[TRIP_COSTS]
+go
+truncate table [dbo].[TRIP_IMAGES]
+go
+truncate table [dbo].[TRIP_LOCATIONS]
+go
+truncate table [dbo].[TRIP_MEMBERS]
+go
 -- Create table --------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE TABLE [dbo].[COST](
@@ -192,29 +133,40 @@ GO
 
 -- Foreign key ----------------------------------------------------------------------------------------------------------------------------------------------
 
-ALTER TABLE [dbo].[TRIP_COSTS]  WITH CHECK ADD FOREIGN KEY([COST_ID])
-REFERENCES [dbo].[COST] ([COST_ID])
-GO
-ALTER TABLE [dbo].[TRIP_COSTS]  WITH CHECK ADD FOREIGN KEY([TRIP_ID])
-REFERENCES [dbo].[TRIP] ([TRIP_ID])
-GO
-ALTER TABLE [dbo].[TRIP_IMAGES]  WITH CHECK ADD  CONSTRAINT [FK_TRIP_IMAGES] FOREIGN KEY([TRIP_ID])
-REFERENCES [dbo].[TRIP] ([TRIP_ID])
-GO
-ALTER TABLE [dbo].[TRIP_IMAGES] CHECK CONSTRAINT [FK_TRIP_IMAGES]
-GO
-ALTER TABLE [dbo].[TRIP_LOCATIONS]  WITH CHECK ADD FOREIGN KEY([LOCATION_ID])
-REFERENCES [dbo].[LOCATION] ([LOCATION_ID])
-GO
-ALTER TABLE [dbo].[TRIP_LOCATIONS]  WITH CHECK ADD FOREIGN KEY([TRIP_ID])
-REFERENCES [dbo].[TRIP] ([TRIP_ID])
-GO
-ALTER TABLE [dbo].[TRIP_MEMBERS]  WITH CHECK ADD FOREIGN KEY([MEMBER_ID])
-REFERENCES [dbo].[MEMBER] ([MEMBER_ID])
-GO
-ALTER TABLE [dbo].[TRIP_MEMBERS]  WITH CHECK ADD FOREIGN KEY([TRIP_ID])
-REFERENCES [dbo].[TRIP] ([TRIP_ID])
-GO
+ALTER TABLE [dbo].[TRIP_COSTS]
+ADD CONSTRAINT FK_TRIPCOSTS_COST
+FOREIGN KEY ([COST_ID]) REFERENCES [dbo].[COST] ([COST_ID])
+go
+
+ALTER TABLE [dbo].[TRIP_COSTS]
+ADD CONSTRAINT FK_TRIPCOSTS_TRIP
+FOREIGN KEY ([TRIP_ID]) REFERENCES [dbo].[TRIP] ([TRIP_ID])
+go
+
+ALTER TABLE [dbo].[TRIP_IMAGES]
+ADD CONSTRAINT FK_TRIPIMAGES_TRIP
+FOREIGN KEY ([TRIP_ID]) REFERENCES [dbo].[TRIP] ([TRIP_ID])
+go
+
+ALTER TABLE [dbo].[TRIP_LOCATIONS]
+ADD CONSTRAINT FK_TRIPLOCATIONS_LOCATION
+FOREIGN KEY ([LOCATION_ID]) REFERENCES [dbo].[LOCATION] ([LOCATION_ID])
+go
+
+ALTER TABLE [dbo].[TRIP_LOCATIONS]
+ADD CONSTRAINT FK_TRIPLOCATIONS_TRIP
+FOREIGN KEY ([TRIP_ID]) REFERENCES [dbo].[TRIP] ([TRIP_ID])
+go
+
+ALTER TABLE [dbo].[TRIP_MEMBERS]
+ADD CONSTRAINT FK_TRIPMEMBERS_MEMBER
+FOREIGN KEY ([MEMBER_ID]) REFERENCES [dbo].[MEMBER] ([MEMBER_ID])
+go
+
+ALTER TABLE [dbo].[TRIP_MEMBERS]
+ADD CONSTRAINT FK_TRIPMEMBERS_TRIP
+FOREIGN KEY ([TRIP_ID]) REFERENCES [dbo].[TRIP] ([TRIP_ID])
+go
 
 -- Insert sample data ---------------------------------------------------------------------------------------------------------------------------------------
 
@@ -234,37 +186,41 @@ INSERT [dbo].[COST] ([COST_ID], [NAME]) VALUES (4, N'Khác')
 SET IDENTITY_INSERT [dbo].[COST] OFF
 GO
 
-SET IDENTITY_INSERT [dbo].[LOCATION] ON 
-INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (1, N'Lạc tiên giới', N'1/3 Đường Lâm Sinh, Phường 5, TP Đà Lạt', N'Chiêu đãi du khách bằng phong cảnh núi rừng nguyên sơ, bên trên có khinh khí cầu, bên dưới là hồ nước tĩnh lặng')
-INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (2, N'Bắc Thang Lên Hỏi Ông Trời', N'Thôn Túy Sơn, Xã Xuân Thọ, Đà Lạt', N'Là điểm đến “sống ảo” mới toanh của Đà Lạt')
-INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (3, N'Nông trại Sunny Farm', N'Dốc Số 7, Trại Mát, P. 11, Tp. Đà Lạt', N'Nnấc thang lên thiên đường, quán cà phê nhỏ xinh ở Sunny Farm chính là điểm nhấn thu hút du khách. Từ vị trí của Sunny Farm bạn có thể phóng tầm mắt chiêm ngưỡng vẻ đẹp của khu Trại Mát')
-INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (4, N'Bảo tàng tranh 3D Art in us', N'02-04, Đường số 9, KDC Himlam, Phường Tân Hưng, Quận 7, TP HCM', N'Là không gian để bạn bung tỏa hết sức sáng tạo và cảm xúc để tạo nên thế giới kỳ ảo của riêng mình qua từng bức ảnh chụp')
-INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (5, N'World Of Heineken', N'Bitexco Financial Tower, 2 Hải Triều, Bến Nghé, Hồ Chí Minh', N'Khám phá lịch sử phát triển hãng Heineken – hãng bia nổi tiếng thế giới')
-INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (6, N'Vietopia', N'khu dân cư Him Lam, quận 7', N'Là mô hình công viên vui chơi kiểu mới, tạo môi trường cho trẻ trải nghiệm các ngành nghề một cách chân thật nhất')
-INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (7, N'du lịch Tre Việt', N'25 Phan Văn Đáng, Phú Hữu, Nhơn Trạch, Đồng Nai', N'Tại đây với nhiều trò chơi hấp như chèo thuyền kayak, thuyền thúng, du thuyền bamboo, đạp xe trên sông hay vượt chướng ngại vật,…')
-INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (8, N' Khu du lịch Bửu Long', N'Huỳnh Văn Nghệ, Kp4, Bửu Long, Thành phố Biên Hòa, Đồng Nai', N' Là khu vui chơi lớn nhất ở Nha Trang có diện tích hơn 200,000 m2 đạt tiêu chuẩn quốc tế')
-INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (9, N'Viện Hải Dương học Nha Trang', N'01 Cầu Đá, Trần Phú, TP. Nha Trang', N'Địa điểm này hấp dẫn các em nhỏ bổ sung những kiến thức về các loài sinh vật biển và chiêm ngưỡng đủ các loại động vật biển khác nhau')
-INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (10, N'Vinpearl', N'đảo Hòn Tre, phường Vĩnh Nguyên, thành phố Nha Trang, Khánh Hòa, Việt Nam', N'Nghỉ dưỡng, hòa mình với không khí biển')
-INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (11, N'Mù Cang Chải', N'Mù Cang Chải, Yên Bái ', N'Được giới trẻ hội tụ về đây rầm rộ để được đắm chìm trong sắc màu lấp lánh của mùa vàng trên núi')
-INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (12, N'Điện Biên', N'Điện Biên', N'Là 1 trong những địa điểm du lịch Tây Bắc tuyệt đẹp bởi hào khí chiến thắng')
-INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (13, N'Tháp Eiffel', N'Tháp Eiffel, Avenue Anatole France, Pa ri, Pháp', N'Là một công trình kiến trúc bằng thép nằm bên cạnh sông Seine.')
-INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (14, N'Quảng trường Concorde', N'Quảng trường Concorde, Pa ri, Pháp', N'Là một một trong những quảng trường nổi tiếng của nước Pháp nằm ở đại lộ Champs- Élysées bên bờ sông Seine')
-INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (15, N'Đại lộ Champs-Élysées', N'Đại lộ Champs-Élysées, Pa ri, Pháp', N'Là đại lộ lớn và nổi tiếng nhất của thành phố Paris, nối hai quảng trường Concorde và Etoile với nhiều cửa hàng thời trang cao cấp')
-INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (16, N'Đài tưởng niệm', N'bảo tàng quốc gia gần 9/11 Memorial & Museum, Greenwich Street, Thành phố New York, Tiểu bang New York, Hoa Kỳ', N'Nơi đặt đài kỷ niệm và bảo tàng tưởng nhớ sự kiện khủng bố 11/9.')
-INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (17, N'Broadway', N'Broadway Theatre, Broadway, Thành phố New York, Tiểu bang New York, Hoa Kỳ', N'Con phố trải trải dài suốt dọc khu Manhattan. Một trong những khu mua sắm đông đúc nhất của nó là SoHo')
-INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (18, N'Núi Phú Sỹ', N'Phú Sĩ, Kitayama, Fujinomiya, Shizuoka, Nhật Bản', N' Luôn thiêng liêng, sẽ che chở, bảo vệ cho sự bình an và phồn thịnh')
-INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (19, N'Tháp Tokyo Tower', N'Tháp Tokyo, 4 Chome-2-8 Shibakoen, Minato, Tôkyô, Nhật Bản', N'Cảm giác choáng ngợp, bất ngờ trước một bức tranh đầy sắc màu của những ánh đèn nhấp nháy, phản ánh sự phồn hoa và hiện đại.')
-INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (20, N'Đền Kinkaku-ji ở Kyoto', N'Kinkaku-ji, 1 Kinkakujichō, Kita Ward, Kyōto, Nhật Bản', N'Được ôm trọn bởi thiên nhiên xanh thẳm, mát rượi, đền Kinkaku-ji ở Kyoto là một công trình kiến trúc nổi tiếng vô cùng.')
-INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (21, N'Cung điện Gyeongbokgung', N'161 Sajik-ro, Sejongno, Jongno-gu, Seoul, Hàn Quốc', N'Là cung điện lớn nhất và quan trọng nhất của Hàn Quốc')
-INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (22, N'Cung điện Changdeokgung', N'99 Yulgok-ro, Gwonnong-dong, Jongno-gu, Seoul, Hàn Quốc', N'Là cung điện lớn thứ 2 ở Seoul. Cung điện Changdeokgung nổi tiếng với một khu vườn bí mật lớn nơi có vô số ngôi đền linh thiêng')
-INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (23, N'Khu làng cổ Bukcheon Hanok', N'Gye-dong, Jongno-gu, Seoul, Hàn Quốc', N'Nằm giữa 2 cung điện Gyeongbokgung và Cung điện Changdeokgung là ngôi làng cổ nổi tiếng mang tên Bukcheon Hanok đẹp như tranh vẽ')
-INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (24, N'Asiatique The Riverfront', N'Charoenkrung Soi 72-76, Charoenkrung Rd, Wat Phrayakrai Dist', N'Là một khu phức hợp giải trí và mua sắm lớn bên cạnh sông Chao Phraya ở Bangkok')
-INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (25, N'Maeklong Railway Market', N'Kasem Sukhum Alley, Mae Klong, Samut Songkhram, 75000', N'Họp chợ trên đường ray xe lửa ư? Nghe có vẻ khó tin và đầy nguy hiểm nhưng đó là cách hoạt động của khu chợ trời nổi tiếng nhất Thái Lan')
-INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (26, N'Open House Central Embassy', N'Tầng 6, Central Embassy, 1031 Ploenchit Road, Pathumwan, Bangkok', N'Là một không gian mở cung cấp nhiều dịch vụ như nhà hàng, mua sắm, ăn uống.')
-INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (27, N'Tượng chúa Giêsu Kito Vua', N' Thùy Vân, Phường 2, Tp. Vũng Tàu, Bà Rịa – Vũng Tàu', N'Biểu tượng của thành phố biển, là một bức tượng Chúa Giêsu được đặt trên đỉnh Núi Nhỏ của thành phố Vũng Tàu')
-INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (28, N'Biển Long Hải', N'Nằm cách thành phố Vũng Tàu 12km', N' Là điểm đến không thể bỏ qua khi tới du lịch Vũng Tàu bởi bức tranh thiên nhiên hoang sơ tuyệt đẹp.')
-INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (29, N'Bãi biển Bãi Cháy', N'Bãi Cháy, Hạ Long, Quảng Ninh', N' Là bãi biển nhân tạo với chiều dài gần 1km, bãi biển rộng với cát trắng mịn, nước trong.')
-INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (30, N'Sun World Halong Complex', N'Số 9 Đường Hạ Long, Bãi Cháy, Hạ Long, Quảng Ninh.', N' Là tổ hợp vui chơi giải trí đẳng cấp quốc tế với tổng diện tích lên tới 214 ha')
+SET IDENTITY_INSERT [dbo].[LOCATION] ON
+-- Địa điểm VN
+INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (1, N'Lạc Tiên Giới', N'Đường Lâm Sinh, Phường 5, TP. Đà Lạt', N'Chiêu đãi du khách bằng phong cảnh núi rừng nguyên sơ, bên trên có khinh khí cầu, bên dưới là hồ nước tĩnh lặng.')
+INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (2, N'Fansipan - nóc nhà của Đông Dương', N'Cách thị trấn Sapa 9km về phía Tây Nam', N'Là đỉnh núi cao nhất Việt Nam và cao nhất toàn khu vực Đông Dương. Nằm ở độ cao lên tới 3.143m và thuộc dãy núi Hoàng Liên Sơn.')
+INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (3, N'A Pa Chải', N'xã Sín Thầu, huyện Mường Nhé, tỉnh Điện Biên, Việt Nam', N'Phượt A Pa Chải luôn là niềm mơ ước của những kẻ thích du lich bụi. Không chỉ để làm giàu bản đồ du lịch cá nhân mà để hưởng cái cảm giác chiến thắng mọi thứ.')
+INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (4, N'Bảo tàng tranh 3D Art', N'Đường số 9, Khu đô thị Him Lam, Quận 7', N'Là không gian để bạn bung tỏa hết sức sáng tạo và cảm xúc để tạo nên thế giới kỳ ảo của riêng mình qua từng bức ảnh chụp.')
+INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (5, N'Bitexco Financial Tower', N'2 Hải Triều, Bến Nghé, Hồ Chí Minh', N'Khu vui chơi mua sắm tại trung tâm thành phố Hồ Chí Minh.')
+INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (6, N'Vietopia', N'Đường số 9, Khu đô thị Him Lam, Quận 7', N'Công viên vui chơi cho trẻ nhỏ lớn nhất TP.Hồ Chí Minh.')
+INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (7, N'Du lịch Tre Việt', N'25 Phan Văn Đáng, Phú Hữu, Nhơn Trạch, Đồng Nai', N'Khu du lịch sinh thái hàng đầu miền Nam Việt Nam, có đầy đủ trò chơi.')
+INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (8, N'Lăng Chủ tịch Hồ Chí Minh', N'Đường Hùng Vương, Quảng trường Ba Đình, Hà Nội', N'Lăng Chủ tịch Hồ Chí Minh, còn gọi là Lăng Hồ Chủ tịch, Lăng Bác, là nơi gìn giữ thi hài Hồ Chí Minh.')
+INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (9, N'Viện Hải Dương học Nha Trang', N'01 Cầu Đá, Trần Phú, TP. Nha Trang', N'Địa điểm này hấp dẫn các em nhỏ bổ sung những kiến thức về các loài sinh vật biển và chiêm ngưỡng đủ các loại động vật biển khác nhau.')
+INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (10, N'Vinpearl', N'Đảo Hòn Tre, phường Vĩnh Nguyên, thành phố Nha Trang, tỉnh Khánh Hòa, Việt Nam', N'Nha Trang được mệnh danh là hòn ngọc của biển Đông, Viên ngọc xanh vì giá trị thiên nhiên, vẻ đẹp cũng như khí hậu của nó. Đây là nơi được mệnh danh là Los Angles VN.')
+INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (11, N'Mù Cang Chải', N'Mù Cang Chải, Yên Bái ', N'Mù Cang Chải được công nhận là một trong những danh thắng bậc nhất đất Việt. Nếu bạn yêu vẻ mộc mạc đồng quê, yêu màu xanh miền sơn cước, bạn sẽ yêu Mù Cang Chải.')
+INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (12, N'Điện Biên', N'Điện Biên', N'Điện Biên là tỉnh giàu tiềm năng du lịch, đặc biệt là về lĩnh vực văn hóa – lịch sử.')
+-- Địa điểm châu âu
+INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (13, N'Tháp Eiffel', N'Đại lộ Avenue Anatole France, Paris, Pháp', N'Tháp Eiffel tại Paris là một trong những công trình biểu tượng nổi tiếng nhất của thành phố này và cũng là một trong những điểm tham quan được ghé thăm nhiều nhất thế giới.')
+INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (14, N'Vatican City', N'Nằm giữa thành phố Rome, Ý', N'Với diện tích khoảng 44 hécta (110 mẫu Anh), và dân số khoảng 1000 người, khiến Vatican được quốc tế công nhận là thành phố quốc gia độc lập nhỏ nhất thế giới về diện tích và dân số.')
+INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (15, N'Đại lộ Champs-Élysées', N'Đại lộ Champs-Élysées, Paris, Pháp', N'Là đại lộ lớn và nổi tiếng nhất của thành phố Paris, nối hai quảng trường Concorde và Etoile với nhiều cửa hàng thời trang cao cấp')
+INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (16, N'Lâu đài Gravensteen', N'Ghent, East Flanders nước Bỉ', N'Lâu đài là một pháo đài trung cổ đặc trưng, với những chiếc cầu thang xoắn, ngục tối có tường cao bao quanh và hào phòng vệ.')
+INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (17, N'Đấu trường La Mã', N'Thành phố Rome, Ý', N'Đấu trường được sử dụng cho các võ sĩ giác đấu và nô lệ có nguồn gốc tù binh chiến tranh thi đấu và trình diễn công chúng. Đấu trường được xây dựng khoảng năm 70-80 sau Công Nguyên dưới thời hoàng đế Vespasian.')
+INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (18, N'Đồng hồ Big Ben', N'Palace of Westminster, thành phố London, nước Anh', N'Tòa tháp là một biểu tượng văn hóa nước Anh được công nhận trên toàn thế giới. Đây là một trong những biểu tượng nổi bật nhất của Vương quốc Anh và dân chủ nghị viện.')
+INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (19, N'Cung điện Buckingham', N'Westminster, London SW1A 1AA, United Kingdom', N'Cung điện Buckingham hiện là nơi sinh sống của Nữ hoàng Elizabeth II tại London từ khi bà lên ngôi vào năm 1952.')
+INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (20, N'Cổng Brandenburg', N'Pariser Platz, 10117 Berlin, Germany', N'Là cổng thành phố trước đây và là một trong những biểu tượng chính của thành phố Berlin, Đức. Cổng này nằm ở quận Trung tâm (Bezirk Mitte) của Berlin.')
+-- Địa điểm ĐNA
+INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (21, N'Cung điện Gyeongbokgung', N'Indonesia', N'Là cung điện lớn nhất và quan trọng nhất của Hàn Quốc')
+INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (22, N'Cung điện Changdeokgung', N'Campuchia', N'Là cung điện lớn thứ 2 ở Seoul. Cung điện Changdeokgung nổi tiếng với một khu vườn bí mật lớn nơi có vô số ngôi đền linh thiêng')
+INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (23, N'Khu làng cổ Bukcheon Hanok', N'Lào', N'Nằm giữa 2 cung điện Gyeongbokgung và Cung điện Changdeokgung là ngôi làng cổ nổi tiếng mang tên Bukcheon Hanok đẹp như tranh vẽ')
+INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (24, N'Asiatique The Riverfront', N'Charoenkrung Soi 72-76, Charoenkrung Rd, Wat Phrayakrai Dist, Thái Lan', N'Là một khu phức hợp giải trí và mua sắm lớn bên cạnh sông Chao Phraya ở Bangkok')
+INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (25, N'Maeklong Railway Market', N'Kasem Sukhum Alley, Mae Klong, Samut Songkhram, Thái Lan', N'Họp chợ trên đường ray xe lửa ư? Nghe có vẻ khó tin và đầy nguy hiểm nhưng đó là cách hoạt động của khu chợ trời nổi tiếng nhất Thái Lan')
+INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (26, N'Open House Central Embassy', N'Central Embassy, 1031 Ploenchit Road, Pathumwan, Bangkok, Thái Lan', N'Là một không gian mở cung cấp nhiều dịch vụ như nhà hàng, mua sắm, ăn uống.')
+INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (27, N'Tượng chúa Giêsu Kito Vua', N'Thùy Vân, Phường 2, Tp. Vũng Tàu, Bà Rịa – Vũng Tàu', N'Biểu tượng của thành phố biển, là một bức tượng Chúa Giêsu được đặt trên đỉnh Núi Nhỏ của thành phố Vũng Tàu.')
+INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (28, N'Biển Long Hải', N'Campuchia', N' Là điểm đến không thể bỏ qua khi tới du lịch Vũng Tàu bởi bức tranh thiên nhiên hoang sơ tuyệt đẹp.')
+INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (29, N'Bãi biển Bãi Cháy', N'Indonesia', N' Là bãi biển nhân tạo với chiều dài gần 1km, bãi biển rộng với cát trắng mịn, nước trong.')
+INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (30, N'Sun World Halong Complex', N'Lào', N' Là tổ hợp vui chơi giải trí đẳng cấp quốc tế với tổng diện tích lên tới 214 ha')
+-- Địa điểm khác
 INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (31, N'Du lịch sinh thái dưới nước Cồn Quy', N' xã Tân Thạch và Quới Sơn, huyện Châu Thành, tỉnh Bến Tre, Việt Nam', N'Nằm dọc theo con sông Tiền và cách trung tâm thành phố Bến Tre 23km là Cồn Quy. Đây là một trong những điểm đến nổi tiếng nhất khi nhắc đến Bến Tre')
 INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (32, N'Cồn Phụng', N'cồn Phụng, Tân Thạch, Châu Thành, Bến Tre', N'Được bình chọn là khu du lịch tiêu biểu ở Đồng bằng sông Cửu Long,')
 INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (33, N'Cồn Phú Đa', N'cồn Phú Đa, Vĩnh Bình, Chợ Lách, Bến Tre', N' Nổi bật với cảnh trí thiên nhiên đẹp, thiên nhiên trong lành trong hệ thống toàn bộ cồn nổi ở Bến Tre')
@@ -274,20 +230,22 @@ INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES
 INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (37, N'Đường sách Nguyễn Văn Bình', N'Nguyễn Văn Bình, quận 1, tp. HCM', N'Quy tụ các nhà xuất bản lớn nhất cả nước với những đầu sách hấp dẫn')
 INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (38, N'Lost Escape Room', N'Lầu 5 – Diamond Plaza – 34 Lê Duẩn – Quận 1 – Tp.Hồ Chí Minh', N'Là trò chơi nhập vai thực tế. Với nhiều chủ đề cho bạn lựa chọn')
 INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (39, N'Snow Town', N' Căn hộ CBD Premium, 125 Đồng Văn Cống, Phường Thạnh Mỹ Lợi, Quận 2, Hồ Chí Minh', N'Cùng chìm đắm sắc trắng tinh khôi với những hoạt động đầy thú vị như trượt tuyết, nặn người tuyết hay chơi ném tuyết')
+INSERT [dbo].[LOCATION] ([LOCATION_ID], [NAME], [ADDRESS], [DESCRIPTION]) VALUES (40, N'Snow Town', N' Căn hộ CBD Premium, 125 Đồng Văn Cống, Phường Thạnh Mỹ Lợi, Quận 2, Hồ Chí Minh', N'Cùng chìm đắm sắc trắng tinh khôi với những hoạt động đầy thú vị như trượt tuyết, nặn người tuyết hay chơi ném tuyết')
+
 SET IDENTITY_INSERT [dbo].[LOCATION] OFF
 GO
 
 SET IDENTITY_INSERT [dbo].[MEMBER] ON 
-INSERT [dbo].[MEMBER] ([MEMBER_ID], [NAME], [PHONENUMBER], [AVATAR]) VALUES (1, N'Nguyễn Văn A', N'0988029100', N'\\Image\\Member\\avatar01.jpg')
-INSERT [dbo].[MEMBER] ([MEMBER_ID], [NAME], [PHONENUMBER], [AVATAR]) VALUES (2, N'Nguyễn Văn B', N'0988029099', N'\\Image\\Member\\avatar02.jpg')
-INSERT [dbo].[MEMBER] ([MEMBER_ID], [NAME], [PHONENUMBER], [AVATAR]) VALUES (3, N'Trương Minh Quân', N'0988029098', N'\\Image\\Member\\avatar03.jpg')
-INSERT [dbo].[MEMBER] ([MEMBER_ID], [NAME], [PHONENUMBER], [AVATAR]) VALUES (4, N'Nguyễn An', N'0988029097', N'\\Image\\Member\\avatar04.jpg')
-INSERT [dbo].[MEMBER] ([MEMBER_ID], [NAME], [PHONENUMBER], [AVATAR]) VALUES (5, N'Nguyễn Trần Beckham', N'0988029096', N'\\Image\\Member\\avatar05.jpg')
-INSERT [dbo].[MEMBER] ([MEMBER_ID], [NAME], [PHONENUMBER], [AVATAR]) VALUES (6, N'Lê Pele', N'0988029095', N'\\Image\\Member\\avatar06.jpg')
-INSERT [dbo].[MEMBER] ([MEMBER_ID], [NAME], [PHONENUMBER], [AVATAR]) VALUES (7, N'Trần Tiến', N'0988029094', N'\\Image\\Member\\avatar07.jpg')
-INSERT [dbo].[MEMBER] ([MEMBER_ID], [NAME], [PHONENUMBER], [AVATAR]) VALUES (8, N'Phùng Thanh Độ', N'0988029093', N'\\Image\\Member\\avatar08.jpg')
-INSERT [dbo].[MEMBER] ([MEMBER_ID], [NAME], [PHONENUMBER], [AVATAR]) VALUES (9, N'Nguyễn Anh Khoa', N'0988029092', N'\\Image\\Member\\avatar09.jpg')
-INSERT [dbo].[MEMBER] ([MEMBER_ID], [NAME], [PHONENUMBER], [AVATAR]) VALUES (10, N'Trần Diễm Kiều', N'0988029091', N'\\Image\\Member\\avatar10.jpg')
+INSERT [dbo].[MEMBER] ([MEMBER_ID], [NAME], [PHONENUMBER], [AVATAR]) VALUES (1, N'Nguyễn Văn A', N'0988029100', N'NO')
+INSERT [dbo].[MEMBER] ([MEMBER_ID], [NAME], [PHONENUMBER], [AVATAR]) VALUES (2, N'Nguyễn Văn B', N'0988029099', N'NO')
+INSERT [dbo].[MEMBER] ([MEMBER_ID], [NAME], [PHONENUMBER], [AVATAR]) VALUES (3, N'Trương Minh Quân', N'0988029098', N'NO')
+INSERT [dbo].[MEMBER] ([MEMBER_ID], [NAME], [PHONENUMBER], [AVATAR]) VALUES (4, N'Nguyễn An', N'0988029097', N'NO')
+INSERT [dbo].[MEMBER] ([MEMBER_ID], [NAME], [PHONENUMBER], [AVATAR]) VALUES (5, N'Nguyễn Trần Beckham', N'0988029096', N'NO')
+INSERT [dbo].[MEMBER] ([MEMBER_ID], [NAME], [PHONENUMBER], [AVATAR]) VALUES (6, N'Lê Pele', N'0988029095', N'NO')
+INSERT [dbo].[MEMBER] ([MEMBER_ID], [NAME], [PHONENUMBER], [AVATAR]) VALUES (7, N'Trần Tiến', N'0988029094', N'NO')
+INSERT [dbo].[MEMBER] ([MEMBER_ID], [NAME], [PHONENUMBER], [AVATAR]) VALUES (8, N'Phùng Thanh Độ', N'0988029093', N'NO')
+INSERT [dbo].[MEMBER] ([MEMBER_ID], [NAME], [PHONENUMBER], [AVATAR]) VALUES (9, N'Nguyễn Anh Khoa', N'0988029092', N'NO')
+INSERT [dbo].[MEMBER] ([MEMBER_ID], [NAME], [PHONENUMBER], [AVATAR]) VALUES (10, N'Trần Diễm Kiều', N'0988029091', N'NO')
 SET IDENTITY_INSERT [dbo].[MEMBER] OFF
 GO
 
@@ -346,19 +304,25 @@ SET IDENTITY_INSERT [dbo].[TRIP_LOCATIONS] ON
 INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (1, 1, 800000)
 INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (1, 2, 500000)
 INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (1, 3, 450000)
+
 INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (2, 4, 500000)
 INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (2, 5, 800000)
 INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (2, 6, 500000)
+
 INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (3, 7, 450000)
 INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (3, 8, 500000)
+
 INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (4, 9, 800000)
 INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (4, 10, 500000)
+
 INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (5, 11, 450000)
 INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (5, 12, 500000)
+
 INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (6, 30, 450000)
 INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (6, 31, 500000)
 INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (6, 31, 500000)
 INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (6, 31, 500000)
+
 INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (7, 32, 450000)
 INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (7, 33, 500000)
 SET IDENTITY_INSERT [dbo].[TRIP_LOCATIONS] OFF
@@ -434,3 +398,77 @@ INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (7, N'Assets\trips\7
 INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (7, N'Assets\trips\7\list\2.jpg')
 INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (7, N'Assets\trips\7\list\3.jpg')
 INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (7, N'Assets\trips\7\list\4.jpg')
+
+-- Check constraints
+select table_view,
+    object_type, 
+    constraint_type,
+    constraint_name,
+    details
+from (
+    select schema_name(t.schema_id) + '.' + t.[name] as table_view, 
+        case when t.[type] = 'U' then 'Table'
+            when t.[type] = 'V' then 'View'
+            end as [object_type],
+        case when c.[type] = 'PK' then 'Primary key'
+            when c.[type] = 'UQ' then 'Unique constraint'
+            when i.[type] = 1 then 'Unique clustered index'
+            when i.type = 2 then 'Unique index'
+            end as constraint_type, 
+        isnull(c.[name], i.[name]) as constraint_name,
+        substring(column_names, 1, len(column_names)-1) as [details]
+    from sys.objects t
+        left outer join sys.indexes i
+            on t.object_id = i.object_id
+        left outer join sys.key_constraints c
+            on i.object_id = c.parent_object_id 
+            and i.index_id = c.unique_index_id
+       cross apply (select col.[name] + ', '
+                        from sys.index_columns ic
+                            inner join sys.columns col
+                                on ic.object_id = col.object_id
+                                and ic.column_id = col.column_id
+                        where ic.object_id = t.object_id
+                            and ic.index_id = i.index_id
+                                order by col.column_id
+                                for xml path ('') ) D (column_names)
+    where is_unique = 1
+    and t.is_ms_shipped <> 1
+    union all 
+    select schema_name(fk_tab.schema_id) + '.' + fk_tab.name as foreign_table,
+        'Table',
+        'Foreign key',
+        fk.name as fk_constraint_name,
+        schema_name(pk_tab.schema_id) + '.' + pk_tab.name
+    from sys.foreign_keys fk
+        inner join sys.tables fk_tab
+            on fk_tab.object_id = fk.parent_object_id
+        inner join sys.tables pk_tab
+            on pk_tab.object_id = fk.referenced_object_id
+        inner join sys.foreign_key_columns fk_cols
+            on fk_cols.constraint_object_id = fk.object_id
+    union all
+    select schema_name(t.schema_id) + '.' + t.[name],
+        'Table',
+        'Check constraint',
+        con.[name] as constraint_name,
+        con.[definition]
+    from sys.check_constraints con
+        left outer join sys.objects t
+            on con.parent_object_id = t.object_id
+        left outer join sys.all_columns col
+            on con.parent_column_id = col.column_id
+            and con.parent_object_id = col.object_id
+    union all
+    select schema_name(t.schema_id) + '.' + t.[name],
+        'Table',
+        'Default constraint',
+        con.[name],
+        col.[name] + ' = ' + con.[definition]
+    from sys.default_constraints con
+        left outer join sys.objects t
+            on con.parent_object_id = t.object_id
+        left outer join sys.all_columns col
+            on con.parent_column_id = col.column_id
+            and con.parent_object_id = col.object_id) a
+order by table_view
