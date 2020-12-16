@@ -37,6 +37,9 @@
         <DataTemplate x:Name="Location" DataType="{x:Type viewModel:LocationViewModel }">
             <view:Location/>
         </DataTemplate>
+        <DataTemplate x:Name="Member" DataType="{x:Type viewModel:MemberViewModel }">
+            <view:Member/>
+        </DataTemplate>
         
         <Style x:Key="TransparentStyle" TargetType="{x:Type Button}">
             <Setter Property="Template">

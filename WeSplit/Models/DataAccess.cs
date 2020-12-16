@@ -188,7 +188,7 @@ namespace WeSplit.Models
         #endregion
 
         #region ListFunctions
-        public static void UpdateAddMember(List<Member> members)
+        public static void UpdateAddMembers(List<Member> members)
         {
             // Update and Add members
             List<MEMBER> newElements = new List<MEMBER>();

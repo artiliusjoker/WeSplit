@@ -143,6 +143,7 @@
     <Compile Include="ViewModel\DetailTripViewModel.cs" />
     <Compile Include="ViewModel\LocationViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\MemberViewModel.cs" />
     <Compile Include="ViewModel\SplashViewModel.cs" />
     <Compile Include="ViewModel\UpdateTripViewModel.cs" />
     <Compile Include="View\CustomDialog.xaml.cs">

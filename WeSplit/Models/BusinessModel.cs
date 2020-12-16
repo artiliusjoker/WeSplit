@@ -216,6 +216,22 @@ namespace WeSplit.Models
             this.Avatar = member.Avatar;
             this.AmountPaid = member.AmountPaid;
         }
+        public Member()
+        {
+            this.MemberID = 0;
+            this.Name = "";
+            this.PhoneNumber = "";
+            this.Avatar = "NO";
+            this.AmountPaid = 0;
+        }
+        public Member Clone()
+        {
+            return new Member(this);
+        }
+        public bool IsAnyFieldNull()
+        {
+            return Name == "" || PhoneNumber == "";
+        }
         public override string ToString()
         {
             return this.Name;
