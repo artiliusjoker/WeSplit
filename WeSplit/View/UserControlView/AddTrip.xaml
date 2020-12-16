@@ -286,7 +286,7 @@
                         <DataGrid  ScrollViewer.VerticalScrollBarVisibility ="Hidden" Canvas.Left="440" Canvas.Top="365" 
                                    Width="535" Height="270" FontSize="18"
                                    ItemsSource="{Binding TripMembers}"
-                                   CanUserAddRows="True"
+                                   CanUserAddRows="False"
                                    AutoGenerateColumns="False"
                                    HeadersVisibility="All">
                             <DataGrid.Columns>
