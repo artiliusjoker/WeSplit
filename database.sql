@@ -263,11 +263,10 @@ VALUES (5, N'Dạo một vòng miền Bắc', N'Đi nghỉ dưỡng trốn cái 
 INSERT [dbo].[TRIP] ([TRIP_ID], [TITTLE], [DESCRIPTION], [THUMNAIL],  [TOTALCOSTS], [TOGODATE], [RETURNDATE], [ISDONE]) 
 VALUES (6, N'Khám phá miền Tây sông nước', N'Khám phá, ăn uống ở miền Tây Nam Bộ', N'Assets\trips\6\1.jpg', 2500000, CAST(N'2018-09-11T00:00:00.000' AS DateTime), CAST(N'2018-10-15T00:00:00.000' AS DateTime), 1)
 INSERT [dbo].[TRIP] ([TRIP_ID], [TITTLE], [DESCRIPTION], [THUMNAIL],  [TOTALCOSTS], [TOGODATE], [RETURNDATE], [ISDONE]) 
-VALUES (7, N'Chuyến đi đáng quên', N'Chuyến đi không nên nhắc lại', N'Assets\trips\7\1.jpg', 3000000, CAST(N'2020-01-01T00:00:00.000' AS DateTime), CAST(N'2020-01-15T00:00:00.000' AS DateTime), 1)
+VALUES (7, N'Chuyến châu Á đáng nhớ', N'Lào, Indonesia, Campuchia', N'Assets\trips\7\1.jpg', 3000000, CAST(N'2020-01-01T00:00:00.000' AS DateTime), CAST(N'2020-01-15T00:00:00.000' AS DateTime), 1)
 SET IDENTITY_INSERT [dbo].[TRIP] OFF
 GO
 
-SET IDENTITY_INSERT [dbo].[TRIP_COSTS] ON 
 INSERT [dbo].[TRIP_COSTS] ([COST_ID], [TRIP_ID], [AMOUNT]) VALUES (1, 1, 2000000)
 INSERT [dbo].[TRIP_COSTS] ([COST_ID], [TRIP_ID], [AMOUNT]) VALUES (2, 1, 900000)
 INSERT [dbo].[TRIP_COSTS] ([COST_ID], [TRIP_ID], [AMOUNT]) VALUES (3, 1, 300000)
@@ -283,7 +282,7 @@ INSERT [dbo].[TRIP_COSTS] ([COST_ID], [TRIP_ID], [AMOUNT]) VALUES (3, 3, 200000)
 
 INSERT [dbo].[TRIP_COSTS] ([COST_ID], [TRIP_ID], [AMOUNT]) VALUES (3, 4, 300000)
 INSERT [dbo].[TRIP_COSTS] ([COST_ID], [TRIP_ID], [AMOUNT]) VALUES (4, 4, 3000000)
-INSERT [dbo].[TRIP_COSTS] ([COST_ID], [TRIP_ID], [AMOUNT]) VALUES (3, 4, 300000)
+INSERT [dbo].[TRIP_COSTS] ([COST_ID], [TRIP_ID], [AMOUNT]) VALUES (1, 4, 300000)
 
 INSERT [dbo].[TRIP_COSTS] ([COST_ID], [TRIP_ID], [AMOUNT]) VALUES (1, 5, 5000000)
 INSERT [dbo].[TRIP_COSTS] ([COST_ID], [TRIP_ID], [AMOUNT]) VALUES (2, 5, 2000000)
@@ -297,20 +296,18 @@ INSERT [dbo].[TRIP_COSTS] ([COST_ID], [TRIP_ID], [AMOUNT]) VALUES (4, 7, 600000)
 INSERT [dbo].[TRIP_COSTS] ([COST_ID], [TRIP_ID], [AMOUNT]) VALUES (1, 6, 2000000)
 INSERT [dbo].[TRIP_COSTS] ([COST_ID], [TRIP_ID], [AMOUNT]) VALUES (3, 6, 2000000)
 INSERT [dbo].[TRIP_COSTS] ([COST_ID], [TRIP_ID], [AMOUNT]) VALUES (2, 6, 5000000)
-SET IDENTITY_INSERT [dbo].[TRIP_COSTS] OFF
-GO
 
-SET IDENTITY_INSERT [dbo].[TRIP_LOCATIONS] ON 
-INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (1, 1, 800000)
-INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (1, 2, 500000)
-INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (1, 3, 450000)
+-- Trip locations
+INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (1, 14, 800000)
+INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (1, 19, 500000)
+INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (1, 17, 450000)
 
-INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (2, 4, 500000)
-INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (2, 5, 800000)
-INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (2, 6, 500000)
+INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (2, 37, 500000)
+INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (2, 39, 800000)
+INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (2, 40, 500000)
 
-INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (3, 7, 450000)
-INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (3, 8, 500000)
+INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (3, 34, 450000)
+INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (3, 36, 500000)
 
 INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (4, 9, 800000)
 INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (4, 10, 500000)
@@ -319,16 +316,14 @@ INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (5, 11,
 INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (5, 12, 500000)
 
 INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (6, 30, 450000)
-INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (6, 31, 500000)
-INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (6, 31, 500000)
-INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (6, 31, 500000)
+INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (6, 21, 500000)
+INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (6, 22, 500000)
+INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (6, 23, 500000)
 
-INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (7, 32, 450000)
-INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (7, 33, 500000)
-SET IDENTITY_INSERT [dbo].[TRIP_LOCATIONS] OFF
-GO
+INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (7, 3, 450000)
+INSERT [dbo].[TRIP_LOCATIONS] ([TRIP_ID], [LOCATION_ID], [COSTS]) VALUES (7, 4, 500000)
 
-SET IDENTITY_INSERT [dbo].[TRIP_MEMBERS] ON 
+-- Trip members
 INSERT [dbo].[TRIP_MEMBERS] ([TRIP_ID], [MEMBER_ID], [AMOUNT_PAID]) VALUES (1, 1, 520000)
 INSERT [dbo].[TRIP_MEMBERS] ([TRIP_ID], [MEMBER_ID], [AMOUNT_PAID]) VALUES (1, 2, 500000)
 INSERT [dbo].[TRIP_MEMBERS] ([TRIP_ID], [MEMBER_ID], [AMOUNT_PAID]) VALUES (1, 3, 30000)
@@ -364,9 +359,8 @@ INSERT [dbo].[TRIP_MEMBERS] ([TRIP_ID], [MEMBER_ID], [AMOUNT_PAID]) VALUES (7, 7
 INSERT [dbo].[TRIP_MEMBERS] ([TRIP_ID], [MEMBER_ID], [AMOUNT_PAID]) VALUES (7, 5, 500000)
 INSERT [dbo].[TRIP_MEMBERS] ([TRIP_ID], [MEMBER_ID], [AMOUNT_PAID]) VALUES (7, 3, 100000)
 INSERT [dbo].[TRIP_MEMBERS] ([TRIP_ID], [MEMBER_ID], [AMOUNT_PAID]) VALUES (7, 10, 500000)
-SET IDENTITY_INSERT [dbo].[TRIP_MEMBERS] OFF
-GO
 
+-- Trip images
 INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (1, N'Assets\trips\1\list\1.jpg')
 INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (1, N'Assets\trips\1\list\2.jpg')
 INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (1, N'Assets\trips\1\list\3.jpg')
@@ -398,77 +392,3 @@ INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (7, N'Assets\trips\7
 INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (7, N'Assets\trips\7\list\2.jpg')
 INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (7, N'Assets\trips\7\list\3.jpg')
 INSERT [dbo].[TRIP_IMAGES] ([TRIP_ID], [IMAGE_PATH]) VALUES (7, N'Assets\trips\7\list\4.jpg')
-
--- Check constraints
-select table_view,
-    object_type, 
-    constraint_type,
-    constraint_name,
-    details
-from (
-    select schema_name(t.schema_id) + '.' + t.[name] as table_view, 
-        case when t.[type] = 'U' then 'Table'
-            when t.[type] = 'V' then 'View'
-            end as [object_type],
-        case when c.[type] = 'PK' then 'Primary key'
-            when c.[type] = 'UQ' then 'Unique constraint'
-            when i.[type] = 1 then 'Unique clustered index'
-            when i.type = 2 then 'Unique index'
-            end as constraint_type, 
-        isnull(c.[name], i.[name]) as constraint_name,
-        substring(column_names, 1, len(column_names)-1) as [details]
-    from sys.objects t
-        left outer join sys.indexes i
-            on t.object_id = i.object_id
-        left outer join sys.key_constraints c
-            on i.object_id = c.parent_object_id 
-            and i.index_id = c.unique_index_id
-       cross apply (select col.[name] + ', '
-                        from sys.index_columns ic
-                            inner join sys.columns col
-                                on ic.object_id = col.object_id
-                                and ic.column_id = col.column_id
-                        where ic.object_id = t.object_id
-                            and ic.index_id = i.index_id
-                                order by col.column_id
-                                for xml path ('') ) D (column_names)
-    where is_unique = 1
-    and t.is_ms_shipped <> 1
-    union all 
-    select schema_name(fk_tab.schema_id) + '.' + fk_tab.name as foreign_table,
-        'Table',
-        'Foreign key',
-        fk.name as fk_constraint_name,
-        schema_name(pk_tab.schema_id) + '.' + pk_tab.name
-    from sys.foreign_keys fk
-        inner join sys.tables fk_tab
-            on fk_tab.object_id = fk.parent_object_id
-        inner join sys.tables pk_tab
-            on pk_tab.object_id = fk.referenced_object_id
-        inner join sys.foreign_key_columns fk_cols
-            on fk_cols.constraint_object_id = fk.object_id
-    union all
-    select schema_name(t.schema_id) + '.' + t.[name],
-        'Table',
-        'Check constraint',
-        con.[name] as constraint_name,
-        con.[definition]
-    from sys.check_constraints con
-        left outer join sys.objects t
-            on con.parent_object_id = t.object_id
-        left outer join sys.all_columns col
-            on con.parent_column_id = col.column_id
-            and con.parent_object_id = col.object_id
-    union all
-    select schema_name(t.schema_id) + '.' + t.[name],
-        'Table',
-        'Default constraint',
-        con.[name],
-        col.[name] + ' = ' + con.[definition]
-    from sys.default_constraints con
-        left outer join sys.objects t
-            on con.parent_object_id = t.object_id
-        left outer join sys.all_columns col
-            on con.parent_column_id = col.column_id
-            and con.parent_object_id = col.object_id) a
-order by table_view
