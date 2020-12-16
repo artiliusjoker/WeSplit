@@ -258,6 +258,7 @@
   <ItemGroup>
     <Resource Include="assets\add-thumbnail-picture.png" />
     <Resource Include="assets\add-pictures.png" />
+    <Resource Include="assets\10751.jpg" />
     <Content Include="Models\DatabaseModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DatabaseModel.edmx</DependentUpon>
@@ -268,9 +269,6 @@
       <DependentUpon>DatabaseModel.edmx</DependentUpon>
       <LastGenOutput>DatabaseModel.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="assets\10751.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="assets\sidebar_background.jpg" />
